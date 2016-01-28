@@ -37,6 +37,8 @@ public class StoryGame extends Application {
         root.getChildren().add(button);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+
+
     }
 
     private class PhaseLabel extends Label {
