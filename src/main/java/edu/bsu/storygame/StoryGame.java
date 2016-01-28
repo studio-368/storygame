@@ -19,5 +19,7 @@ public class StoryGame extends Application {
         root.getChildren().add(new Label("Hello, world"));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+
+
     }
 }
