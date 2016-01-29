@@ -6,6 +6,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import react.Slot;
@@ -35,9 +37,9 @@ public class StoryGame extends Application {
         root.getChildren().add(new Label("Hello, world"));
         root.getChildren().add(phaseLabel);
         root.getChildren().add(button);
+        root.getChildren().add(mapView());
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-
 
     }
 
@@ -52,5 +54,9 @@ public class StoryGame extends Application {
                 }
             });
         }
+    }
+
+    private ImageView mapView(){
+        return new ImageView(new Image(getClass().getResourceAsStream("/WorldMap.png")));
     }
 }
