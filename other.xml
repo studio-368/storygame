@@ -62,5 +62,12 @@
       <option name="PATTERN" value="com.ibm.ws.*" />
       <option name="ENABLED" value="true" />
     </filter>
+<<<<<<< 8a76432af713449ab9555495a3b66c0a8be35c6b
+=======
+    <filter>
+      <option name="PATTERN" value="kotlin.*" />
+      <option name="ENABLED" value="true" />
+    </filter>
+>>>>>>> IC-15.0.3 <administrator@Administrators-MacBook-Pro.local Create ide.general.xml, Default.xml, project.default.xml, diff.xml, git.xml, other.xml, file.template.settings.xml, laf.xml, web-browsers.xml, colors.scheme.xml, keymap.xml, path.macros.xml, mavenVersion.xml, debugger.xml
   </component>
 </application>
