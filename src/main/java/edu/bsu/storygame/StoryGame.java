@@ -37,7 +37,6 @@ public class StoryGame extends Application {
         primaryStage.setTitle("Spring Studio Project");
         StackPane root = new StackPane();
         Map gameMap = new Map();
-        root.getChildren().add(gameMap.mapImageView());
         root.getChildren().add(phaseLabel);
         root.getChildren().add(button);
 
