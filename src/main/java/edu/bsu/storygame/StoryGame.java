@@ -1,9 +1,11 @@
 package edu.bsu.storygame;
 
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -11,6 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import react.Slot;
+
+
 
 public class StoryGame extends Application {
 
@@ -40,7 +44,6 @@ public class StoryGame extends Application {
         root.getChildren().add(mapView());
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-
     }
 
     private class PhaseLabel extends Label {
@@ -56,7 +59,14 @@ public class StoryGame extends Application {
         }
     }
 
+
+
     private ImageView mapView(){
-        return new ImageView(new Image(getClass().getResourceAsStream("/WorldMap.png")));
+       Image map =  new Image(getClass().getResourceAsStream("/WorldMap.png"));
+       ImageView mapImageView = new ImageView();
+        mapImageView.setFitHeight(500);
+        mapImageView.setFitWidth(500);
+        mapImageView.setImage(map);
+        return  mapImageView;
     }
 }
