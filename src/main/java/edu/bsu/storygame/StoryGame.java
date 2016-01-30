@@ -1,20 +1,17 @@
 package edu.bsu.storygame;
 
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import react.Slot;
-
-
 
 public class StoryGame extends Application {
 
@@ -27,6 +24,7 @@ public class StoryGame extends Application {
         final GameContext context = new GameContext();
         PhaseLabel phaseLabel = new PhaseLabel(context);
         Button button = new Button("Change phase!");
+        button.setTranslateY(100);
         button.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 if (context.phase.get().equals(Phase.MOVEMENT))
@@ -37,13 +35,15 @@ public class StoryGame extends Application {
         });
 
         primaryStage.setTitle("Spring Studio Project");
-        VBox root = new VBox();
-        root.getChildren().add(new Label("Hello, world"));
+        StackPane root = new StackPane();
+        Map gameMap = new Map();
+        root.getChildren().add(gameMap.mapImageView());
         root.getChildren().add(phaseLabel);
         root.getChildren().add(button);
-        root.getChildren().add(mapView());
+
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+
     }
 
     private class PhaseLabel extends Label {
@@ -61,12 +61,5 @@ public class StoryGame extends Application {
 
 
 
-    private ImageView mapView(){
-       Image map =  new Image(getClass().getResourceAsStream("/WorldMap.png"));
-       ImageView mapImageView = new ImageView();
-        mapImageView.setFitHeight(500);
-        mapImageView.setFitWidth(500);
-        mapImageView.setImage(map);
-        return  mapImageView;
-    }
+
 }
