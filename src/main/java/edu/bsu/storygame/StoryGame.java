@@ -5,12 +5,10 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import react.Slot;
@@ -24,11 +22,10 @@ public class StoryGame extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(final Stage primaryStage) throws Exception {
         final GameContext context = new GameContext();
         PhaseLabel phaseLabel = new PhaseLabel(context);
         Button button = new Button("Change phase!");
-        button.setTranslateY(100);
         button.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 if (context.phase.get().equals(Phase.MOVEMENT))
@@ -38,12 +35,26 @@ public class StoryGame extends Application {
             }
         });
 
+
+        Button loadMapViewButton = new Button("Go To Game Map!");
+        loadMapViewButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                MapView mapScreen = new MapView();
+                try {
+                    Stage mapStage = mapScreen.mapStage();
+                    mapStage.setTitle("Nightmare Defenders Map");
+                    mapStage.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         primaryStage.setTitle("Spring Studio Project");
-        StackPane root = new StackPane();
-        Map gameMap = new Map();
+        VBox root = new VBox();
         root.getChildren().add(phaseLabel);
         root.getChildren().add(button);
-
+        root.getChildren().add(loadMapViewButton);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
