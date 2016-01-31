@@ -7,8 +7,6 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import react.Slot;
@@ -39,7 +37,7 @@ public class StoryGame extends Application {
         Button loadMapViewButton = new Button("Go To Game Map!");
         loadMapViewButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                MapView mapScreen = new MapView();
+                MapView mapScreen = new MapView(context);
                 try {
                     Stage mapStage = mapScreen.mapStage();
                     mapStage.setTitle("Nightmare Defenders Map");
