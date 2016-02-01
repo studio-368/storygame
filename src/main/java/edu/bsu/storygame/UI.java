@@ -36,8 +36,8 @@ public class UI extends Application implements EventHandler {
     @Override
     public void start(Stage primaryStage) throws Exception{
         startGridPane();
-        initializeUIVariables();
         initializePlayerCreationVariables();
+        initializeUIVariables();
         startInterfaceActivity(primaryStage);
     }
 
