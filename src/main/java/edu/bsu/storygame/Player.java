@@ -2,6 +2,7 @@ package edu.bsu.storygame;
 
 
 import java.awt.*;
+import javafx.scene.paint.Color;
 import java.util.List;
 
 public class Player {

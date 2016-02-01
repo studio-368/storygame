@@ -1,5 +1,6 @@
 package edu.bsu.storygame;
 
+import edu.bsu.storygame.views.PlayerView;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.paint.Color;
 
 
 public class UI extends Application implements EventHandler {
@@ -88,6 +90,8 @@ public class UI extends Application implements EventHandler {
         grid.add(HBoxButton, 1, 4);
         characterNameInput = new TextField();
         grid.add(characterNameInput, 1, 1);
+        PlayerView view = new PlayerView(new Player("Jessica", Color.BLUE, placeholderSkillList, placeholderPoint, 0));
+        grid.add(view.getView(), 1, 6);
     }
 
     private boolean checkForValidNameInput(String name){
