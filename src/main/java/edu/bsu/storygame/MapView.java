@@ -29,13 +29,13 @@ public class MapView {
         africaRegion.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 gameContext.player1.setRegion("Africa");
-                System.out.println(gameContext.player1.getRegion());
+                new WraithEncounter(gameContext).show();
             }
         });
         europeRegion.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 gameContext.player1.setRegion("Europe");
-                System.out.println(gameContext.player1.getRegion());
+                new WraithEncounter(gameContext).show();
             }
         });
     }
