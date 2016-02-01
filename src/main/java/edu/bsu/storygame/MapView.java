@@ -11,8 +11,8 @@ import javafx.stage.Stage;
 
 public class MapView {
     GameContext gameContext;
-    Button africaRegion = createRegion("Africa", 0,0);
-    Button europeRegion = createRegion("Europe", 150,150);
+    Button africaRegion = createRegion("New Africa", 0,0);
+    Button europeRegion = createRegion("New Europe", 150,150);
 
     MapView(GameContext gameContext){
         this.gameContext = gameContext;
@@ -28,13 +28,13 @@ public class MapView {
     public void setRegionTravelButtons(){
         africaRegion.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                gameContext.player1.setRegion("Africa");
+                gameContext.player1.setRegion("New Africa");
                 new WraithEncounter(gameContext).show();
             }
         });
         europeRegion.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                gameContext.player1.setRegion("Europe");
+                gameContext.player1.setRegion("New Europe");
                 new WraithEncounter(gameContext).show();
             }
         });

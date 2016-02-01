@@ -56,7 +56,8 @@ public class UI extends Application implements EventHandler {
     }
 
     private void createDefaultPlayer(){
-        Player player = new Player(characterNameInput.getText(), Color.BLUE, placeholderSkillList, placeholderPoint, 0);
+        /*Player player = new Player(characterNameInput.getText(), Color.BLUE, placeholderSkillList, placeholderPoint, 0);*/
+        Player player = new Player();
         playerList.add(player);
     }
 

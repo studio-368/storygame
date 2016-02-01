@@ -9,24 +9,26 @@ public class Player {
     Color playerColor;
     List skills;
     int totalPoints;
-    private String region = "Europe";
+    private String region = "New Europe";
 
-    /*public Player(String name, Color playerColor, List skills, Point position, int totalPoints){
+
+    /*public Player(String name, Color playerColor, List skills, int totalPoints) {
         this.name = name;
         this.playerColor = playerColor;
         this.skills = skills;
+        this.region = "Europe";
         this.totalPoints = totalPoints;
     }*/
 
-    public void setRegion(String region){
+    public void setRegion(String region) {
         this.region = region;
     }
 
-    public String getRegion(){
+    public String getRegion() {
         return this.region;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
@@ -42,11 +44,11 @@ public class Player {
         return skills;
     }
 
-    public void addSkill(String skill){
+    public void addSkill(String skill) {
         skills.add(skill);
     }
 
-    public void removeSkill(String skill){
+    public void removeSkill(String skill) {
         skills.remove(skill);
     }
 }

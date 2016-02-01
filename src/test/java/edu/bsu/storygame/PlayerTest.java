@@ -8,7 +8,7 @@ public class PlayerTest {
     @Test
     public void testSetRegion(){
         Player player = new Player();
-        player.setRegion("Africa");
-        Assert.assertEquals("Africa", player.getRegion());
+        player.setRegion("New Africa");
+        Assert.assertEquals("New Africa", player.getRegion());
     }
 }
