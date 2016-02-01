@@ -90,8 +90,6 @@ public class UI extends Application implements EventHandler {
         grid.add(HBoxButton, 1, 4);
         characterNameInput = new TextField();
         grid.add(characterNameInput, 1, 1);
-        PlayerView view = new PlayerView(new Player("Jessica", Color.BLUE, placeholderSkillList, placeholderPoint, 0));
-        grid.add(view.getView(), 1, 6);
     }
 
     private boolean checkForValidNameInput(String name){
