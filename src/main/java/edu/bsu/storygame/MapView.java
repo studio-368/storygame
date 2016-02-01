@@ -1,5 +1,7 @@
 package edu.bsu.storygame;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -8,12 +10,12 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class MapView {
-    GameContext gamePhase;
+    GameContext gameContext;
     Button africaRegion = createRegion("Africa", 0,0);
     Button europeRegion = createRegion("Europe", 150,150);
 
-    MapView(GameContext gamePhase){
-        this.gamePhase = gamePhase;
+    MapView(GameContext gameContext){
+        this.gameContext = gameContext;
 
     }
 
@@ -23,15 +25,31 @@ public class MapView {
         return mapScreen;
     }
 
+    public void setRegionTravelButtons(){
+        africaRegion.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                gameContext.player1.setRegion("Africa");
+                System.out.println(gameContext.player1.getRegion());
+            }
+        });
+        europeRegion.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                gameContext.player1.setRegion("Europe");
+                System.out.println(gameContext.player1.getRegion());
+            }
+        });
+    }
+
 
     private Scene initMap(){
         StackPane layout = new StackPane();
         Scene mapScene = new Scene(layout,500,500);
+        setRegionTravelButtons();
         layout.getChildren().add(createMapImage());
         layout.getChildren().add(africaRegion);
         layout.getChildren().add(europeRegion);
 
-        if(!gamePhase.phase.get().equals(Phase.MOVEMENT)){
+        if(!gameContext.phase.get().equals(Phase.MOVEMENT)){
             africaRegion.setDisable(true);
             europeRegion.setDisable(true);
         }
