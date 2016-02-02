@@ -1,7 +1,4 @@
 package edu.bsu.storygame.views;
-/**
- * Created by Jessica on 2/1/2016.
- */
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -16,6 +13,8 @@ import javafx.stage.Stage;
 
 public class SkillSelectionView extends Application {
 
+    private GridPane skillGrid;
+    private Scene skillScreen;
 
     public static void main(String[] args) {
         launch(args);
@@ -23,28 +22,38 @@ public class SkillSelectionView extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        GridPane skillGrid = new GridPane();
+        setupWindow();
+        setupWindowItems();
+        primaryStage.setScene(skillScreen);
+        primaryStage.show();
+    }
+
+    private void setupWindow(){
+        skillGrid = new GridPane();
         skillGrid.setMinSize(300,300);
-        skillGrid.setHgap(100);
-        skillGrid.setVgap(10);
+        skillGrid.setVgap(15);
+        skillGrid.setHgap(10);
         skillGrid.setAlignment(Pos.CENTER);
-        Scene skillScreen = new Scene(skillGrid,300,300);
+        skillScreen = new Scene(skillGrid,300,300);
+        skillGrid.setStyle("-fx-background-color: aliceblue");
+    }
+
+    private void setupWindowItems(){
         Label firstList = new Label("Skill One:");
         firstList.setId("firstList");
         Label secondList = new Label("Skill Two:");
         secondList.setId("secondList");
-        ObservableList<String> listOfSkills = FXCollections.observableArrayList("Logic","Magic","Persuasion", "Weapon Use");
+        ObservableList<String> listOfSkills = FXCollections.observableArrayList("Logic", "Magic", "Persuasion",
+                "Weapon Use");
         ComboBox<String> skillOneDropDown = new ComboBox<String>(listOfSkills);
         ComboBox<String> skillTwoDropDown = new ComboBox<String>(listOfSkills);
         Button ok = new Button("OK");
         ok.setAlignment(Pos.BOTTOM_CENTER);
         skillGrid.add(firstList,0,2,2,1);
-        skillGrid.add(secondList,2,2,2,1);
+        skillGrid.add(secondList,4,2,2,1);
         skillGrid.add(skillOneDropDown,0,3,2,1);
-        skillGrid.add(skillTwoDropDown,2,3,2,1);
-        skillGrid.add(ok,1,4,2,1);
-        skillGrid.setStyle("-fx-background-color: aliceblue");
-        primaryStage.setScene(skillScreen);
-        primaryStage.show();
+        skillGrid.add(skillTwoDropDown,4,3,2,1);
+        skillGrid.add(ok,2,4,2,1);
     }
+
 }
