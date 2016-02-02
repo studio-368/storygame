@@ -1,4 +1,4 @@
-package edu.bsu.storygame;
+package edu.bsu.storygame.views;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
