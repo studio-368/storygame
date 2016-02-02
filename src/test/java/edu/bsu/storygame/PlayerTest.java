@@ -14,4 +14,5 @@ public class PlayerTest {
         player.setRegion("New Africa");
         Assert.assertEquals("New Africa", player.getRegion());
     }
+
 }
