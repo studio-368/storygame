@@ -21,8 +21,13 @@ public class StoryGame extends Application {
         final GameContext context = new GameContext();
         PhaseLabel phaseLabel = new PhaseLabel(context);
         Button button = new Button("Change phase!");
+
+        final CreatePlayerView creationScreen = new CreatePlayerView(context);
+        final Stage creationStage = creationScreen.creationStage();
+
         final MapView mapScreen = new MapView(context);
         final Stage mapStage = mapScreen.mapStage();
+
         mapStage.setTitle("Nightmare Defenders Map");
         button.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
@@ -37,7 +42,16 @@ public class StoryGame extends Application {
                 }
             }
         });
-
+        Button createCharacterButton = new Button("Create a Character");
+        createCharacterButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                try{
+                    creationStage.show();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
 
         Button loadMapViewButton = new Button("Go To Game Map!");
         loadMapViewButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -54,6 +68,7 @@ public class StoryGame extends Application {
         VBox root = new VBox();
         root.getChildren().add(phaseLabel);
         root.getChildren().add(button);
+        root.getChildren().add(createCharacterButton);
         root.getChildren().add(loadMapViewButton);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

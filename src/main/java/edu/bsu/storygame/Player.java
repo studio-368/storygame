@@ -14,14 +14,14 @@ public class Player {
     private String region = "New Europe";
 
 
-    public Player(String name, Color playerColor, List skills, String position, int totalPoints) {
+    /*public Player(String name, Color playerColor, List skills, String position, int totalPoints) {
         this.name = name;
         this.playerColor = playerColor;
         this.skills = skills;
         this.region = "Europe";
         this.totalPoints = totalPoints;
         this.position = position;
-    }
+    }*/
 
     public void setRegion(String region) {
         this.region = region;
