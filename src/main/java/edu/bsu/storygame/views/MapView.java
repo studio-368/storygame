@@ -1,5 +1,9 @@
-package edu.bsu.storygame;
+package edu.bsu.storygame.views;
 
+import edu.bsu.storygame.GameContext;
+import edu.bsu.storygame.Phase;
+import edu.bsu.storygame.Region;
+import edu.bsu.storygame.WraithEncounter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -11,15 +15,16 @@ import javafx.stage.Stage;
 
 public class MapView {
     GameContext gameContext;
-    Button africaRegion = createRegion("New Africa", 0,0);
-    Button europeRegion = createRegion("New Europe", 150,150);
+    Button africaRegion = createRegion(Region.Africa, 0,0);
+    Button europeRegion = createRegion(Region.Europe, 150,150);
 
     MapView(GameContext gameContext){
         this.gameContext = gameContext;
+        mapStage().show();
 
     }
 
-    public Stage mapStage(){
+    private Stage mapStage(){
         Stage mapScreen = new Stage();
         mapScreen.setScene(initMap());
         return mapScreen;
@@ -68,8 +73,8 @@ public class MapView {
         return mapImageView;
     }
 
-    private Button createRegion(String regionName, double xPosition, double yPosition){
-        Button region = new Button(regionName);
+    private Button createRegion(Region regionName, double xPosition, double yPosition){
+        Button region = new Button(regionName.toString());
         region.setTranslateX(xPosition);
         region.setTranslateY(yPosition);
         return region;
