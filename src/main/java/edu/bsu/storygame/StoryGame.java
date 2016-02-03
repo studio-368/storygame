@@ -1,5 +1,6 @@
 package edu.bsu.storygame;
 
+import edu.bsu.storygame.views.MapView;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -42,6 +43,9 @@ public class StoryGame extends Application {
                 }
             }
         });
+
+        Button mapButton = new Button("Go to the Map!");
+        mapButton.setOnAction(new EventHandler<ActionEvent>() {
         Button createCharacterButton = new Button("Create a Character");
         createCharacterButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
@@ -56,18 +60,14 @@ public class StoryGame extends Application {
         Button loadMapViewButton = new Button("Go To Game Map!");
         loadMapViewButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                try {
-                    mapStage.show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                map.showMap();
             }
         });
-
         primaryStage.setTitle("Spring Studio Project");
         VBox root = new VBox();
         root.getChildren().add(phaseLabel);
         root.getChildren().add(button);
+        root.getChildren().add(mapButton);
         root.getChildren().add(createCharacterButton);
         root.getChildren().add(loadMapViewButton);
         primaryStage.setScene(new Scene(root));

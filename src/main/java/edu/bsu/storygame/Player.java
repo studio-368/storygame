@@ -1,6 +1,5 @@
 package edu.bsu.storygame;
 
-import java.awt.*;
 import javafx.scene.paint.Color;
 import java.util.List;
 
@@ -11,23 +10,22 @@ public class Player {
     List<String> skills;
     String position;
     int totalPoints;
-    private String region = "New Europe";
+    private Regions region = Regions.Europe;
 
     public Player(String name, Color playerColor, List<String> skills, String position, int totalPoints) {
         this.name = name;
         this.playerColor = playerColor;
         this.skills = skills;
-        this.region = "Europe";
+        this.region = Regions.Europe;
         this.totalPoints = totalPoints;
         this.position = position;
     }
 
-
-    public void setRegion(String region) {
+    public void setRegion(Regions region) {
         this.region = region;
     }
 
-    public String getRegion() {
+    public Regions getRegion() {
         return this.region;
     }
 
