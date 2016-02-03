@@ -1,8 +1,6 @@
 package edu.bsu.storygame;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,29 +22,25 @@ public class StoryGame extends Application {
         final MapView mapScreen = new MapView(context);
         final Stage mapStage = mapScreen.mapStage();
         mapStage.setTitle("Nightmare Defenders Map");
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                if (context.phase.get().equals(Phase.MOVEMENT)) {
-                    context.phase.update(Phase.ENCOUNTER);
-                    mapScreen.africaRegion.setDisable(true);
-                    mapScreen.europeRegion.setDisable(true);
-                } else {
-                    context.phase.update(Phase.MOVEMENT);
-                    mapScreen.africaRegion.setDisable(false);
-                    mapScreen.europeRegion.setDisable(false);
-                }
+        button.setOnAction(event -> {
+            if (context.phase.get().equals(Phase.MOVEMENT)) {
+                context.phase.update(Phase.ENCOUNTER);
+                mapScreen.africaRegion.setDisable(true);
+                mapScreen.europeRegion.setDisable(true);
+            } else {
+                context.phase.update(Phase.MOVEMENT);
+                mapScreen.africaRegion.setDisable(false);
+                mapScreen.europeRegion.setDisable(false);
             }
         });
 
 
         Button loadMapViewButton = new Button("Go To Game Map!");
-        loadMapViewButton.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                try {
-                    mapStage.show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        loadMapViewButton.setOnAction(event -> {
+            try {
+                mapStage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
 
