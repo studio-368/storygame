@@ -26,7 +26,7 @@ public class UI extends Application implements EventHandler {
     Scene scene;
     HBox HBoxButton;
     List<Player> playerList;
-    List<String> placeholderSkillList;
+    List<Skill> placeholderSkillList;
     String placeholderPoint;
 
     public static void main(String[] args) {
@@ -64,9 +64,9 @@ public class UI extends Application implements EventHandler {
 
     private void initializePlayerCreationVariables(){
         playerList = new ArrayList<Player>();
-        placeholderSkillList = new ArrayList<String>();
-        placeholderSkillList.add("Flexibility");
-        placeholderSkillList.add("Second Skill");
+        placeholderSkillList = new ArrayList<Skill>();
+        placeholderSkillList.add(Skill.LOGIC);
+        placeholderSkillList.add(Skill.MAGIC);
         placeholderPoint = "";
     }
 

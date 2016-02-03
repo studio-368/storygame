@@ -7,13 +7,13 @@ public class Player {
 
     String name;
     Color playerColor;
-    List<String> skills;
+    List<Skill> skills;
     String position;
     int totalPoints;
     private String region = "New Europe";
 
 
-    public Player(String name, Color playerColor, List<String> skills, String position, int totalPoints) {
+    public Player(String name, Color playerColor, List<Skill> skills, String position, int totalPoints) {
         this.name = name;
         this.playerColor = playerColor;
         this.skills = skills;
@@ -49,21 +49,21 @@ public class Player {
     public String getSkillString(){
         String skillString = "";
         if(skills.size() == 1){
-            return skills.get(0);
+            return skills.get(0).toString();
         }
-        for (String skill :
+        for (Skill skill :
                 skills) {
-            skillString = skillString + skill + ", ";
+            skillString = skillString + skill.toString() + ", ";
         }
         skillString = skillString.substring(0, skillString.length() - 2);
         return skillString;
     }
 
-    public void addSkill(String skill) {
+    public void addSkill(Skill skill) {
         skills.add(skill);
     }
 
-    public void removeSkill(String skill) {
+    public void removeSkill(Skill skill) {
         skills.remove(skill);
     }
 }

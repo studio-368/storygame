@@ -2,6 +2,7 @@ package edu.bsu.storygame.views;
 
 
 import edu.bsu.storygame.Player;
+import edu.bsu.storygame.Skill;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,8 +24,8 @@ public class SkillSelectionView extends Application {
     private Scene skillScreen;
     private Button ok;
     private Player player = new Player("draco", Color.GREEN ,new ArrayList<>(),"",60);
-    private ComboBox<String> skillTwoDropDown;
-    private ComboBox<String> skillOneDropDown;
+    private ComboBox<Skill> skillTwoDropDown;
+    private ComboBox<Skill> skillOneDropDown;
     private Label warningLabel;
     private Label listOneLabel;
     private Label listTwoLabel;
@@ -67,8 +68,8 @@ public class SkillSelectionView extends Application {
         listTwoLabel.setId("listTwoLabel");
         warningLabel = new Label("Must choose two skills.");
         warningLabel.setVisible(false);
-        ObservableList<String> listOfSkills = FXCollections.observableArrayList("Logic", "Magic", "Persuasion",
-                "Weapon Use");
+        ObservableList<Skill> listOfSkills = FXCollections.observableArrayList(Skill.LOGIC, Skill.MAGIC, Skill.PERSUASION,
+                Skill.WEAPON_USE);
         skillOneDropDown = new ComboBox<>(listOfSkills);
         skillTwoDropDown = new ComboBox<>(listOfSkills);
         ok = new Button("OK");
@@ -86,8 +87,8 @@ public class SkillSelectionView extends Application {
     }
 
     private void handleOkEvent(){
-        String firstChoice = skillOneDropDown.getValue();
-        String secondChoice= skillTwoDropDown.getValue();
+        Skill firstChoice = skillOneDropDown.getValue();
+        Skill secondChoice= skillTwoDropDown.getValue();
         if(firstChoice!=null&&secondChoice!=null) {
             player.addSkill(firstChoice);
             player.addSkill(secondChoice);
@@ -97,4 +98,3 @@ public class SkillSelectionView extends Application {
         }
     }
 }
-
