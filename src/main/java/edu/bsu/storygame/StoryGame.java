@@ -31,7 +31,7 @@ public class StoryGame extends Application {
                 } else {
                     context.phase.update(Phase.MOVEMENT);
                 }
-                map.updateMap();
+
             }
         });
 
@@ -41,10 +41,6 @@ public class StoryGame extends Application {
                 map.showMap();
             }
         });
-
-
-
-
         primaryStage.setTitle("Spring Studio Project");
         VBox root = new VBox();
         root.getChildren().add(phaseLabel);
