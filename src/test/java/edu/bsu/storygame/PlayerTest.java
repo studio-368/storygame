@@ -10,7 +10,7 @@ public class PlayerTest {
 
     @Test
     public void testSetRegion(){
-        Player player = new Player("Name", Color.BLUE, new ArrayList<String>(), "", 0);
+        Player player = new Player("Name", Color.BLUE, "", 0);
         player.setRegion(Regions.Africa);
         Assert.assertEquals(Regions.Africa, player.getRegion());
     }

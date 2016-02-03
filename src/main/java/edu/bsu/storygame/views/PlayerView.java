@@ -11,6 +11,10 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 
 import javafx.scene.paint.Color;
+import react.RList;
+import react.Slot;
+
+import java.util.List;
 
 /**
  * Created by jessicalohse on 1/29/16.
@@ -24,7 +28,7 @@ public class PlayerView extends VBox {
     private Text points;
     private StackPane pane = new StackPane();
 
-    public PlayerView(Player player) {
+    public PlayerView(final Player player) {
         playerBox.setFill(Paint.valueOf(player.getPlayerColor().toString()));
         name = new Text(0, 0, player.getName());
         StackPane.setAlignment(name, Pos.CENTER_LEFT);
@@ -43,20 +47,29 @@ public class PlayerView extends VBox {
         pane.getChildren().addAll(playerBox, name, skills, diamond, points);
         this.getChildren().add(0, pane);
 
-        
-
+        player.skills.connect(new RList.Listener<String>() {
+            @Override
+            public void onAdd(String elem) {
+                if(skills.getText().equals("")){
+                    skills.setText(elem);
+                } else {
+                    skills.setText(skills.getText() + ", " + elem);
+                }
+                super.onAdd(elem);
+            }
+        });
     }
 
     public VBox getView() {
         return this;
     }
 
-    public void updateSkills(Player player) {
-        skills.setText(player.getSkillString());
-    }
-
     public void updatePoints(Player player){
         points.setText(Integer.toString(player.getTotalPoints()));
+    }
+
+    public String getSkillText(){
+        return this.skills.getText();
     }
 
 }
