@@ -12,8 +12,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
 import java.util.ArrayList;
 
 
@@ -72,9 +73,26 @@ public class SkillSelectionView extends Application {
                 Skill.WEAPON_USE);
         skillOneDropDown = new ComboBox<>(listOfSkills);
         skillTwoDropDown = new ComboBox<>(listOfSkills);
+        skillOneDropDown.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(oldValue == null && newValue != null){
+                removeValueFrom(skillTwoDropDown,newValue);
+            }
+        });
+        skillTwoDropDown.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(oldValue == null && newValue != null){
+                removeValueFrom(skillOneDropDown,newValue);
+            }
+        });
         ok = new Button("OK");
         ok.setOnMouseClicked(e -> handleOkEvent());
         ok.setAlignment(Pos.BOTTOM_CENTER);
+    }
+
+    private void removeValueFrom(ComboBox<Skill> comboBox,Skill skill) {
+        ObservableList<Skill> changingList  = FXCollections.observableArrayList(Skill.LOGIC, Skill.MAGIC, Skill.PERSUASION,
+                Skill.WEAPON_USE);
+        changingList.remove(skill);
+        comboBox.setItems(changingList);
     }
 
     private void addItemsToGrid(){
