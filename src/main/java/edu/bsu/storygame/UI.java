@@ -1,6 +1,5 @@
 package edu.bsu.storygame;
 
-import edu.bsu.storygame.views.PlayerView;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -12,7 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import java.awt.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.paint.Color;
