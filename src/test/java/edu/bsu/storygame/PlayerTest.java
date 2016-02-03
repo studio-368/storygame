@@ -31,4 +31,18 @@ public class PlayerTest {
         player.addSkill(Skill.PERSUASION);
         Assert.assertEquals("MAGIC, PERSUASION", player.getSkillString());
     }
+
+    @Test
+    public void testAddPoints(){
+        Player player = new Player(null,null,null,null,0);
+        player.addPoints(2);
+        Assert.assertEquals(2, player.getTotalPoints());
+    }
+
+    @Test
+    public void testRemovePoints(){
+        Player player = new Player(null,null,null,null,2);
+        player.removePoints(2);
+        Assert.assertEquals(0, player.getTotalPoints());
+    }
 }
