@@ -52,7 +52,6 @@ public class SkillSelectionView extends Application {
         skillGrid.setHgap(10);
         skillGrid.setAlignment(Pos.CENTER);
         skillScreen = new Scene(skillGrid,300,300);
-
     }
 
     private void applyStyles(){
