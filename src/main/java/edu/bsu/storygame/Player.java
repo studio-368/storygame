@@ -14,15 +14,14 @@ public class Player {
     private Color playerColor;
     public final RList<String> skills = new RList<String>(new ArrayList<String>(){});
     private String position;
-    public int totalPoints;
+    public final Value<Integer> totalPoints = Value.create(0);
     private Regions region = Regions.Europe;
 
 
-    public Player(String name, Color playerColor, String position, int totalPoints) {
+    public Player(String name, Color playerColor, String position) {
         this.name = name;
         this.playerColor = playerColor;
         this.region = Regions.Europe;
-        this.totalPoints = totalPoints;
         this.position = position;
 
     }
@@ -40,7 +39,7 @@ public class Player {
     }
 
     public int getTotalPoints() {
-        return totalPoints;
+        return totalPoints.get();
     }
 
     public Color getPlayerColor() {
@@ -78,5 +77,9 @@ public class Player {
         } else {
             skills.remove(skill);
         }
+    }
+
+    public void addPoint(int point){
+        this.totalPoints.update(totalPoints.get() + point);
     }
 }

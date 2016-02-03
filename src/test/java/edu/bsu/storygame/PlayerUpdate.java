@@ -5,15 +5,13 @@ import javafx.scene.paint.Color;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by jessicalohse on 2/3/16.
  */
 public class PlayerUpdate {
 
-    Player player = new Player("Jessica", Color.ALICEBLUE, "", 5);
+    Player player = new Player("Jessica", Color.ALICEBLUE, "");
     PlayerView view = new PlayerView(player);
 
     @Test
@@ -39,13 +37,19 @@ public class PlayerUpdate {
 
     @Test
     public void testRemoveMiddleSkill(){
-        Player player = new Player("Jessica", Color.ALICEBLUE, "", 5);
+        Player player = new Player("Jessica", Color.ALICEBLUE, "");
         PlayerView view = new PlayerView(player);
         player.addSkill("resourceful");
         player.addSkill("wisdom");
         player.addSkill("helpful");
         player.removeSkill("wisdom");
         Assert.assertEquals(player.getSkillString(), view.getSkillText());
+    }
+
+    @Test
+    public void testAddPoint(){
+        player.addPoint(1);
+        Assert.assertEquals(player.getTotalPoints(), view.getPoints());
     }
 
 }

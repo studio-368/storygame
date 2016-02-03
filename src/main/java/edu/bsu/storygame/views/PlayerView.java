@@ -73,14 +73,21 @@ public class PlayerView extends VBox {
                 super.onRemove(elem);
             }
         });
+
+        player.totalPoints.connect(new Slot<Integer>() {
+            @Override
+            public void onEmit(Integer integer) {
+                points.setText(Integer.toString(integer));
+            }
+        });
     }
 
     public VBox getView() {
         return this;
     }
 
-    public void updatePoints(Player player){
-        points.setText(Integer.toString(player.getTotalPoints()));
+    public int getPoints(){
+        return Integer.parseInt(points.getText());
     }
 
     public String getSkillText(){
