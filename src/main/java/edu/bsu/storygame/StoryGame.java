@@ -11,7 +11,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import react.Slot;
 
-
 public class StoryGame extends Application {
 
     public static void main(String[] args) {
@@ -23,29 +22,51 @@ public class StoryGame extends Application {
         final GameContext context = new GameContext();
         PhaseLabel phaseLabel = new PhaseLabel(context);
         Button button = new Button("Change phase!");
-         final MapView map = new MapView(context);
+
+        final PlayerCreationView creationScreen = new PlayerCreationView(context);
+        final Stage creationStage = creationScreen.creationStage();
+
+        final MapView mapScreen = new MapView(context);
+        final Stage mapStage = mapScreen.mapStage();
+
+        mapStage.setTitle("Nightmare Defenders Map");
         button.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 if (context.phase.get().equals(Phase.MOVEMENT)) {
                     context.phase.update(Phase.ENCOUNTER);
+                    mapScreen.africaRegion.setDisable(true);
+                    mapScreen.europeRegion.setDisable(true);
                 } else {
                     context.phase.update(Phase.MOVEMENT);
+                    mapScreen.africaRegion.setDisable(false);
+                    mapScreen.europeRegion.setDisable(false);
                 }
-
             }
         });
 
-        Button mapButton = new Button("Go to the Map!");
-        mapButton.setOnAction(new EventHandler<ActionEvent>() {
+        Button createCharacterButton = new Button("Create a Character");
+        createCharacterButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                map.showMap();
+                try{
+                    creationStage.show();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        Button loadMapViewButton = new Button("Go To Game Map!");
+        loadMapViewButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                mapScreen.showMap();
             }
         });
         primaryStage.setTitle("Spring Studio Project");
         VBox root = new VBox();
         root.getChildren().add(phaseLabel);
         root.getChildren().add(button);
-        root.getChildren().add(mapButton);
+        root.getChildren().add(createCharacterButton);
+        root.getChildren().add(loadMapViewButton);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
