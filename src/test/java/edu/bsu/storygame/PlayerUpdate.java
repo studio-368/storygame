@@ -13,21 +13,39 @@ import java.util.List;
  */
 public class PlayerUpdate {
 
+    Player player = new Player("Jessica", Color.ALICEBLUE, "", 5);
+    PlayerView view = new PlayerView(player);
+
     @Test
     public void testSkillUpdate() {
-        Player player = new Player("Jessica", Color.ALICEBLUE, "", 5);
-        PlayerView view = new PlayerView(player);
         player.addSkill("resourceful");
         Assert.assertEquals(player.getSkillString(), view.getSkillText());
     }
 
     @Test
     public void testMultipleSkills(){
-        Player player = new Player("Jessica", Color.ALICEBLUE, "", 5);
-        PlayerView view = new PlayerView(player);
-        player.addSkill("resourceful");player.addSkill("helpful");
+        player.addSkill("resourceful");
+        player.addSkill("helpful");
         Assert.assertEquals(player.getSkillString(), view.getSkillText());
     }
 
+    @Test
+    public void testRemoveFirstSkill(){
+        player.addSkill("resourceful");
+        player.addSkill("helpful");
+        player.removeSkill("resourceful");
+        Assert.assertEquals(player.getSkillString(), view.getSkillText());
+    }
+
+    @Test
+    public void testRemoveMiddleSkill(){
+        Player player = new Player("Jessica", Color.ALICEBLUE, "", 5);
+        PlayerView view = new PlayerView(player);
+        player.addSkill("resourceful");
+        player.addSkill("wisdom");
+        player.addSkill("helpful");
+        player.removeSkill("wisdom");
+        Assert.assertEquals(player.getSkillString(), view.getSkillText());
+    }
 
 }

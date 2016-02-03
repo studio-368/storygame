@@ -53,14 +53,13 @@ public class Player {
     
     public String getSkillString(){
         String skillString = "";
-        List<String> skillsList = skills;
-        if(skillsList.size() == 0){
+        if(skills.size() == 0){
             return skillString;
-        } else if(skillsList.size() == 1){
-            return skillsList.get(0);
+        } else if(skills.size() == 1){
+            return skills.get(0);
         } else {
             for (String skill :
-                    skillsList) {
+                    skills) {
                 skillString = skillString + skill + ", ";
             }
             skillString = skillString.substring(0, skillString.length() - 2);
@@ -74,6 +73,10 @@ public class Player {
     }
 
     public void removeSkill(String skill) {
-        skills.remove(skill);
+        if(skills.size() == 0 ){
+            System.out.println("you cannot remove a skill");
+        } else {
+            skills.remove(skill);
+        }
     }
 }

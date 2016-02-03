@@ -50,12 +50,27 @@ public class PlayerView extends VBox {
         player.skills.connect(new RList.Listener<String>() {
             @Override
             public void onAdd(String elem) {
-                if(skills.getText().equals("")){
+                if(getSkillText().equals("")){
                     skills.setText(elem);
                 } else {
-                    skills.setText(skills.getText() + ", " + elem);
+                    skills.setText(getSkillText() + ", " + elem);
                 }
                 super.onAdd(elem);
+            }
+
+            @Override
+            public void onRemove(String elem) {
+                if(getSkillText().equals(elem)){
+                    skills.setText("");
+                } else {
+                    String[] skillsArray = getSkillText().split(", ");
+                    if(skillsArray[0].equals(elem)) {
+                        skills.setText(getSkillText().replace(elem + ", ", ""));
+                    } else {
+                        skills.setText(getSkillText().replace(", " + elem , ""));
+                    }
+                }
+                super.onRemove(elem);
             }
         });
     }
