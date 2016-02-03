@@ -32,13 +32,13 @@ public class MapView {
     public void setRegionTravelButtons(){
         africaRegion.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                gameContext.player1.setRegion(Regions.Europe);
+                gameContext.player1.setRegion(Regions.Africa);
                 new WraithEncounter(gameContext).show();
             }
         });
         europeRegion.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                gameContext.player1.setRegion(Regions.Africa);
+                gameContext.player1.setRegion(Regions.Europe);
                 new WraithEncounter(gameContext).show();
             }
         });
