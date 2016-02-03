@@ -1,5 +1,7 @@
 package edu.bsu.storygame.views;
 
+
+import edu.bsu.storygame.Regions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,8 +37,8 @@ public class EncounterView extends Stage {
         this.setScene(new Scene(container));
     }
 
-    public void setRegion(String region) {
-        regionLabel.setText("Encounter in " + region);
+    public void setRegion(Regions region) {
+        regionLabel.setText("Encounter in " + region.toString());
     }
 
     public void setMonsterName(String monster) {
