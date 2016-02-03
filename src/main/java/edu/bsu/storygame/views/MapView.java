@@ -2,7 +2,7 @@ package edu.bsu.storygame.views;
 
 import edu.bsu.storygame.GameContext;
 import edu.bsu.storygame.Phase;
-import edu.bsu.storygame.Region;
+import edu.bsu.storygame.Regions;
 import edu.bsu.storygame.WraithEncounter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,32 +14,31 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class MapView {
-    GameContext gameContext;
-    Button africaRegion = createRegion(Region.Africa, 0,0);
-    Button europeRegion = createRegion(Region.Europe, 150,150);
+    private GameContext gameContext;
+    private Button africaRegion = createRegion(Regions.Africa, 0,0);
+    private Button europeRegion = createRegion(Regions.Europe, 150,150);
+    private Stage mapStage = new Stage();
 
-    MapView(GameContext gameContext){
-        this.gameContext = gameContext;
-        mapStage().show();
-
+    public MapView(GameContext gameContext){
+       createMapStage(gameContext);
+        updateMap();
     }
 
-    private Stage mapStage(){
-        Stage mapScreen = new Stage();
-        mapScreen.setScene(initMap());
-        return mapScreen;
+    private void createMapStage(GameContext gameContext){
+        this.gameContext = gameContext;
+        mapStage.setScene(initMap());
     }
 
     public void setRegionTravelButtons(){
         africaRegion.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                gameContext.player1.setRegion("New Africa");
+                gameContext.player1.setRegion(Regions.Europe);
                 new WraithEncounter(gameContext).show();
             }
         });
         europeRegion.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                gameContext.player1.setRegion("New Europe");
+                gameContext.player1.setRegion(Regions.Africa);
                 new WraithEncounter(gameContext).show();
             }
         });
@@ -53,15 +52,6 @@ public class MapView {
         layout.getChildren().add(createMapImage());
         layout.getChildren().add(africaRegion);
         layout.getChildren().add(europeRegion);
-
-        if(!gameContext.phase.get().equals(Phase.MOVEMENT)){
-            africaRegion.setDisable(true);
-            europeRegion.setDisable(true);
-        }
-        else{
-            africaRegion.setDisable(false);
-            europeRegion.setDisable(false);
-        }
         return mapScene;
 
     }
@@ -73,11 +63,26 @@ public class MapView {
         return mapImageView;
     }
 
-    private Button createRegion(Region regionName, double xPosition, double yPosition){
+    private Button createRegion(Regions regionName, double xPosition, double yPosition){
         Button region = new Button(regionName.toString());
         region.setTranslateX(xPosition);
         region.setTranslateY(yPosition);
         return region;
+    }
+
+    public void updateMap(){
+        if(!gameContext.phase.get().equals(Phase.MOVEMENT)){
+            africaRegion.setDisable(true);
+            europeRegion.setDisable(true);
+        }
+        else{
+            africaRegion.setDisable(false);
+            europeRegion.setDisable(false);
+        }
+    }
+
+    public void showMap(){
+        mapStage.show();
     }
 
 }

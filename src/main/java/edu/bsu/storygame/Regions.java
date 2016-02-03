@@ -1,6 +1,6 @@
 package edu.bsu.storygame;
 
 
-public enum Region {
+public enum Regions {
     Africa,Europe
 }

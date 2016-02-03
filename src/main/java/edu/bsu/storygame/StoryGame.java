@@ -1,5 +1,6 @@
 package edu.bsu.storygame;
 
+import edu.bsu.storygame.views.MapView;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import react.Slot;
+
 
 public class StoryGame extends Application {
 
@@ -21,7 +23,7 @@ public class StoryGame extends Application {
         final GameContext context = new GameContext();
         PhaseLabel phaseLabel = new PhaseLabel(context);
         Button button = new Button("Change phase!");
-
+         final MapView map = new MapView(context);
         button.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 if (context.phase.get().equals(Phase.MOVEMENT)) {
@@ -29,10 +31,16 @@ public class StoryGame extends Application {
                 } else {
                     context.phase.update(Phase.MOVEMENT);
                 }
+                map.updateMap();
             }
         });
 
-
+        Button mapButton = new Button("Go to the Map!");
+        mapButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                map.showMap();
+            }
+        });
 
 
 
@@ -41,6 +49,7 @@ public class StoryGame extends Application {
         VBox root = new VBox();
         root.getChildren().add(phaseLabel);
         root.getChildren().add(button);
+        root.getChildren().add(mapButton);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
