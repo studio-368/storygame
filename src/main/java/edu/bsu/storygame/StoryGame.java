@@ -65,7 +65,6 @@ public class StoryGame extends Application {
         VBox root = new VBox();
         root.getChildren().add(phaseLabel);
         root.getChildren().add(button);
-        root.getChildren().add(mapButton);
         root.getChildren().add(createCharacterButton);
         root.getChildren().add(loadMapViewButton);
         primaryStage.setScene(new Scene(root));
