@@ -22,7 +22,7 @@ public class StoryGame extends Application {
         PhaseLabel phaseLabel = new PhaseLabel(context);
         Button button = new Button("Change phase!");
 
-        final CreatePlayerView creationScreen = new CreatePlayerView(context);
+        final PlayerCreationView creationScreen = new PlayerCreationView(context);
         final Stage creationStage = creationScreen.creationStage();
 
         final MapView mapScreen = new MapView(context);

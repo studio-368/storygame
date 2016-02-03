@@ -13,15 +13,15 @@ public class Player {
     int totalPoints;
     private String region = "New Europe";
 
-
-    /*public Player(String name, Color playerColor, List skills, String position, int totalPoints) {
+    public Player(String name, Color playerColor, List<String> skills, String position, int totalPoints) {
         this.name = name;
         this.playerColor = playerColor;
         this.skills = skills;
         this.region = "Europe";
         this.totalPoints = totalPoints;
         this.position = position;
-    }*/
+    }
+
 
     public void setRegion(String region) {
         this.region = region;
@@ -58,6 +58,14 @@ public class Player {
         }
         skillString = skillString.substring(0, skillString.length() - 2);
         return skillString;
+    }
+
+    public void addPoints(int points){
+        this.totalPoints = getTotalPoints() + points;
+    }
+
+    public void removePoints(int points){
+        this.totalPoints = getTotalPoints() - points;
     }
 
     public void addSkill(String skill) {

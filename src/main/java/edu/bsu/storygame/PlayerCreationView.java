@@ -1,10 +1,11 @@
 package edu.bsu.storygame;
 
+import edu.bsu.storygame.GameContext;
+import edu.bsu.storygame.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -12,16 +13,15 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreatePlayerView{
+public class PlayerCreationView {
 
     GameContext gameContext;
-    Label nameLabel = initLabelPosition("Character Created", 0, -50);
     Button createButton = initButtonPosition("Create", 0, 100);
     TextField characterNameInput = new TextField();
     List<Player> playerList;
     StackPane layout;
 
-    CreatePlayerView(GameContext gameContext){
+    PlayerCreationView(GameContext gameContext){
         this.gameContext = gameContext;
     }
 
@@ -45,8 +45,6 @@ public class CreatePlayerView{
         createButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 createDefaultPlayer();
-                layout.getChildren().add(nameLabel);
-                //Show Player View Here
             }
         });
     }
@@ -58,15 +56,8 @@ public class CreatePlayerView{
         return position;
     }
 
-    private Label initLabelPosition(String nameLabel, double xPosition, double yPosition){
-        Label position = new Label(nameLabel);
-        position.setTranslateX(xPosition);
-        position.setTranslateY(yPosition);
-        return position;
-    }
-
     private void createDefaultPlayer(){
-        Player player = new Player();
+        Player player = new Player(null,null,null,null,0);
         playerList.add(player);
 
     }
