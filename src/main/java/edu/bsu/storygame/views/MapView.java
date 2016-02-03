@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 public class MapView {
     private GameContext gameContext;
     private Button africaRegion = createRegionButton(Regions.Africa, 0,0);
-    private Rectangle africaSpace = createPlayerSpace(0, -22);
+    private Rectangle africaSpace = createPlayerSpace(0, 300);
     private Button europeRegion = createRegionButton(Regions.Europe, 150,150);
     private Rectangle europeSpace = createPlayerSpace(150, 128);
     private Stage mapStage = new Stage();
@@ -78,13 +78,11 @@ public class MapView {
 
     //TODO figure out why x and y positions aren't translating into the GUI correctly
     private Rectangle createPlayerSpace(double xPosition, double yPosition){
-        Rectangle space = new Rectangle();
-        space.setX(xPosition);
-        space.setY(yPosition);
-        space.setWidth(20);
-        space.setHeight(20);
-        space.setArcHeight(10);
-        space.setArcWidth(10);
+        Rectangle space = new Rectangle(20,20,20,20);
+        space.setArcHeight(15);
+        space.setArcWidth(15);
+        space.setTranslateX(xPosition);
+        space.setTranslateY(yPosition);
         space.setFill(Paint.valueOf("red"));
         return space;
     }
