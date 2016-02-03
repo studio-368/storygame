@@ -46,8 +46,8 @@ public class MapView {
     public void setRegionTravelButtons(){
         africaRegion.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                if(africaSpace.getFill() == Color.WHITE){
-                    setPlayerPosition(europeSpace,africaSpace,Color.RED);
+                if(!africaSpace.isVisible()){
+                    setPlayerPosition(europeSpace,africaSpace);
 
                 }
                 gameContext.player1.setRegion(Regions.Africa);
@@ -57,8 +57,8 @@ public class MapView {
         });
         europeRegion.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                if(europeSpace.getFill() == Color.WHITE){
-                    setPlayerPosition(africaSpace,europeSpace,Color.RED);
+                if(!europeSpace.isVisible()){
+                    setPlayerPosition(africaSpace,europeSpace);
                 }
                 gameContext.player1.setRegion(Regions.Europe);
                 new WraithEncounter(gameContext).show();
@@ -77,7 +77,7 @@ public class MapView {
         layout.getChildren().add(africaSpace);
         layout.getChildren().add(europeRegion);
         layout.getChildren().add(europeSpace);
-        setPlayerPosition(africaSpace,africaSpace,Color.RED);
+        setPlayerPosition(africaSpace,africaSpace);
         return mapScene;
 
     }
@@ -97,22 +97,23 @@ public class MapView {
     }
 
     private Rectangle createPlayerSpace(double xPosition, double yPosition){
-        Rectangle space = new Rectangle(20,20,20,20);
+        Rectangle space = new Rectangle(20,20);
         space.setArcHeight(15);
         space.setArcWidth(15);
         space.setTranslateX(xPosition);
         space.setTranslateY(yPosition);
-        space.setFill(Color.WHITE);
+        space.setFill(Color.RED);
+        space.setVisible(false);
         return space;
     }
 
-    private void setPlayerPosition(Rectangle playerCurrentSpace, Rectangle playerNewSpace , Color playerColor){
-        playerCurrentSpace.setFill(Color.WHITE);
-        playerNewSpace.setFill(playerColor);
+    private void setPlayerPosition(Rectangle playerCurrentSpace, Rectangle playerNewSpace){
+        playerCurrentSpace.setVisible(false);
+        playerNewSpace.setVisible(true);
     }
 
     public void updateButtonStatus(Phase phase){
-        if(!gameContext.phase.get().equals(Phase.MOVEMENT)){
+        if(!phase.equals(Phase.MOVEMENT)){
             africaRegion.setDisable(true);
             europeRegion.setDisable(true);
         }
