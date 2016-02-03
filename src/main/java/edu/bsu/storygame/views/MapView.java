@@ -38,9 +38,11 @@ public class MapView {
             public void handle(ActionEvent event) {
                 if(africaSpace.getFill() == Color.WHITE){
                     setPlayerPosition(europeSpace,africaSpace,Color.RED);
+
                 }
                 gameContext.player1.setRegion(Regions.Africa);
                 new WraithEncounter(gameContext).show();
+
             }
         });
         europeRegion.setOnAction(new EventHandler<ActionEvent>() {
@@ -51,6 +53,7 @@ public class MapView {
                 gameContext.player1.setRegion(Regions.Europe);
                 new WraithEncounter(gameContext).show();
             }
+
         });
     }
 
@@ -83,7 +86,6 @@ public class MapView {
         return region;
     }
 
-    //TODO figure out why x and y positions aren't translating into the GUI correctly
     private Rectangle createPlayerSpace(double xPosition, double yPosition){
         Rectangle space = new Rectangle(20,20,20,20);
         space.setArcHeight(15);
