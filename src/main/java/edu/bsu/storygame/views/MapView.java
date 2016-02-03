@@ -11,14 +11,14 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Paint;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class MapView {
     private GameContext gameContext;
     private Button africaRegion = createRegionButton(Regions.Africa, 0,0);
-    private Rectangle africaSpace = createPlayerSpace(0, 300);
+    private Rectangle africaSpace = createPlayerSpace(0, -22);
     private Button europeRegion = createRegionButton(Regions.Europe, 150,150);
     private Rectangle europeSpace = createPlayerSpace(150, 128);
     private Stage mapStage = new Stage();
@@ -36,12 +36,18 @@ public class MapView {
     public void setRegionTravelButtons(){
         africaRegion.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
+                if(africaSpace.getFill() == Color.WHITE){
+                    setPlayerPosition(europeSpace,africaSpace,Color.RED);
+                }
                 gameContext.player1.setRegion(Regions.Africa);
                 new WraithEncounter(gameContext).show();
             }
         });
         europeRegion.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
+                if(europeSpace.getFill() == Color.WHITE){
+                    setPlayerPosition(africaSpace,europeSpace,Color.RED);
+                }
                 gameContext.player1.setRegion(Regions.Europe);
                 new WraithEncounter(gameContext).show();
             }
@@ -58,6 +64,7 @@ public class MapView {
         layout.getChildren().add(africaSpace);
         layout.getChildren().add(europeRegion);
         layout.getChildren().add(europeSpace);
+        setPlayerPosition(africaSpace,africaSpace,Color.RED);
         return mapScene;
 
     }
@@ -83,8 +90,13 @@ public class MapView {
         space.setArcWidth(15);
         space.setTranslateX(xPosition);
         space.setTranslateY(yPosition);
-        space.setFill(Paint.valueOf("red"));
+        space.setFill(Color.WHITE);
         return space;
+    }
+
+    private void setPlayerPosition(Rectangle playerCurrentSpace, Rectangle playerNewSpace , Color playerColor){
+        playerCurrentSpace.setFill(Color.WHITE);
+        playerNewSpace.setFill(playerColor);
     }
 
     public void updateMap(){
