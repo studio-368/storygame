@@ -10,23 +10,23 @@ public class Player {
     List<Skill> skills;
     String position;
     int totalPoints;
-    private String region = "New Europe";
+    private Regions region = Regions.Europe;
 
 
     public Player(String name, Color playerColor, List<Skill> skills, String position, int totalPoints) {
         this.name = name;
         this.playerColor = playerColor;
         this.skills = skills;
-        this.region = "Europe";
+        this.region = Regions.Europe;
         this.totalPoints = totalPoints;
         this.position = position;
     }
 
-    public void setRegion(String region) {
+    public void setRegion(Regions region) {
         this.region = region;
     }
 
-    public String getRegion() {
+    public Regions getRegion() {
         return this.region;
     }
 
