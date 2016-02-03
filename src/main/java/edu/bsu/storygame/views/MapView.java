@@ -11,16 +11,20 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class MapView {
     private GameContext gameContext;
-    private Button africaRegion = createRegion(Regions.Africa, 0,0);
-    private Button europeRegion = createRegion(Regions.Europe, 150,150);
+    private Button africaRegion = createRegionButton(Regions.Africa, 0,0);
+    private Rectangle africaSpace = createPlayerSpace(0, -22);
+    private Button europeRegion = createRegionButton(Regions.Europe, 150,150);
+    private Rectangle europeSpace = createPlayerSpace(150, 128);
     private Stage mapStage = new Stage();
 
     public MapView(GameContext gameContext){
-       createMapStage(gameContext);
+        createMapStage(gameContext);
         updateMap();
     }
 
@@ -51,7 +55,9 @@ public class MapView {
         setRegionTravelButtons();
         layout.getChildren().add(createMapImage());
         layout.getChildren().add(africaRegion);
+        layout.getChildren().add(africaSpace);
         layout.getChildren().add(europeRegion);
+        layout.getChildren().add(europeSpace);
         return mapScene;
 
     }
@@ -63,11 +69,24 @@ public class MapView {
         return mapImageView;
     }
 
-    private Button createRegion(Regions regionName, double xPosition, double yPosition){
+    private Button createRegionButton(Regions regionName, double xPosition, double yPosition){
         Button region = new Button(regionName.toString());
         region.setTranslateX(xPosition);
         region.setTranslateY(yPosition);
         return region;
+    }
+
+    //TODO figure out why x and y positions aren't translating into the GUI correctly
+    private Rectangle createPlayerSpace(double xPosition, double yPosition){
+        Rectangle space = new Rectangle();
+        space.setX(xPosition);
+        space.setY(yPosition);
+        space.setWidth(20);
+        space.setHeight(20);
+        space.setArcHeight(10);
+        space.setArcWidth(10);
+        space.setFill(Paint.valueOf("red"));
+        return space;
     }
 
     public void updateMap(){
