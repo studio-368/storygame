@@ -14,6 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import react.Slot;
 
 public class MapView {
     private GameContext gameContext;
@@ -23,9 +24,18 @@ public class MapView {
     private Rectangle europeSpace = createPlayerSpace(150, 128);
     private Stage mapStage = new Stage();
 
+
+
     public MapView(GameContext gameContext){
-        createMapStage(gameContext);
-        updateMap();
+        this.gameContext = gameContext;
+        gameContext.phase.connect(new Slot<Phase>() {
+            @Override
+            public void onEmit(Phase phase) {
+                updateButtonStatus(phase);
+            }
+        });
+            updateButtonStatus(gameContext.phase.get());
+            createMapStage(gameContext);
     }
 
     private void createMapStage(GameContext gameContext){
@@ -101,7 +111,7 @@ public class MapView {
         playerNewSpace.setFill(playerColor);
     }
 
-    public void updateMap(){
+    public void updateButtonStatus(Phase phase){
         if(!gameContext.phase.get().equals(Phase.MOVEMENT)){
             africaRegion.setDisable(true);
             europeRegion.setDisable(true);
