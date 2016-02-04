@@ -1,5 +1,8 @@
-package edu.bsu.storygame;
+package edu.bsu.storygame.views;
 
+import edu.bsu.storygame.GameContext;
+import edu.bsu.storygame.Player;
+import edu.bsu.storygame.Skill;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
