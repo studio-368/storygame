@@ -1,5 +1,6 @@
 package edu.bsu.storygame;
 
+import edu.bsu.storygame.views.MapView;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,7 +23,7 @@ public class StoryGame extends Application {
         PhaseLabel phaseLabel = new PhaseLabel(context);
         Button button = new Button("Change phase!");
         final MapView mapScreen = new MapView(context);
-        final Stage mapStage = mapScreen.mapStage();
+        final Stage mapStage = mapScreen.mapStage;
         mapStage.setTitle("Nightmare Defenders Map");
         button.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
