@@ -1,14 +1,12 @@
 package edu.bsu.storygame;
 
+import edu.bsu.storygame.views.MapView;
+import edu.bsu.storygame.views.PlayerCreationView;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import react.Slot;
+
 
 public class StoryGame extends Application {
 
@@ -16,54 +14,34 @@ public class StoryGame extends Application {
         launch(args);
     }
 
+    final GameContext context = new GameContext();
+
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        final GameContext context = new GameContext();
-        PhaseLabel phaseLabel = new PhaseLabel(context);
-        Button button = new Button("Change phase!");
-
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                if (context.phase.get().equals(Phase.MOVEMENT)) {
-                    context.phase.update(Phase.ENCOUNTER);
-                } else {
-                    context.phase.update(Phase.MOVEMENT);
+        context.phase.update(Phase.PLAYER_CREATION);
+        primaryStage.setScene(setPlayerCreationScene());
+        context.phase.connect(new Slot<Phase>() {
+            @Override
+            public void onEmit(Phase phase) {
+                if(context.phase.get().equals(Phase.PLAYER_CREATION)){
+                    primaryStage.setScene(setPlayerCreationScene());
+                }
+                if(context.phase.get().equals(Phase.MOVEMENT)){
+                    primaryStage.setScene(setMapViewScene());
                 }
             }
+
         });
 
-
-        Button loadMapViewButton = new Button("Go To Game Map!");
-        loadMapViewButton.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-
-            }
-        });
-
-        primaryStage.setTitle("Spring Studio Project");
-        VBox root = new VBox();
-        root.getChildren().add(phaseLabel);
-        root.getChildren().add(button);
-        root.getChildren().add(loadMapViewButton);
-        primaryStage.setScene(new Scene(root));
         primaryStage.show();
-
+    }
+    private Scene setPlayerCreationScene(){
+        PlayerCreationView view = new PlayerCreationView(context);
+        return view.getPlayerCreationScene();
     }
 
-    private class PhaseLabel extends Label {
+    private Scene setMapViewScene() {
+        return new Scene(new MapView(context));
 
-        public PhaseLabel(GameContext context) {
-            super(context.phase.get().toString());
-            context.phase.connect(new Slot<Phase>() {
-                @Override
-                public void onEmit(Phase phase) {
-                    PhaseLabel.this.setText(phase.toString());
-                }
-            });
-        }
     }
-
-
-
-
 }

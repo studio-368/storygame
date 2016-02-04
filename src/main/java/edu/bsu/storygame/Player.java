@@ -1,25 +1,28 @@
 package edu.bsu.storygame;
 
 import javafx.scene.paint.Color;
-import java.util.List;
+import react.RList;
+import react.Value;
+
+import java.util.ArrayList;
+
 
 public class Player {
 
-    String name;
-    Color playerColor;
-    List<Skill> skills;
-    String position;
-    int totalPoints;
+
+    private final String name;
+    private final Color playerColor;
+    public final RList<String> skills = new RList<String>(new ArrayList<String>(){});
+    private String position;
+    public final Value<Integer> totalPoints = Value.create(0);
     private Regions region = Regions.Europe;
 
-
-    public Player(String name, Color playerColor, List<Skill> skills, String position, int totalPoints) {
+    public Player(String name, Color playerColor, String position) {
         this.name = name;
         this.playerColor = playerColor;
-        this.skills = skills;
         this.region = Regions.Europe;
-        this.totalPoints = totalPoints;
         this.position = position;
+
     }
 
     public void setRegion(Regions region) {
@@ -30,44 +33,13 @@ public class Player {
         return this.region;
     }
 
-    public void setName(String name){
-        this.name = name;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public int getTotalPoints() {
-        return totalPoints;
     }
 
     public Color getPlayerColor() {
         return playerColor;
     }
 
-    public List getSkills() {
-        return skills;
-    }
-    
-    public String getSkillString(){
-        String skillString = "";
-        if(skills.size() == 1){
-            return skills.get(0).toString();
-        }
-        for (Skill skill :
-                skills) {
-            skillString = skillString + skill.toString() + ", ";
-        }
-        skillString = skillString.substring(0, skillString.length() - 2);
-        return skillString;
-    }
 
-    public void addSkill(Skill skill) {
-        skills.add(skill);
-    }
-
-    public void removeSkill(Skill skill) {
-        skills.remove(skill);
-    }
 }
