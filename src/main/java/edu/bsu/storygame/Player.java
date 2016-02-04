@@ -1,14 +1,13 @@
 package edu.bsu.storygame;
 
 import javafx.scene.paint.Color;
-
 import java.util.List;
 
 public class Player {
 
     String name;
     Color playerColor;
-    List<String> skills;
+    List<Skill> skills;
     String position;
     int totalPoints;
     private Regions region = Regions.Europe;
@@ -49,11 +48,11 @@ public class Player {
     public String getSkillString(){
         String skillString = "";
         if(skills.size() == 1){
-            return skills.get(0);
+            return skills.get(0).toString();
         }
-        for (String skill :
+        for (Skill skill :
                 skills) {
-            skillString = skillString + skill + ", ";
+            skillString = skillString + skill.toString() + ", ";
         }
         skillString = skillString.substring(0, skillString.length() - 2);
         return skillString;
@@ -71,7 +70,7 @@ public class Player {
         skills.add(skill);
     }
 
-    public void removeSkill(String skill) {
+    public void removeSkill(Skill skill) {
         skills.remove(skill);
     }
 }
