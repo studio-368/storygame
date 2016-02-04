@@ -3,12 +3,8 @@ package edu.bsu.storygame;
 import edu.bsu.storygame.views.MapView;
 import edu.bsu.storygame.views.PlayerCreationView;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import react.Slot;
 
@@ -46,7 +42,7 @@ public class MasterUI extends Application {
     }
 
     private Scene setMapViewScene() {
-        MapView view = new MapView(context);
-        return view.initMap();
+        return new Scene(new MapView(context));
+
     }
 }

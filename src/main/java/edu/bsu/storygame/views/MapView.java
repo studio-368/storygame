@@ -4,29 +4,25 @@ import edu.bsu.storygame.GameContext;
 import edu.bsu.storygame.Phase;
 import edu.bsu.storygame.Regions;
 import edu.bsu.storygame.WraithEncounter;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import react.Slot;
 
-public class MapView {
+public class MapView extends StackPane{
 
     private GameContext gameContext;
-    public final Button africaRegion = createRegionButton(Regions.Africa, 0,0);
+    private final Button africaRegion = createRegionButton(Regions.Africa, 0,0);
     private Rectangle africaSpace = createPlayerSpace(0, -22);
-    public final Button europeRegion = createRegionButton(Regions.Europe, 150,150);
+    private final Button europeRegion = createRegionButton(Regions.Europe, 150,150);
     private Rectangle europeSpace = createPlayerSpace(150, 128);
-    public final Stage mapStage = new Stage();
 
 
     public MapView(GameContext gameContext){
         this.gameContext = gameContext;
-        mapStage.setScene(initMap());
         gameContext.phase.connect(new Slot<Phase>() {
             @Override
             public void onEmit(Phase phase) {
@@ -34,9 +30,10 @@ public class MapView {
             }
         });
         updateButtonStatus(gameContext.phase.get());
+        this.initMap();
     }
 
-    public void setRegionTravelButtons(){
+    private void setRegionTravelButtons(){
         africaRegion.setOnAction(event -> {
             if(!africaSpace.isVisible()){
                 setPlayerPosition(europeSpace,africaSpace);
@@ -55,18 +52,14 @@ public class MapView {
         });
     }
 
-    public Scene initMap(){
-        StackPane layout = new StackPane();
-        Scene mapScene = new Scene(layout,500,500);
-        setRegionTravelButtons();
-        layout.getChildren().add(createMapImage());
-        layout.getChildren().add(africaRegion);
-        layout.getChildren().add(africaSpace);
-        layout.getChildren().add(europeRegion);
-        layout.getChildren().add(europeSpace);
+    private void initMap(){
+        this.setRegionTravelButtons();
+        this.getChildren().add(createMapImage());
+        this.getChildren().add(africaRegion);
+        this.getChildren().add(africaSpace);
+        this.getChildren().add(europeRegion);
+        this.getChildren().add(europeSpace);
         setPlayerPosition(africaSpace,africaSpace);
-        return mapScene;
-
     }
 
     private ImageView createMapImage(){
@@ -99,7 +92,7 @@ public class MapView {
         playerNewSpace.setVisible(true);
     }
 
-    public void updateButtonStatus(Phase phase){
+    private void updateButtonStatus(Phase phase){
         if(!phase.equals(Phase.MOVEMENT)){
             africaRegion.setDisable(true);
             europeRegion.setDisable(true);
