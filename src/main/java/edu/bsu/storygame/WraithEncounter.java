@@ -1,5 +1,7 @@
 package edu.bsu.storygame;
 
+import edu.bsu.storygame.views.EncounterView;
+
 public class WraithEncounter {
 
     private GameContext context;
