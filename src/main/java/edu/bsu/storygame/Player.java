@@ -5,7 +5,7 @@ import react.RList;
 import react.Value;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class Player {
 
@@ -16,7 +16,6 @@ public class Player {
     private String position;
     public final Value<Integer> totalPoints = Value.create(0);
     private Regions region = Regions.Europe;
-
 
     public Player(String name, Color playerColor, String position) {
         this.name = name;
