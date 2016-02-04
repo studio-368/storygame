@@ -43,7 +43,7 @@ public class MapView {
 
             }
             gameContext.player1.setRegion(Regions.Africa);
-            new WraithEncounter(gameContext).show();
+            gameContext.phase.update(Phase.ENCOUNTER);
 
         });
         europeRegion.setOnAction(event -> {
@@ -51,7 +51,7 @@ public class MapView {
                 setPlayerPosition(africaSpace,europeSpace);
             }
             gameContext.player1.setRegion(Regions.Europe);
-            new WraithEncounter(gameContext).show();
+            gameContext.phase.update(Phase.ENCOUNTER);
         });
     }
 
