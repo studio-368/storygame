@@ -1,5 +1,5 @@
 package edu.bsu.storygame;
 
 public enum Phase {
-    ENCOUNTER, MOVEMENT
+    PLAYER_CREATION, ENCOUNTER, MOVEMENT
 }
