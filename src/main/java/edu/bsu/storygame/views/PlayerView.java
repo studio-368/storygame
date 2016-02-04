@@ -14,6 +14,8 @@ import javafx.scene.paint.Color;
 import react.RList;
 import react.Slot;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +35,7 @@ public class PlayerView extends VBox {
         name = new Text(0, 0, player.getName());
         StackPane.setAlignment(name, Pos.CENTER_LEFT);
         StackPane.setMargin(name, new Insets(0, 0, 10, 10));
-        skills = new Text(10, 10, player.getSkillString());
+        skills = new Text(10, 10, getSkillString(player.skills));
         StackPane.setAlignment(skills, Pos.BOTTOM_LEFT);
         StackPane.setMargin(skills, new Insets(10, 10, 10, 10));
         diamond.getTransforms().add(new Rotate(45));
@@ -41,7 +43,7 @@ public class PlayerView extends VBox {
         diamond.setStroke(Color.BLACK);
         StackPane.setAlignment(diamond, Pos.CENTER_RIGHT);
         StackPane.setMargin(diamond, new Insets(0, -10, 20, 0));
-        points = new Text(Integer.toString(player.getTotalPoints()));
+        points = new Text(Integer.toString(player.totalPoints.get()));
         StackPane.setAlignment(points, Pos.CENTER_RIGHT);
         StackPane.setMargin(points, new Insets(0, 25, 0, 0));
         pane.getChildren().addAll(playerBox, name, skills, diamond, points);
@@ -92,6 +94,22 @@ public class PlayerView extends VBox {
 
     public String getSkillText(){
         return this.skills.getText();
+    }
+
+    public String getSkillString(RList<String> skills){
+        String skillString = "";
+        if(skills.size() == 0){
+            return skillString;
+        } else if(skills.size() == 1){
+            return skills.get(0);
+        } else {
+            for (String skill :
+                    skills) {
+                skillString = skillString + skill + ", ";
+            }
+            skillString = skillString.substring(0, skillString.length() - 2);
+        }
+        return skillString;
     }
 
 }

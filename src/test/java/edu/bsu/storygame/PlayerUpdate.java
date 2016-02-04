@@ -16,40 +16,40 @@ public class PlayerUpdate {
 
     @Test
     public void testSkillUpdate() {
-        player.addSkill("resourceful");
-        Assert.assertEquals(player.getSkillString(), view.getSkillText());
+        player.skills.add("resourceful");
+        Assert.assertEquals(view.getSkillString(player.skills), view.getSkillText());
     }
 
     @Test
     public void testMultipleSkills(){
-        player.addSkill("resourceful");
-        player.addSkill("helpful");
-        Assert.assertEquals(player.getSkillString(), view.getSkillText());
+        player.skills.add("resourceful");
+        player.skills.add("helpful");
+        Assert.assertEquals(view.getSkillString(player.skills), view.getSkillText());
     }
 
     @Test
     public void testRemoveFirstSkill(){
-        player.addSkill("resourceful");
-        player.addSkill("helpful");
-        player.removeSkill("resourceful");
-        Assert.assertEquals(player.getSkillString(), view.getSkillText());
+        player.skills.add("resourceful");
+        player.skills.add("helpful");
+        player.skills.remove("resourceful");
+        Assert.assertEquals(view.getSkillString(player.skills), view.getSkillText());
     }
 
     @Test
     public void testRemoveMiddleSkill(){
         Player player = new Player("Jessica", Color.ALICEBLUE, "");
         PlayerView view = new PlayerView(player);
-        player.addSkill("resourceful");
-        player.addSkill("wisdom");
-        player.addSkill("helpful");
-        player.removeSkill("wisdom");
-        Assert.assertEquals(player.getSkillString(), view.getSkillText());
+        player.skills.add("resourceful");
+        player.skills.add("wisdom");
+        player.skills.add("helpful");
+        player.skills.remove("wisdom");
+        Assert.assertEquals(view.getSkillString(player.skills), view.getSkillText());
     }
 
     @Test
     public void testAddPoint(){
-        player.addPoint(1);
-        Assert.assertEquals(player.getTotalPoints(), view.getPoints());
+        player.totalPoints.update(player.totalPoints.get() + 1);
+        Assert.assertEquals((int)player.totalPoints.get(), view.getPoints());
     }
 
 }
