@@ -1,25 +1,28 @@
 package edu.bsu.storygame;
 
 import javafx.scene.paint.Color;
+import react.RList;
+import react.Value;
 
-import java.util.List;
+import java.util.ArrayList;
+
 
 public class Player {
 
-    String name;
-    Color playerColor;
-    List<String> skills;
-    String position;
-    int totalPoints;
+
+    private final String name;
+    private final Color playerColor;
+    public final RList<String> skills = new RList<String>(new ArrayList<String>(){});
+    private String position;
+    public final Value<Integer> totalPoints = Value.create(0);
     private Regions region = Regions.Europe;
 
-    public Player(String name, Color playerColor, List<String> skills, String position, int totalPoints) {
+    public Player(String name, Color playerColor, String position) {
         this.name = name;
         this.playerColor = playerColor;
-        this.skills = skills;
         this.region = Regions.Europe;
-        this.totalPoints = totalPoints;
         this.position = position;
+
     }
 
     public void setRegion(Regions region) {
@@ -34,44 +37,9 @@ public class Player {
         return name;
     }
 
-    public int getTotalPoints() {
-        return totalPoints;
-    }
-
     public Color getPlayerColor() {
         return playerColor;
     }
 
-    public List getSkills() {
-        return skills;
-    }
-    
-    public String getSkillString(){
-        String skillString = "";
-        if(skills.size() == 1){
-            return skills.get(0);
-        }
-        for (String skill :
-                skills) {
-            skillString = skillString + skill + ", ";
-        }
-        skillString = skillString.substring(0, skillString.length() - 2);
-        return skillString;
-    }
 
-    public void addPoints(int points){
-        this.totalPoints = getTotalPoints() + points;
-    }
-
-    public void removePoints(int points){
-        this.totalPoints = getTotalPoints() - points;
-    }
-
-    public void addSkill(String skill) {
-        skills.add(skill);
-    }
-
-    public void removeSkill(String skill) {
-        skills.remove(skill);
-    }
 }
