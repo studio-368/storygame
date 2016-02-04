@@ -4,8 +4,6 @@ import edu.bsu.storygame.GameContext;
 import edu.bsu.storygame.Phase;
 import edu.bsu.storygame.Regions;
 import edu.bsu.storygame.WraithEncounter;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -19,14 +17,16 @@ import react.Slot;
 public class MapView {
 
     private GameContext gameContext;
-    private Button africaRegion = createRegionButton(Regions.Africa, 0,0);
+    public final Button africaRegion = createRegionButton(Regions.Africa, 0,0);
     private Rectangle africaSpace = createPlayerSpace(0, -22);
-    private Button europeRegion = createRegionButton(Regions.Europe, 150,150);
+    public final Button europeRegion = createRegionButton(Regions.Europe, 150,150);
     private Rectangle europeSpace = createPlayerSpace(150, 128);
+    public final Stage mapStage = new Stage();
 
 
     public MapView(GameContext gameContext){
         this.gameContext = gameContext;
+        mapStage.setScene(initMap());
         gameContext.phase.connect(new Slot<Phase>() {
             @Override
             public void onEmit(Phase phase) {

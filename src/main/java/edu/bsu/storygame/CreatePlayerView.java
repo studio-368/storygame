@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class CreatePlayerView{
     }
 
     private void createDefaultPlayer(){
-        Player player = new Player();
+        Player player = new Player("Name", Color.ALICEBLUE, new ArrayList<Skill>(), "", 0);
         playerList.add(player);
 
     }
