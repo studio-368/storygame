@@ -3,7 +3,6 @@ package edu.bsu.storygame.views;
 import edu.bsu.storygame.GameContext;
 import edu.bsu.storygame.Phase;
 import edu.bsu.storygame.Regions;
-import edu.bsu.storygame.WraithEncounter;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

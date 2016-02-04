@@ -4,7 +4,6 @@ import edu.bsu.storygame.views.MapView;
 import edu.bsu.storygame.views.PlayerCreationView;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import react.Slot;
 
