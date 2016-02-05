@@ -2,22 +2,28 @@ package edu.bsu.storygame.views;
 
 import edu.bsu.storygame.GameContext;
 import edu.bsu.storygame.Phase;
+import edu.bsu.storygame.Player;
 import edu.bsu.storygame.Regions;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import react.Slot;
 
-public class MapView extends StackPane{
+import java.util.ArrayList;
+import java.util.List;
+
+public class MapView extends StackPane {
 
     private GameContext gameContext;
-    private final Button africaRegion = createRegionButton(Regions.Africa, 0,0);
-    private Rectangle africaSpace = createPlayerSpace(0, -22);
-    private final Button europeRegion = createRegionButton(Regions.Europe, 150,150);
-    private Rectangle europeSpace = createPlayerSpace(150, 128);
+    private final Button africaRegion = createRegionButton(Regions.Africa, 0,50);
+    private Rectangle africaSpace = createPlayerSpace(0, 29);
+    private final Button europeRegion = createRegionButton(Regions.Europe, 0,-25);
+    private Rectangle europeSpace = createPlayerSpace(0, -46);
 
 
     public MapView(GameContext gameContext){
@@ -38,7 +44,7 @@ public class MapView extends StackPane{
                 setPlayerPosition(europeSpace,africaSpace);
 
             }
-            gameContext.player1.setRegion(Regions.Africa);
+            gameContext.players.get(0).setRegion(Regions.Africa);
             gameContext.phase.update(Phase.ENCOUNTER);
 
         });
@@ -46,7 +52,7 @@ public class MapView extends StackPane{
             if(!europeSpace.isVisible()){
                 setPlayerPosition(africaSpace,europeSpace);
             }
-            gameContext.player1.setRegion(Regions.Europe);
+            gameContext.players.get(0).setRegion(Regions.Europe);
             gameContext.phase.update(Phase.ENCOUNTER);
         });
     }
@@ -58,7 +64,12 @@ public class MapView extends StackPane{
         this.getChildren().add(africaSpace);
         this.getChildren().add(europeRegion);
         this.getChildren().add(europeSpace);
-        setPlayerPosition(africaSpace,africaSpace);
+        setPlayerPosition(europeSpace,europeSpace);
+        HBox hBox = new HBox();
+        PlayerView player1View = new PlayerView(gameContext.players.get(0));
+        hBox.getChildren().add(player1View);
+        hBox.setTranslateY(425);
+        this.getChildren().add(hBox);
     }
 
     private ImageView createMapImage(){

@@ -17,8 +17,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import react.Slot;
 
-import java.util.ArrayList;
-
 
 
 public class PlayerCreationView{
@@ -26,7 +24,6 @@ public class PlayerCreationView{
     private GridPane skillGrid;
     private Scene skillScreen;
     private Button ok;
-    private Player player = new Player("draco", Color.GREEN, "Africa");
     private ComboBox<Skill> skillTwoDropDown;
     private ComboBox<Skill> skillOneDropDown;
     private Label skillWarningLabel;
@@ -84,13 +81,29 @@ public class PlayerCreationView{
         skillWarningLabel.setVisible(false);
         nameWarningLabel = new Label("Must enter a name");
         nameWarningLabel.setVisible(false);
-        ObservableList<Skill> listOfSkills = FXCollections.observableArrayList(Skill.LOGIC, Skill.MAGIC, Skill.PERSUASION,
-                Skill.WEAPON_USE);
+        ObservableList<Skill> listOfSkills = FXCollections.observableArrayList(Skill.values());
         skillOneDropDown = new ComboBox<>(listOfSkills);
         skillTwoDropDown = new ComboBox<>(listOfSkills);
+        skillOneDropDown.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(oldValue == null && newValue != null){
+                removeValueFrom(skillTwoDropDown,newValue);
+            }
+        });
+        skillTwoDropDown.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(oldValue == null && newValue != null){
+                removeValueFrom(skillOneDropDown,newValue);
+            }
+        });
         ok = new Button("OK");
         ok.setOnMouseClicked(e -> handleOkEvent());
         ok.setAlignment(Pos.BOTTOM_CENTER);
+    }
+
+    private void removeValueFrom(ComboBox<Skill> comboBox, Skill skill) {
+        ObservableList<Skill> changingList  = FXCollections.observableArrayList(Skill.LOGIC, Skill.MAGIC, Skill.PERSUASION,
+                Skill.WEAPON_USE);
+        changingList.remove(skill);
+        comboBox.setItems(changingList);
     }
 
     private void addItemsToGrid(){
@@ -110,9 +123,10 @@ public class PlayerCreationView{
         Skill secondChoice= skillTwoDropDown.getValue();
         String name = playerName.getText();
         if(firstChoice!=null&&secondChoice!=null&&!name.equals("")) {
-            //player.addSkill(firstChoice);
-           // player.addSkill(secondChoice);
-            //player.setName(name);
+            Player player = new Player(name, Color.GREEN);
+            player.skills.add(firstChoice);
+            player.skills.add(secondChoice);
+            context.players.add(player);
             context.phase.update(Phase.MOVEMENT);
         }
         else {
