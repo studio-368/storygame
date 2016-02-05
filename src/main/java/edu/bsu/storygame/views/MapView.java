@@ -2,7 +2,9 @@ package edu.bsu.storygame.views;
 
 import edu.bsu.storygame.GameContext;
 import edu.bsu.storygame.Phase;
+import edu.bsu.storygame.Player;
 import edu.bsu.storygame.Regions;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,7 +13,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import react.Slot;
 
-public class MapView extends StackPane{
+import java.util.ArrayList;
+import java.util.List;
+
+public class MapView extends StackPane {
 
     private GameContext gameContext;
     private final Button africaRegion = createRegionButton(Regions.Africa, 0,0);
@@ -59,6 +64,9 @@ public class MapView extends StackPane{
         this.getChildren().add(europeRegion);
         this.getChildren().add(europeSpace);
         setPlayerPosition(africaSpace,africaSpace);
+        PlayerView player1View = new PlayerView(gameContext.players.get(0));
+        StackPane.setAlignment(player1View, Pos.BOTTOM_LEFT);
+        this.getChildren().add(player1View);
     }
 
     private ImageView createMapImage(){

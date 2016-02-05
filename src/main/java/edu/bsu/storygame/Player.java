@@ -12,7 +12,7 @@ public class Player {
 
     private final String name;
     private final Color playerColor;
-    public final RList<String> skills = new RList<String>(new ArrayList<String>(){});
+    public final RList<String> skills = new RList<>(new ArrayList<String>(){});
     private String position;
     public final Value<Integer> totalPoints = Value.create(0);
     private Regions region = Regions.Europe;

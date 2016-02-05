@@ -113,6 +113,7 @@ public class PlayerCreationView{
             //player.addSkill(firstChoice);
            // player.addSkill(secondChoice);
             //player.setName(name);
+            context.players.add(player);
             context.phase.update(Phase.MOVEMENT);
         }
         else {

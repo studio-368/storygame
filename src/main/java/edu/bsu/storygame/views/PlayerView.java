@@ -84,10 +84,6 @@ public class PlayerView extends VBox {
         });
     }
 
-    public VBox getView() {
-        return this;
-    }
-
     public int getPoints(){
         return Integer.parseInt(points.getText());
     }
