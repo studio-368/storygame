@@ -1,6 +1,5 @@
 package edu.bsu.storygame;
 
-import javafx.scene.paint.Color;
 import react.Value;
 
 import java.util.ArrayList;
