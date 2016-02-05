@@ -14,7 +14,7 @@ public class EncounterTable {
         reactions.add("Attack");
         return Encounter.builder()
                 .setMonsterName("a wraith")
-                .setRegion(context.getCurrentPlayer().getRegion().toString())
+                .setRegion(Regions.Africa)
                 .setReactions(reactions)
                 .setMonsterImage(new Image("wraith_temp.jpg"))
                 .build();

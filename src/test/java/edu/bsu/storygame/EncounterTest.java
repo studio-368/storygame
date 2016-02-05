@@ -13,7 +13,7 @@ public class EncounterTest {
     private static final Encounter ENCOUNTER_TEST = Encounter.builder()
             .setMonsterName("a wraith")
             .setMonsterImage(IMAGE_TEST)
-            .setRegion("Europe")
+            .setRegion(Regions.Europe)
             .addReaction("Run")
             .addReaction("Converse")
             .addReaction("Question")
@@ -32,7 +32,7 @@ public class EncounterTest {
 
     @Test
     public void testEncounterRegionIsEurope() {
-        assertEquals("Europe", ENCOUNTER_TEST.getRegion());
+        assertEquals(Regions.Europe, ENCOUNTER_TEST.getRegion());
     }
 
     @Test

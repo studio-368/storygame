@@ -9,7 +9,7 @@ public class Encounter {
 
     public static class Builder {
         private String monsterName;
-        private String region;
+        private Regions region;
         private List<String> reactions = new ArrayList<>();
         private Image monsterImage;
 
@@ -18,7 +18,7 @@ public class Encounter {
             return this;
         }
 
-        public Builder setRegion(String region) {
+        public Builder setRegion(Regions region) {
             this.region = region;
             return this;
         }
@@ -48,7 +48,7 @@ public class Encounter {
     }
 
     private final String monsterName;
-    private final String region;
+    private final Regions region;
     private final String[] reactions;
     private final Image monsterImage;
 
@@ -64,7 +64,7 @@ public class Encounter {
         return monsterName;
     }
 
-    public String getRegion() {
+    public Regions getRegion() {
         return region;
     }
 
