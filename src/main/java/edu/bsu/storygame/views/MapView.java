@@ -44,7 +44,7 @@ public class MapView extends StackPane {
                 setPlayerPosition(europeSpace,africaSpace);
 
             }
-            gameContext.player1.setRegion(Regions.Africa);
+            gameContext.players.get(0).setRegion(Regions.Africa);
             gameContext.phase.update(Phase.ENCOUNTER);
 
         });
@@ -52,7 +52,7 @@ public class MapView extends StackPane {
             if(!europeSpace.isVisible()){
                 setPlayerPosition(africaSpace,europeSpace);
             }
-            gameContext.player1.setRegion(Regions.Europe);
+            gameContext.players.get(0).setRegion(Regions.Europe);
             gameContext.phase.update(Phase.ENCOUNTER);
         });
     }

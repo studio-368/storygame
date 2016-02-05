@@ -17,8 +17,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import react.Slot;
 
-import java.util.ArrayList;
-
 
 
 public class PlayerCreationView{
@@ -109,7 +107,7 @@ public class PlayerCreationView{
         Skill secondChoice= skillTwoDropDown.getValue();
         String name = playerName.getText();
         if(firstChoice!=null&&secondChoice!=null&&!name.equals("")) {
-            Player player = new Player(name, Color.GREEN, "");
+            Player player = new Player(name, Color.GREEN);
             player.skills.add(firstChoice);
             player.skills.add(secondChoice);
             context.players.add(player);

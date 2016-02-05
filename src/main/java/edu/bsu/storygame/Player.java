@@ -6,23 +6,17 @@ import react.Value;
 
 import java.util.ArrayList;
 
-
 public class Player {
-
-
     private final String name;
     private final Color playerColor;
     public final RList<Skill> skills = new RList<>(new ArrayList<Skill>(){});
-    private String position;
     public final Value<Integer> totalPoints = Value.create(0);
     private Regions region = Regions.Europe;
 
-    public Player(String name, Color playerColor, String position) {
+    public Player(String name, Color playerColor) {
         this.name = name;
         this.playerColor = playerColor;
         this.region = Regions.Europe;
-        this.position = position;
-
     }
 
     public void setRegion(Regions region) {
@@ -40,6 +34,4 @@ public class Player {
     public Color getPlayerColor() {
         return playerColor;
     }
-
-
 }
