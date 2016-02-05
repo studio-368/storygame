@@ -1,58 +1,86 @@
 package edu.bsu.storygame.views;
 
 
-import edu.bsu.storygame.Regions;
+import edu.bsu.storygame.Encounter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
 
-public class EncounterView extends Stage {
-    private final VBox container;
+public class EncounterView extends VBox {
+    @FXML
+    private Label regionLabel;
+    @FXML
+    private Image monsterImage;
+    @FXML
+    private Label monsterName;
+    @FXML
+    private VBox choices;
+    @FXML
+    private Button confirmButton;
+    private final Encounter encounter;
     private final ToggleGroup choiceGroup = new ToggleGroup();
-    @FXML private Label regionLabel;
-    @FXML private Image monsterImage;
-    @FXML private Label monsterName;
-    @FXML private VBox choices;
 
-    public EncounterView() {
+    public EncounterView(Encounter encounter) {
         super();
+        this.encounter = encounter;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/EncounterView.fxml"));
         loader.setController(this);
+        loader.setRoot(this);
         try {
             loader.setLocation(getClass().getResource("/EncounterView.fxml"));
-            container = loader.load();
+            loader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        this.setScene(new Scene(container));
+        populate();
     }
 
-    public void setRegion(Regions region) {
-        regionLabel.setText("Encounter in " + region.toString());
+    private void populate() {
+        setRegion();
+        setMonsterName();
+        addChoices();
     }
 
-    public void setMonsterName(String monster) {
-        monsterName.setText("It's " + monster + "!");
+    private void setRegion() {
+        regionLabel.setText("Encounter in " + encounter.getRegion());
     }
 
-    public ToggleButton addChoice(String choice) {
-        ToggleButton newChoiceButton = new ToggleButton(choice);
-        newChoiceButton.setToggleGroup(choiceGroup);
-        choices.getChildren().add(newChoiceButton);
-        return newChoiceButton;
+    private void setMonsterName() {
+        monsterName.setText("It's " + encounter.getMonsterName() + "!");
     }
 
+    private void addChoices() {
+        ToggleButton newChoiceButton;
+        for (String choice : encounter.getReactions()) {
+            newChoiceButton = new ChoiceToggleButton(choice);
+            choices.getChildren().add(newChoiceButton);
+        }
+    }
+
+    @FXML
     public void onConfirm(ActionEvent actionEvent) {
-        this.close();
+        // Change phase?
+    }
+
+    private final class ChoiceToggleButton extends ToggleButton {
+        public ChoiceToggleButton(String choice) {
+            super(choice);
+            setToggleGroup(choiceGroup);
+            setOnAction(event -> choose());
+        }
+
+        private void choose() {
+            boolean isChoiceSelected = choiceGroup.getSelectedToggle() != null;
+            confirmButton.setDisable(!isChoiceSelected);
+        }
     }
 }

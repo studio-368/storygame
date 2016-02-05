@@ -1,5 +1,6 @@
 package edu.bsu.storygame;
 
+import edu.bsu.storygame.views.EncounterView;
 import edu.bsu.storygame.views.MapView;
 import edu.bsu.storygame.views.PlayerCreationView;
 import javafx.application.Application;
@@ -29,6 +30,12 @@ public class StoryGame extends Application {
                 if(context.phase.get().equals(Phase.MOVEMENT)){
                     primaryStage.setScene(setMapViewScene());
                 }
+                if (context.phase.get() == Phase.ENCOUNTER) {
+                    Encounter encounter = new EncounterTable().createEncounter(context);
+                    EncounterView view = new EncounterView(encounter);
+                    primaryStage.setScene(new Scene(view));
+                }
+
             }
 
         });
