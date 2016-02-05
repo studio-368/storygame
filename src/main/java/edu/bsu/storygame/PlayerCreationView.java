@@ -1,8 +1,6 @@
 package edu.bsu.storygame;
 
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -21,9 +19,6 @@ public class PlayerCreationView {
     List<Player> playerList;
     StackPane layout;
 
-    PlayerCreationView(GameContext gameContext){
-        this.gameContext = gameContext;
-    }
 
     public Stage creationStage(){
         Stage creationScreen = new Stage();
@@ -35,18 +30,14 @@ public class PlayerCreationView {
         layout = new StackPane();
         Scene creationScene = new Scene(layout,500,500);
         setCreationButton();
-        playerList = new ArrayList<Player>();
+        playerList = new ArrayList<>();
         layout.getChildren().add(createButton);
         layout.getChildren().add(characterNameInput);
         return creationScene;
     }
 
     public void setCreationButton() {
-        createButton.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                createDefaultPlayer();
-            }
-        });
+        createButton.setOnAction(event -> createDefaultPlayer());
     }
 
     private Button initButtonPosition(String buttonName, double xPosition, double yPosition){
@@ -57,8 +48,7 @@ public class PlayerCreationView {
     }
 
     private void createDefaultPlayer(){
-        Player player = new Player("Name", Color.ALICEBLUE, "");
+        Player player = new Player("Name", Color.ALICEBLUE);
         playerList.add(player);
-
     }
 }
