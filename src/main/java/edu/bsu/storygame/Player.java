@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Player {
     private final String name;
     private final Color playerColor;
-    public final RList<String> skills = new RList<>(new ArrayList<String>(){});
+    public final RList<Skill> skills = new RList<>(new ArrayList<Skill>(){});
     public final Value<Integer> totalPoints = Value.create(0);
     private Regions region = Regions.Europe;
 

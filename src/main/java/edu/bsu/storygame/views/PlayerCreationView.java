@@ -3,6 +3,7 @@ package edu.bsu.storygame.views;
 
 import edu.bsu.storygame.GameContext;
 import edu.bsu.storygame.Phase;
+import edu.bsu.storygame.Player;
 import edu.bsu.storygame.Skill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import react.Slot;
 
 
@@ -121,9 +123,10 @@ public class PlayerCreationView{
         Skill secondChoice= skillTwoDropDown.getValue();
         String name = playerName.getText();
         if(firstChoice!=null&&secondChoice!=null&&!name.equals("")) {
-            //player.addSkill(firstChoice);
-           // player.addSkill(secondChoice);
-            //player.setName(name);
+            Player player = new Player(name, Color.GREEN);
+            player.skills.add(firstChoice);
+            player.skills.add(secondChoice);
+            context.players.add(player);
             context.phase.update(Phase.MOVEMENT);
         }
         else {
