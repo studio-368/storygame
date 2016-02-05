@@ -3,29 +3,24 @@ package edu.bsu.storygame.views;
 import edu.bsu.storygame.GameContext;
 import edu.bsu.storygame.Phase;
 import edu.bsu.storygame.Regions;
-import edu.bsu.storygame.WraithEncounter;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import react.Slot;
 
-public class MapView {
+public class MapView extends StackPane{
+
     private GameContext gameContext;
-    public final Button africaRegion = createRegionButton(Regions.Africa, 0, 0);
+    private final Button africaRegion = createRegionButton(Regions.Africa, 0,0);
     private Rectangle africaSpace = createPlayerSpace(0, -22);
-    public final Button europeRegion = createRegionButton(Regions.Europe, 150, 150);
+    private final Button europeRegion = createRegionButton(Regions.Europe, 150,150);
     private Rectangle europeSpace = createPlayerSpace(150, 128);
-    private Stage mapStage = new Stage();
 
 
-    public MapView(GameContext gameContext) {
+    public MapView(GameContext gameContext){
         this.gameContext = gameContext;
         gameContext.phase.connect(new Slot<Phase>() {
             @Override
@@ -34,69 +29,54 @@ public class MapView {
             }
         });
         updateButtonStatus(gameContext.phase.get());
-        createMapStage(gameContext);
+        this.initMap();
     }
 
-    private void createMapStage(GameContext gameContext) {
-        this.gameContext = gameContext;
-        mapStage.setScene(initMap());
-    }
-
-    public void setRegionTravelButtons() {
-        africaRegion.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                if (!africaSpace.isVisible()) {
-                    setPlayerPosition(europeSpace, africaSpace);
-
-                }
-                gameContext.player1.setRegion(Regions.Africa);
-                new WraithEncounter(gameContext).show();
+    private void setRegionTravelButtons(){
+        africaRegion.setOnAction(event -> {
+            if(!africaSpace.isVisible()){
+                setPlayerPosition(europeSpace,africaSpace);
 
             }
+            gameContext.player1.setRegion(Regions.Africa);
+            gameContext.phase.update(Phase.ENCOUNTER);
+
         });
-        europeRegion.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                if (!europeSpace.isVisible()) {
-                    setPlayerPosition(africaSpace, europeSpace);
-                }
-                gameContext.player1.setRegion(Regions.Europe);
-                new WraithEncounter(gameContext).show();
+        europeRegion.setOnAction(event -> {
+            if(!europeSpace.isVisible()){
+                setPlayerPosition(africaSpace,europeSpace);
             }
-
+            gameContext.player1.setRegion(Regions.Europe);
+            gameContext.phase.update(Phase.ENCOUNTER);
         });
     }
 
-
-    private Scene initMap() {
-        StackPane layout = new StackPane();
-        Scene mapScene = new Scene(layout, 500, 500);
-        setRegionTravelButtons();
-        layout.getChildren().add(createMapImage());
-        layout.getChildren().add(africaRegion);
-        layout.getChildren().add(africaSpace);
-        layout.getChildren().add(europeRegion);
-        layout.getChildren().add(europeSpace);
-        setPlayerPosition(africaSpace, africaSpace);
-        return mapScene;
-
+    private void initMap(){
+        this.setRegionTravelButtons();
+        this.getChildren().add(createMapImage());
+        this.getChildren().add(africaRegion);
+        this.getChildren().add(africaSpace);
+        this.getChildren().add(europeRegion);
+        this.getChildren().add(europeSpace);
+        setPlayerPosition(africaSpace,africaSpace);
     }
 
-    private ImageView createMapImage() {
+    private ImageView createMapImage(){
         ImageView mapImageView = new ImageView(new Image(getClass().getResourceAsStream("/WorldMap.png")));
         mapImageView.setFitHeight(500);
         mapImageView.setFitWidth(500);
         return mapImageView;
     }
 
-    private Button createRegionButton(Regions regionName, double xPosition, double yPosition) {
+    private Button createRegionButton(Regions regionName, double xPosition, double yPosition){
         Button region = new Button(regionName.toString());
         region.setTranslateX(xPosition);
         region.setTranslateY(yPosition);
         return region;
     }
 
-    private Rectangle createPlayerSpace(double xPosition, double yPosition) {
-        Rectangle space = new Rectangle(20, 20);
+    private Rectangle createPlayerSpace(double xPosition, double yPosition){
+        Rectangle space = new Rectangle(20,20);
         space.setArcHeight(15);
         space.setArcWidth(15);
         space.setTranslateX(xPosition);
@@ -106,27 +86,19 @@ public class MapView {
         return space;
     }
 
-    private void setPlayerPosition(Rectangle playerCurrentSpace, Rectangle playerNewSpace) {
+    private void setPlayerPosition(Rectangle playerCurrentSpace, Rectangle playerNewSpace){
         playerCurrentSpace.setVisible(false);
         playerNewSpace.setVisible(true);
     }
 
-    public void updateButtonStatus(Phase phase) {
-        if (!phase.equals(Phase.MOVEMENT)) {
+    private void updateButtonStatus(Phase phase){
+        if(!phase.equals(Phase.MOVEMENT)){
             africaRegion.setDisable(true);
             europeRegion.setDisable(true);
-        } else {
+        }
+        else{
             africaRegion.setDisable(false);
             europeRegion.setDisable(false);
         }
     }
-
-    public Stage mapStage() {
-        return mapStage;
-    }
-
-    public void showMap() {
-        mapStage.show();
-    }
-
 }

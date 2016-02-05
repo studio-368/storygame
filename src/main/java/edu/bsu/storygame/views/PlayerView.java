@@ -11,55 +11,105 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 
 import javafx.scene.paint.Color;
+import react.RList;
+import react.Slot;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jessicalohse on 1/29/16.
  */
 public class PlayerView extends VBox {
 
-    Player player;
-    Rectangle playerBox = new Rectangle(200, 75);
-    Text name;
-    Text skills;
-    Rectangle diamond = new Rectangle(40, 40);
-    Text points;
-    StackPane pane = new StackPane();
+    private Rectangle playerBox = new Rectangle(200, 75);
+    private Text name;
+    private Text skills;
+    private Rectangle diamond = new Rectangle(40, 40);
+    private Text points;
+    private StackPane pane = new StackPane();
 
-    public PlayerView(Player player) {
-        this.player = player;
+    public PlayerView(final Player player) {
         playerBox.setFill(Paint.valueOf(player.getPlayerColor().toString()));
-        setName();
-        setSkills(player.getSkillString());
+        name = new Text(0, 0, player.getName());
+        StackPane.setAlignment(name, Pos.CENTER_LEFT);
+        StackPane.setMargin(name, new Insets(0, 0, 10, 10));
+        skills = new Text(10, 10, getSkillString(player.skills));
+        StackPane.setAlignment(skills, Pos.BOTTOM_LEFT);
+        StackPane.setMargin(skills, new Insets(10, 10, 10, 10));
         diamond.getTransforms().add(new Rotate(45));
         diamond.setFill(null);
         diamond.setStroke(Color.BLACK);
         StackPane.setAlignment(diamond, Pos.CENTER_RIGHT);
         StackPane.setMargin(diamond, new Insets(0, -10, 20, 0));
-        setPoints(Integer.toString(player.getTotalPoints()));
+        points = new Text(Integer.toString(player.totalPoints.get()));
+        StackPane.setAlignment(points, Pos.CENTER_RIGHT);
+        StackPane.setMargin(points, new Insets(0, 25, 0, 0));
         pane.getChildren().addAll(playerBox, name, skills, diamond, points);
         this.getChildren().add(0, pane);
+
+        player.skills.connect(new RList.Listener<String>() {
+            @Override
+            public void onAdd(String elem) {
+                if(getSkillText().equals("")){
+                    skills.setText(elem);
+                } else {
+                    skills.setText(getSkillText() + ", " + elem);
+                }
+                super.onAdd(elem);
+            }
+
+            @Override
+            public void onRemove(String elem) {
+                if(getSkillText().equals(elem)){
+                    skills.setText("");
+                } else {
+                    String[] skillsArray = getSkillText().split(", ");
+                    if(skillsArray[0].equals(elem)) {
+                        skills.setText(getSkillText().replace(elem + ", ", ""));
+                    } else {
+                        skills.setText(getSkillText().replace(", " + elem , ""));
+                    }
+                }
+                super.onRemove(elem);
+            }
+        });
+
+        player.totalPoints.connect(new Slot<Integer>() {
+            @Override
+            public void onEmit(Integer integer) {
+                points.setText(Integer.toString(integer));
+            }
+        });
     }
 
     public VBox getView() {
         return this;
     }
 
-    public void setName(){
-        name = new Text(0, 0, player.getName());
-        StackPane.setAlignment(name, Pos.CENTER_LEFT);
-        StackPane.setMargin(name, new Insets(0, 0, 10, 10));
+    public int getPoints(){
+        return Integer.parseInt(points.getText());
     }
 
-    public void setSkills(String skillString) {
-        skills = new Text(10, 10, skillString);
-        StackPane.setAlignment(skills, Pos.BOTTOM_LEFT);
-        StackPane.setMargin(skills, new Insets(10, 10, 10, 10));
+    public String getSkillText(){
+        return this.skills.getText();
     }
 
-    public void setPoints(String pointString){
-        points = new Text(pointString);
-        StackPane.setAlignment(points, Pos.CENTER_RIGHT);
-        StackPane.setMargin(points, new Insets(0, 25, 0, 0));
+    public String getSkillString(RList<String> skills){
+        String skillString = "";
+        if(skills.size() == 0){
+            return skillString;
+        } else if(skills.size() == 1){
+            return skills.get(0);
+        } else {
+            for (String skill :
+                    skills) {
+                skillString = skillString + skill + ", ";
+            }
+            skillString = skillString.substring(0, skillString.length() - 2);
+        }
+        return skillString;
     }
 
 }

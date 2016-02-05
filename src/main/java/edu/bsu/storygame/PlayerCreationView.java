@@ -1,13 +1,13 @@
 package edu.bsu.storygame;
 
-import edu.bsu.storygame.GameContext;
-import edu.bsu.storygame.Player;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public class PlayerCreationView {
     }
 
     private void createDefaultPlayer(){
-        Player player = new Player(null,null,null,null,0);
+        Player player = new Player("Name", Color.ALICEBLUE, "");
         playerList.add(player);
 
     }
