@@ -1,6 +1,7 @@
 package edu.bsu.storygame.views;
 
 import edu.bsu.storygame.Player;
+import edu.bsu.storygame.Skill;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
@@ -32,6 +33,7 @@ public class PlayerView extends VBox {
 
     public PlayerView(final Player player) {
         playerBox.setFill(Paint.valueOf(player.getPlayerColor().toString()));
+        StackPane.setAlignment(playerBox, Pos.BOTTOM_LEFT);
         name = new Text(0, 0, player.getName());
         StackPane.setAlignment(name, Pos.CENTER_LEFT);
         StackPane.setMargin(name, new Insets(0, 0, 10, 10));
@@ -41,27 +43,27 @@ public class PlayerView extends VBox {
         diamond.getTransforms().add(new Rotate(45));
         diamond.setFill(null);
         diamond.setStroke(Color.BLACK);
-        StackPane.setAlignment(diamond, Pos.CENTER_RIGHT);
-        StackPane.setMargin(diamond, new Insets(0, -10, 20, 0));
+        StackPane.setAlignment(diamond, Pos.CENTER_LEFT);
+        StackPane.setMargin(diamond, new Insets(0, 0, 20, 160));
         points = new Text(Integer.toString(player.totalPoints.get()));
-        StackPane.setAlignment(points, Pos.CENTER_RIGHT);
-        StackPane.setMargin(points, new Insets(0, 25, 0, 0));
+        StackPane.setAlignment(points, Pos.CENTER_LEFT);
+        StackPane.setMargin(points, new Insets(0, 0, 0, 160));
         pane.getChildren().addAll(playerBox, name, skills, diamond, points);
         this.getChildren().add(0, pane);
 
-        player.skills.connect(new RList.Listener<String>() {
+        player.skills.connect(new RList.Listener<Skill>() {
             @Override
-            public void onAdd(String elem) {
+            public void onAdd(Skill elem) {
                 if(getSkillText().equals("")){
-                    skills.setText(elem);
+                    skills.setText(elem.toString());
                 } else {
-                    skills.setText(getSkillText() + ", " + elem);
+                    skills.setText(getSkillText() + ", " + elem.toString());
                 }
                 super.onAdd(elem);
             }
 
             @Override
-            public void onRemove(String elem) {
+            public void onRemove(Skill elem) {
                 if(getSkillText().equals(elem)){
                     skills.setText("");
                 } else {
@@ -92,16 +94,16 @@ public class PlayerView extends VBox {
         return this.skills.getText();
     }
 
-    public String getSkillString(RList<String> skills){
+    public String getSkillString(RList<Skill> skills){
         String skillString = "";
         if(skills.size() == 0){
             return skillString;
         } else if(skills.size() == 1){
-            return skills.get(0);
+            return skills.get(0).toString();
         } else {
-            for (String skill :
+            for (Skill skill :
                     skills) {
-                skillString = skillString + skill + ", ";
+                skillString = skillString + skill.toString() + ", ";
             }
             skillString = skillString.substring(0, skillString.length() - 2);
         }

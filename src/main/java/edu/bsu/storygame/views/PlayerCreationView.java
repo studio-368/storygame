@@ -26,7 +26,6 @@ public class PlayerCreationView{
     private GridPane skillGrid;
     private Scene skillScreen;
     private Button ok;
-    private Player player = new Player("draco", Color.GREEN, "Africa");
     private ComboBox<Skill> skillTwoDropDown;
     private ComboBox<Skill> skillOneDropDown;
     private Label skillWarningLabel;
@@ -110,9 +109,9 @@ public class PlayerCreationView{
         Skill secondChoice= skillTwoDropDown.getValue();
         String name = playerName.getText();
         if(firstChoice!=null&&secondChoice!=null&&!name.equals("")) {
-            //player.addSkill(firstChoice);
-           // player.addSkill(secondChoice);
-            //player.setName(name);
+            Player player = new Player(name, Color.GREEN, "");
+            player.skills.add(firstChoice);
+            player.skills.add(secondChoice);
             context.players.add(player);
             context.phase.update(Phase.MOVEMENT);
         }

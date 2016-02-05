@@ -12,7 +12,7 @@ public class WraithEncounter {
 
     public void show() {
         EncounterView view = new EncounterView();
-        view.setRegion(context.getCurrentPlayer().getRegion());
+        view.setRegion(context.players.get(0).getRegion());
         view.setMonsterName("a wraith");
         configureChoices(view);
         view.show();
