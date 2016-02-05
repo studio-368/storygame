@@ -14,10 +14,10 @@ import react.Slot;
 public class MapView extends StackPane{
 
     private GameContext gameContext;
-    private final Button africaRegion = createRegionButton(Regions.Africa, 0,0);
-    private Rectangle africaSpace = createPlayerSpace(0, -22);
-    private final Button europeRegion = createRegionButton(Regions.Europe, 150,150);
-    private Rectangle europeSpace = createPlayerSpace(150, 128);
+    private final Button africaRegion = createRegionButton(Regions.Africa, 0,50);
+    private Rectangle africaSpace = createPlayerSpace(0, 29);
+    private final Button europeRegion = createRegionButton(Regions.Europe, 0,-25);
+    private Rectangle europeSpace = createPlayerSpace(0, -46);
 
 
     public MapView(GameContext gameContext){
