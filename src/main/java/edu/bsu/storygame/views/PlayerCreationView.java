@@ -79,13 +79,29 @@ public class PlayerCreationView{
         skillWarningLabel.setVisible(false);
         nameWarningLabel = new Label("Must enter a name");
         nameWarningLabel.setVisible(false);
-        ObservableList<Skill> listOfSkills = FXCollections.observableArrayList(Skill.LOGIC, Skill.MAGIC, Skill.PERSUASION,
-                Skill.WEAPON_USE);
+        ObservableList<Skill> listOfSkills = FXCollections.observableArrayList(Skill.values());
         skillOneDropDown = new ComboBox<>(listOfSkills);
         skillTwoDropDown = new ComboBox<>(listOfSkills);
+        skillOneDropDown.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(oldValue == null && newValue != null){
+                removeValueFrom(skillTwoDropDown,newValue);
+            }
+        });
+        skillTwoDropDown.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(oldValue == null && newValue != null){
+                removeValueFrom(skillOneDropDown,newValue);
+            }
+        });
         ok = new Button("OK");
         ok.setOnMouseClicked(e -> handleOkEvent());
         ok.setAlignment(Pos.BOTTOM_CENTER);
+    }
+
+    private void removeValueFrom(ComboBox<Skill> comboBox, Skill skill) {
+        ObservableList<Skill> changingList  = FXCollections.observableArrayList(Skill.LOGIC, Skill.MAGIC, Skill.PERSUASION,
+                Skill.WEAPON_USE);
+        changingList.remove(skill);
+        comboBox.setItems(changingList);
     }
 
     private void addItemsToGrid(){
