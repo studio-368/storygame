@@ -3,7 +3,6 @@ package edu.bsu.storygame.views;
 
 import edu.bsu.storygame.GameContext;
 import edu.bsu.storygame.Phase;
-import edu.bsu.storygame.Player;
 import edu.bsu.storygame.Skill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,10 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import react.Slot;
-
-import java.util.ArrayList;
 
 
 
@@ -26,7 +22,6 @@ public class PlayerCreationView{
     private GridPane skillGrid;
     private Scene skillScreen;
     private Button ok;
-    private Player player = new Player("draco", Color.GREEN, "Africa");
     private ComboBox<Skill> skillTwoDropDown;
     private ComboBox<Skill> skillOneDropDown;
     private Label skillWarningLabel;
