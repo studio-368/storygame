@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import react.Slot;
 
+import java.security.spec.ECField;
+
 
 public class StoryGame extends Application {
 
@@ -31,7 +33,14 @@ public class StoryGame extends Application {
                     primaryStage.setScene(setMapViewScene());
                 }
                 if (context.phase.get() == Phase.ENCOUNTER) {
-                    Encounter encounter = new EncounterTable().createEncounter(context);
+                    Encounter encounter;
+                    if(context.players.get(0).getRegion() == Regions.Africa){
+                        encounter = new EncounterTable().wraithEncounter(context);
+                    }
+                    else{
+                        encounter = new EncounterTable().cockatriceEncounter(context);
+                    }
+
                     EncounterView view = new EncounterView(encounter);
                     primaryStage.setScene(new Scene(view));
                 }

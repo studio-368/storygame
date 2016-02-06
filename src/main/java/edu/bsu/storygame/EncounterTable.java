@@ -6,19 +6,34 @@ import java.util.ArrayList;
 
 public class EncounterTable {
 
-    public Encounter createEncounter(GameContext context) {
+    public Encounter wraithEncounter(GameContext context) {
         ArrayList<String> reactions = new ArrayList<>();
         reactions.add("Run");
         reactions.add("Converse");
         reactions.add("Question");
         reactions.add("Attack");
         return Encounter.builder()
-                .setMonsterName("a wraith")
+                .setMonsterName("Wraith")
                 .setRegion(Regions.Africa)
                 .setReactions(reactions)
-                .setMonsterImage(new Image("wraith_temp.jpg"))
+                .setMonsterImage(new Image("Wraith.jpg"))
                 .build();
     }
+
+    public Encounter cockatriceEncounter(GameContext context){
+        ArrayList<String> reactions = new ArrayList<>();
+        reactions.add("Hug");
+        reactions.add("Converse");
+        reactions.add("Show it's Reflection");
+        reactions.add("Attack");
+        return Encounter.builder()
+                .setMonsterName("Cockatrice")
+                .setRegion(Regions.Europe)
+                .setReactions(reactions)
+                .setMonsterImage(new Image("Cockatrice.jpg"))
+                .build();
+    }
+
 
 
 }
