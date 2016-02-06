@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -10,11 +9,7 @@
          xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="regionLabel" text="Encounter in {region}"/>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image fx:id="monsterImage" url="wraith_temp.jpg"/>
-         </image>
-      </ImageView>
+      <ImageView fx:id="monsterImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true"/>
       <Label fx:id="monsterName" text="It's {monster}!"/>
       <Separator prefWidth="200.0"/>
       <Label text="What will you do?"/>
