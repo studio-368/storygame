@@ -45,7 +45,7 @@ public class StoryGame extends Application {
                         encounter = new EncounterTable().cockatriceEncounter(context);
                     }
 
-                    EncounterView view = new EncounterView(encounter, context);
+                    EncounterView view = new EncounterView(encounter);
                     primaryStage.setScene(new Scene(view));
                 }
 
