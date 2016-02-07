@@ -19,10 +19,10 @@ import java.util.List;
 
 public class MapView extends StackPane {
 
-    private GameContext gameContext;
     private final Button africaRegion = createRegionButton(Regions.Africa, 0,50);
-    private Rectangle africaSpace = createPlayerSpace(0, 29);
     private final Button europeRegion = createRegionButton(Regions.Europe, 0,-25);
+    private GameContext gameContext;
+    private Rectangle africaSpace = createPlayerSpace(0, 29);
     private Rectangle europeSpace = createPlayerSpace(0, -46);
 
 
@@ -44,7 +44,9 @@ public class MapView extends StackPane {
                 setPlayerPosition(europeSpace,africaSpace);
 
             }
-            gameContext.players.get(0).setRegion(Regions.Africa);
+            if(!gameContext.players.isEmpty()){
+                gameContext.players.get(0).setRegion(Regions.Africa);
+            }
             gameContext.phase.update(Phase.ENCOUNTER);
 
         });
@@ -52,7 +54,9 @@ public class MapView extends StackPane {
             if(!europeSpace.isVisible()){
                 setPlayerPosition(africaSpace,europeSpace);
             }
-            gameContext.players.get(0).setRegion(Regions.Europe);
+            if(!gameContext.players.isEmpty()){
+                    gameContext.players.get(0).setRegion(Regions.Europe);
+            }
             gameContext.phase.update(Phase.ENCOUNTER);
         });
     }
@@ -66,8 +70,10 @@ public class MapView extends StackPane {
         this.getChildren().add(europeSpace);
         setPlayerPosition(europeSpace,europeSpace);
         HBox hBox = new HBox();
-        PlayerView player1View = new PlayerView(gameContext.players.get(0));
-        hBox.getChildren().add(player1View);
+        if(!gameContext.players.isEmpty()){
+            PlayerView player1View = new PlayerView(gameContext.players.get(0));
+            hBox.getChildren().add(player1View);
+        }
         hBox.setTranslateY(425);
         this.getChildren().add(hBox);
     }
