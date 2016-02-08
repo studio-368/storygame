@@ -25,7 +25,6 @@ public class MapView extends StackPane {
     private final Button europeRegion = createRegionButton(Regions.Europe, 0,-25);
     private Rectangle europeSpace = createPlayerSpace(0, -46);
     private HBox hBox = new HBox();
-    private PlayerView player1View = new PlayerView(new Player("no Player", Color.WHITE)) ;
 
     public MapView(GameContext gameContext){
         this.gameContext = gameContext;
@@ -73,15 +72,12 @@ public class MapView extends StackPane {
         setPlayerPosition(europeSpace,europeSpace);
         hBox.setTranslateY(425);
         this.getChildren().add(hBox);
-        hBox.getChildren().add(player1View);
-
-    }
-
-    public void updatePlayerOverlay() {
-        if(!gameContext.players.isEmpty()){
-            player1View = new PlayerView(gameContext.players.get(0));
+        for (Player player: gameContext.players) {
+            hBox.getChildren().add(new PlayerView(player));
         }
+
     }
+
 
     private ImageView createMapImage(){
         ImageView mapImageView = new ImageView(new Image(getClass().getResourceAsStream("/WorldMap.png")));

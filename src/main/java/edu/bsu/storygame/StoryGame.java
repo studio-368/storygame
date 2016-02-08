@@ -7,7 +7,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import react.Slot;
-
+import react.UnitSlot;
 
 
 public class StoryGame extends Application {
@@ -17,46 +17,42 @@ public class StoryGame extends Application {
     }
 
     final GameContext context = new GameContext();
-    private MapView mapView = new MapView(context);
-    private Scene mapScene = new Scene(mapView);
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        context.phase.update(Phase.PLAYER_CREATION);
-        primaryStage.setScene(setPlayerCreationScene());
-        context.phase.connect(new Slot<Phase>() {
+        PlayerCreationView view = new PlayerCreationView(context);
+        primaryStage.setScene(view.getPlayerCreationScene());
+        view.onFinish.connect(new UnitSlot() {
             @Override
-            public void onEmit(Phase phase) {
+            public void onEmit() {
+                context.phase.connect(new Slot<Phase>() {
+                    @Override
+                    public void onEmit(Phase phase) {
+                        if(context.phase.get().equals(Phase.MOVEMENT)){
+                            MapView mapView = new MapView(context);
+                            primaryStage.setScene(new Scene(mapView));
+                        }
+                        if (context.phase.get() == Phase.ENCOUNTER) {
+                            Encounter encounter;
+                            if(context.players.get(0).getRegion() == Regions.Africa){
+                                encounter = new EncounterTable().wraithEncounter(context);
+                            }
+                            else{
+                                encounter = new EncounterTable().cockatriceEncounter(context);
+                            }
 
-                if(context.phase.get().equals(Phase.PLAYER_CREATION)){
-                    primaryStage.setScene(setPlayerCreationScene());
-                }
-                if(context.phase.get().equals(Phase.MOVEMENT)){
-                    mapView.updatePlayerOverlay();
-                    primaryStage.setScene(mapScene);
-                }
-                if (context.phase.get() == Phase.ENCOUNTER) {
-                    Encounter encounter;
-                    if(context.players.get(0).getRegion() == Regions.Africa){
-                        encounter = new EncounterTable().wraithEncounter(context);
+                            EncounterView view = new EncounterView(encounter,context);
+                            primaryStage.setScene(new Scene(view));
+                        }
+
                     }
-                    else{
-                        encounter = new EncounterTable().cockatriceEncounter(context);
-                    }
 
-                    EncounterView view = new EncounterView(encounter,context);
-                    primaryStage.setScene(new Scene(view));
-                }
-
+                });
+                context.phase.update(Phase.MOVEMENT);
             }
-
         });
 
         primaryStage.show();
-    }
-    private Scene setPlayerCreationScene(){
-        PlayerCreationView view = new PlayerCreationView(context);
-        return view.getPlayerCreationScene();
     }
 
     private Scene setMapViewScene() {

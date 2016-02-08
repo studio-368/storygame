@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import react.Slot;
-
+import react.UnitSignal;
 
 
 public class PlayerCreationView{
@@ -33,6 +33,7 @@ public class PlayerCreationView{
     private Label nameLabel;
     private TextField playerName;
     private GameContext context;
+    public final UnitSignal onFinish = new UnitSignal();
 
 
     public PlayerCreationView(GameContext context){
@@ -127,7 +128,7 @@ public class PlayerCreationView{
             player.skills.add(firstChoice);
             player.skills.add(secondChoice);
             context.players.add(player);
-            context.phase.update(Phase.MOVEMENT);
+            onFinish.emit();
         }
         else {
             skillWarningLabel.setVisible(true);
