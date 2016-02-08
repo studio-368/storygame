@@ -1,9 +1,6 @@
 package edu.bsu.storygame;
 
-import edu.bsu.storygame.views.EncounterView;
-import edu.bsu.storygame.views.GameWinView;
-import edu.bsu.storygame.views.MapView;
-import edu.bsu.storygame.views.PlayerCreationView;
+import edu.bsu.storygame.views.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -20,15 +17,14 @@ public class StoryGame extends Application {
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        context.phase.update(Phase.PLAYER_CREATION);
-        primaryStage.setScene(setPlayerCreationScene());
+        primaryStage.setScene(setIntroductionScene());
         context.phase.connect(new Slot<Phase>() {
             @Override
             public void onEmit(Phase phase) {
-                if(context.phase.get().equals(Phase.PLAYER_CREATION)){
+                if(context.phase.get() == Phase.PLAYER_CREATION){
                     primaryStage.setScene(setPlayerCreationScene());
                 }
-                if(context.phase.get().equals(Phase.MOVEMENT)){
+                if(context.phase.get() ==Phase.MOVEMENT){
                     if(checkWinningCondition(context.players.get(0))){
                         primaryStage.setScene(setWinningScene());
                     }
@@ -68,6 +64,11 @@ public class StoryGame extends Application {
     private Scene setWinningScene(){
         GameWinView view = new GameWinView();
         return view.getWinningScene();
+    }
+
+    private Scene setIntroductionScene(){
+        IntroductionView view = new IntroductionView(context);
+        return view.getIntroductionView();
     }
 
     private boolean checkWinningCondition(Player player){
