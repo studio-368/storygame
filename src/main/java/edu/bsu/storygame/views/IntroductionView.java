@@ -46,7 +46,6 @@ public class IntroductionView{
         image = new Image("Intro.png");
         imageView = new ImageView();
         imageView.setImage(image);
-
     }
 
     private void addUIVariables(){
