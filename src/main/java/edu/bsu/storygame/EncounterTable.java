@@ -6,7 +6,32 @@ import java.util.ArrayList;
 
 public class EncounterTable {
 
-    public Encounter wraithEncounter(GameContext context) {
+    private final GameContext context;
+
+    public EncounterTable(GameContext context) {
+        this.context = context;
+    }
+
+    public Encounter createEncounter() {
+        if (currentRegionIsWest()) {
+            return westEncounter();
+        }
+        return eastEncounter();
+    }
+
+    private boolean currentRegionIsWest() {
+        return context.players.get(0).getRegion() == Regions.Europe;
+    }
+
+    private Encounter westEncounter() {
+        return wraithEncounter();
+    }
+
+    private Encounter eastEncounter() {
+        return cockatriceEncounter();
+    }
+
+    public Encounter wraithEncounter() {
         ArrayList<String> reactions = new ArrayList<>();
         reactions.add("Run");
         reactions.add("Converse");
@@ -20,7 +45,7 @@ public class EncounterTable {
                 .build();
     }
 
-    public Encounter cockatriceEncounter(GameContext context){
+    public Encounter cockatriceEncounter() {
         ArrayList<String> reactions = new ArrayList<>();
         reactions.add("Hug");
         reactions.add("Converse");

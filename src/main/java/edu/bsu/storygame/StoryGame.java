@@ -17,6 +17,7 @@ public class StoryGame extends Application {
     }
 
     final GameContext context = new GameContext();
+    private EncounterTable encounterTable;
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
@@ -37,24 +38,16 @@ public class StoryGame extends Application {
                     }
                 }
                 if (context.phase.get() == Phase.ENCOUNTER) {
-                    Encounter encounter;
-                    if(context.players.get(0).getRegion() == Regions.Africa){
-                        encounter = new EncounterTable().wraithEncounter(context);
-                    }
-                    else{
-                        encounter = new EncounterTable().cockatriceEncounter(context);
-                    }
-
+                    Encounter encounter = encounterTable.createEncounter();
                     EncounterView view = new EncounterView(encounter);
                     primaryStage.setScene(new Scene(view));
                 }
-
             }
-
         });
-
+        encounterTable = new EncounterTable(context);
         primaryStage.show();
     }
+
     private Scene setPlayerCreationScene(){
         PlayerCreationView view = new PlayerCreationView(context);
         return view.getPlayerCreationScene();
@@ -71,12 +64,6 @@ public class StoryGame extends Application {
     }
 
     private boolean checkWinningCondition(Player player){
-        if(player.totalPoints.get().equals(context.winningPointTotal.get())){
-            return true;
-        }
-        else {
-            return false;
-
-        }
+        return player.totalPoints.get().equals(context.winningPointTotal.get());
     }
 }
