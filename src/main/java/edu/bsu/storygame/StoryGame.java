@@ -13,24 +13,25 @@ import react.UnitSlot;
 
 public class StoryGame extends Application {
 
+    final GameContext context = new GameContext();
+
     public static void main(String[] args) {
         launch(args);
     }
-
-    final GameContext context = new GameContext();
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
         PlayerCreationView view = new PlayerCreationView(context);
         primaryStage.setScene(view.getPlayerCreationScene());
+
         view.onFinish.connect(new UnitSlot() {
             @Override
             public void onEmit() {
                 context.phase.connect(new Slot<Phase>() {
                     @Override
                     public void onEmit(Phase phase) {
+                        MapView mapView = new MapView(context);
                         if(context.phase.get().equals(Phase.MOVEMENT)){
-                            MapView mapView = new MapView(context);
                             primaryStage.setScene(new Scene(mapView));
                         }
                         if (context.phase.get() == Phase.ENCOUNTER) {
@@ -53,11 +54,6 @@ public class StoryGame extends Application {
         });
 
         primaryStage.show();
-    }
-
-    private Scene setMapViewScene() {
-        return new Scene(new MapView(context));
-
     }
 
     private Scene setWinningScene(){

@@ -24,7 +24,7 @@ public class EncounterTable {
         ArrayList<String> reactions = new ArrayList<>();
         reactions.add("Hug");
         reactions.add("Converse");
-        reactions.add("Show it's Reflection");
+        reactions.add("Show its Reflection");
         reactions.add("Attack");
         return Encounter.builder()
                 .setMonsterName("Cockatrice")

@@ -4,7 +4,6 @@ import edu.bsu.storygame.GameContext;
 import edu.bsu.storygame.Phase;
 import edu.bsu.storygame.Player;
 import edu.bsu.storygame.Regions;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,22 +13,31 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import react.Slot;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MapView extends StackPane {
 
-    private GameContext gameContext;
     private final Button africaRegion = createRegionButton(Regions.Africa, 0,50);
-    private Rectangle africaSpace;
     private final Button europeRegion = createRegionButton(Regions.Europe, 0,-25);
+    private GameContext gameContext;
+
     private Rectangle europeSpace;
+    private Rectangle europeSpace2;
+    private Rectangle africaSpace;
+    private Rectangle africaSpace2;
     private HBox hBox = new HBox();
+    private int playerTurn = 0;
 
     public MapView(GameContext gameContext){
         this.gameContext = gameContext;
-        africaSpace = createPlayerSpace(0, 29, Regions.Africa);
-        europeSpace = createPlayerSpace(0, -46, Regions.Europe);
+
+
+        europeSpace = createPlayerSpace(-10, -50, gameContext.players.get(0).getPlayerColor());
+        europeSpace2 = createPlayerSpace(10, -50, gameContext.players.get(1).getPlayerColor());
+
+        africaSpace = createPlayerSpace(-10, 25, gameContext.players.get(0).getPlayerColor());
+        africaSpace2 = createPlayerSpace(10, 25, gameContext.players.get(1).getPlayerColor());
+        africaSpace.setVisible(false);
+        africaSpace2.setVisible(false);
+
         gameContext.phase.connect(new Slot<Phase>() {
             @Override
             public void onEmit(Phase phase) {
@@ -40,43 +48,70 @@ public class MapView extends StackPane {
         this.initMap();
     }
 
-    private void setRegionTravelButtons(){
-        africaRegion.setOnAction(event -> {
-            if(!africaSpace.isVisible()){
-                setPlayerPosition(europeSpace,africaSpace);
-
-            }
-            if(!gameContext.players.isEmpty()){
-                gameContext.players.get(0).setRegion(Regions.Africa);
-            }
-            gameContext.phase.update(Phase.ENCOUNTER);
-
-        });
-        europeRegion.setOnAction(event -> {
-            if(!europeSpace.isVisible()){
-                setPlayerPosition(africaSpace,europeSpace);
-            }
-            if(!gameContext.players.isEmpty()){
-                gameContext.players.get(0).setRegion(Regions.Europe);
-            }
-
-            gameContext.phase.update(Phase.ENCOUNTER);
-        });
-    }
-
     private void initMap(){
         this.setRegionTravelButtons();
         this.getChildren().add(createMapImage());
         this.getChildren().add(africaRegion);
-        this.getChildren().add(africaSpace);
         this.getChildren().add(europeRegion);
         this.getChildren().add(europeSpace);
-        setPlayerPosition(europeSpace,europeSpace);
+        this.getChildren().add(europeSpace2);
+        this.getChildren().add(africaSpace);
+        this.getChildren().add(africaSpace2);
         hBox.setTranslateY(425);
         this.getChildren().add(hBox);
         for (Player player: gameContext.players) {
             hBox.getChildren().add(new PlayerView(player));
         }
+
+    }
+
+    private void setRegionTravelButtons(){
+        africaRegion.setOnAction(event -> {
+                if(playerTurn == 0) {
+                    setPlayerPosition(europeSpace, africaSpace);
+                }
+                else{
+                    setPlayerPosition(europeSpace2,africaSpace2);
+                }
+
+            if(!gameContext.players.isEmpty()){
+                if(playerTurn == 0) {
+                    gameContext.players.get(0).setRegion(Regions.Africa);
+                }
+                else{
+                    gameContext.players.get(1).setRegion(Regions.Africa);
+                }
+
+            }
+            playerTurn++;
+            if(playerTurn > 1){
+                playerTurn = 0;
+            }
+          // gameContext.phase.update(Phase.ENCOUNTER);
+
+        });
+        europeRegion.setOnAction(event -> {
+                if(playerTurn == 0) {
+                    setPlayerPosition(africaSpace, europeSpace);
+                }
+                else{
+                    setPlayerPosition(africaSpace2,europeSpace2);
+                }
+            if(!gameContext.players.isEmpty()){
+                if(playerTurn == 0) {
+                    gameContext.players.get(0).setRegion(Regions.Europe);
+                }
+                else{
+                    gameContext.players.get(1).setRegion(Regions.Europe);
+                }
+
+            }
+            playerTurn++;
+            if(playerTurn > 1){
+                playerTurn = 0;
+            }
+           // gameContext.phase.update(Phase.ENCOUNTER);
+        });
 
     }
 
@@ -95,17 +130,13 @@ public class MapView extends StackPane {
         return region;
     }
 
-    private Rectangle createPlayerSpace(double xPosition, double yPosition, Regions region){
+    private Rectangle createPlayerSpace(double xPosition, double yPosition, Color playerColor){
         Rectangle space = new Rectangle(20,20);
         space.setArcHeight(15);
         space.setArcWidth(15);
         space.setTranslateX(xPosition);
         space.setTranslateY(yPosition);
-        for (Player player: gameContext.players) {
-            if(player.getRegion().equals(region)){
-                space.setFill(player.getPlayerColor());
-            }
-        }
+        space.setFill(playerColor);
         return space;
     }
 
