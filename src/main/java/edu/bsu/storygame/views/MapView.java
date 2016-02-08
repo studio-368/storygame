@@ -24,7 +24,8 @@ public class MapView extends StackPane {
     private Rectangle africaSpace = createPlayerSpace(0, 29);
     private final Button europeRegion = createRegionButton(Regions.Europe, 0,-25);
     private Rectangle europeSpace = createPlayerSpace(0, -46);
-
+    private HBox hBox = new HBox();
+    private PlayerView player1View = new PlayerView(new Player("no Player", Color.WHITE)) ;
 
     public MapView(GameContext gameContext){
         this.gameContext = gameContext;
@@ -44,7 +45,9 @@ public class MapView extends StackPane {
                 setPlayerPosition(europeSpace,africaSpace);
 
             }
-            gameContext.players.get(0).setRegion(Regions.Africa);
+            if(!gameContext.players.isEmpty()){
+                gameContext.players.get(0).setRegion(Regions.Africa);
+            }
             gameContext.phase.update(Phase.ENCOUNTER);
 
         });
@@ -52,7 +55,10 @@ public class MapView extends StackPane {
             if(!europeSpace.isVisible()){
                 setPlayerPosition(africaSpace,europeSpace);
             }
-            gameContext.players.get(0).setRegion(Regions.Europe);
+            if(!gameContext.players.isEmpty()){
+                gameContext.players.get(0).setRegion(Regions.Europe);
+            }
+
             gameContext.phase.update(Phase.ENCOUNTER);
         });
     }
@@ -65,11 +71,16 @@ public class MapView extends StackPane {
         this.getChildren().add(europeRegion);
         this.getChildren().add(europeSpace);
         setPlayerPosition(europeSpace,europeSpace);
-        HBox hBox = new HBox();
-        PlayerView player1View = new PlayerView(gameContext.players.get(0));
-        hBox.getChildren().add(player1View);
         hBox.setTranslateY(425);
         this.getChildren().add(hBox);
+        hBox.getChildren().add(player1View);
+
+    }
+
+    public void updatePlayerOverlay() {
+        if(!gameContext.players.isEmpty()){
+            player1View = new PlayerView(gameContext.players.get(0));
+        }
     }
 
     private ImageView createMapImage(){

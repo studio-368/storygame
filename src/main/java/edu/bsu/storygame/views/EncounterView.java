@@ -2,6 +2,8 @@ package edu.bsu.storygame.views;
 
 
 import edu.bsu.storygame.Encounter;
+import edu.bsu.storygame.GameContext;
+import edu.bsu.storygame.Phase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,10 +30,12 @@ public class EncounterView extends VBox {
     private Button confirmButton;
     private final Encounter encounter;
     private final ToggleGroup choiceGroup = new ToggleGroup();
+    private GameContext context;
 
-    public EncounterView(Encounter encounter) {
+    public EncounterView(Encounter encounter, GameContext context) {
         super();
         this.encounter = encounter;
+        this.context = context;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/EncounterView.fxml"));
         loader.setController(this);
         loader.setRoot(this);
@@ -73,7 +77,9 @@ public class EncounterView extends VBox {
 
     @FXML
     public void onConfirm(ActionEvent actionEvent) {
-        // Change phase?
+        confirmButton.setOnAction(event -> {
+            context.phase.update(Phase.MOVEMENT);
+        });
     }
 
     private final class ChoiceToggleButton extends ToggleButton {

@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import react.Slot;
 
-import java.security.spec.ECField;
 
 
 public class StoryGame extends Application {
@@ -18,6 +17,8 @@ public class StoryGame extends Application {
     }
 
     final GameContext context = new GameContext();
+    private MapView mapView = new MapView(context);
+    private Scene mapScene = new Scene(mapView);
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
@@ -26,11 +27,13 @@ public class StoryGame extends Application {
         context.phase.connect(new Slot<Phase>() {
             @Override
             public void onEmit(Phase phase) {
+
                 if(context.phase.get().equals(Phase.PLAYER_CREATION)){
                     primaryStage.setScene(setPlayerCreationScene());
                 }
                 if(context.phase.get().equals(Phase.MOVEMENT)){
-                    primaryStage.setScene(setMapViewScene());
+                    mapView.updatePlayerOverlay();
+                    primaryStage.setScene(mapScene);
                 }
                 if (context.phase.get() == Phase.ENCOUNTER) {
                     Encounter encounter;
@@ -41,7 +44,7 @@ public class StoryGame extends Application {
                         encounter = new EncounterTable().cockatriceEncounter(context);
                     }
 
-                    EncounterView view = new EncounterView(encounter);
+                    EncounterView view = new EncounterView(encounter,context);
                     primaryStage.setScene(new Scene(view));
                 }
 
