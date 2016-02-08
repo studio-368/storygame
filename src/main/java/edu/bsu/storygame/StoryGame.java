@@ -44,7 +44,7 @@ public class StoryGame extends Application {
                     primaryStage.setScene(new Scene(view));
                 }
                 if (context.phase.get() == Phase.STORY) {
-                    StoryIntroView storyIntro = new StoryIntroView(context);
+                    StoryIntroView storyIntro = new StoryIntroView();
                     primaryStage.setScene(new Scene(storyIntro));
                 }
 

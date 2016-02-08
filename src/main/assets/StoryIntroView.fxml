@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+<fx:root alignment="CENTER" prefHeight="400.0" prefWidth="600.0" type="VBox" xmlns="http://javafx.com/javafx/8"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <TextFlow prefHeight="200.0" prefWidth="400.0" textAlignment="CENTER">
+            <children>
+                <Text fx:id="storyText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                </Text>
+            </children>
+        </TextFlow>
+        <Label text="Which skill would you like to use?"/>
+        <HBox fx:id="skillChoices" alignment="CENTER" spacing="15.0"/>
+    </children>
+</fx:root>
