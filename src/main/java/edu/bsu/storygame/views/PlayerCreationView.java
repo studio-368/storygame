@@ -1,10 +1,7 @@
 package edu.bsu.storygame.views;
 
 
-import edu.bsu.storygame.GameContext;
-import edu.bsu.storygame.Phase;
-import edu.bsu.storygame.Player;
-import edu.bsu.storygame.Skill;
+import edu.bsu.storygame.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -128,6 +125,7 @@ public class PlayerCreationView {
                 player = new Player(name, Color.RED);
             } else {
                 player = new Player(name, Color.YELLOW);
+                player.setRegion(Regions.Africa);
             }
             player.skills.add(firstChoice);
             player.skills.add(secondChoice);

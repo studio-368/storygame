@@ -28,8 +28,8 @@ public class MapView extends StackPane {
 
     public MapView(GameContext gameContext){
         this.gameContext = gameContext;
-        africaSpace = createPlayerSpace(0, 29);
-        europeSpace = createPlayerSpace(0, -46);
+        africaSpace = createPlayerSpace(0, 29, Regions.Africa);
+        europeSpace = createPlayerSpace(0, -46, Regions.Europe);
         gameContext.phase.connect(new Slot<Phase>() {
             @Override
             public void onEmit(Phase phase) {
@@ -95,14 +95,17 @@ public class MapView extends StackPane {
         return region;
     }
 
-    private Rectangle createPlayerSpace(double xPosition, double yPosition){
+    private Rectangle createPlayerSpace(double xPosition, double yPosition, Regions region){
         Rectangle space = new Rectangle(20,20);
         space.setArcHeight(15);
         space.setArcWidth(15);
         space.setTranslateX(xPosition);
         space.setTranslateY(yPosition);
-        space.setFill(gameContext.players.get(0).getPlayerColor());
-        space.setVisible(false);
+        for (Player player: gameContext.players) {
+            if(player.getRegion().equals(region)){
+                space.setFill(player.getPlayerColor());
+            }
+        }
         return space;
     }
 
