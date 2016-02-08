@@ -123,7 +123,12 @@ public class PlayerCreationView {
         Skill secondChoice = skillTwoDropDown.getValue();
         String name = playerName.getText();
         if (firstChoice != null && secondChoice != null && !name.equals("")) {
-            Player player = new Player(name, Color.GREEN);
+            Player player;
+            if(context.players.size() == 0) {
+                player = new Player(name, Color.RED);
+            } else {
+                player = new Player(name, Color.YELLOW);
+            }
             player.skills.add(firstChoice);
             player.skills.add(secondChoice);
             context.players.add(player);

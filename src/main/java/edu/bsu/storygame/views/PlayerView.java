@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class PlayerView extends VBox {
 
-    private Rectangle playerBox = new Rectangle(200, 75);
+    private Rectangle playerBox = new Rectangle(250, 75);
     private Text name;
     private Text skills;
     private Rectangle diamond = new Rectangle(40, 40);

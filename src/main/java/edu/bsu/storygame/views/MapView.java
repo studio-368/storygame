@@ -21,13 +21,15 @@ public class MapView extends StackPane {
 
     private GameContext gameContext;
     private final Button africaRegion = createRegionButton(Regions.Africa, 0,50);
-    private Rectangle africaSpace = createPlayerSpace(0, 29);
+    private Rectangle africaSpace;
     private final Button europeRegion = createRegionButton(Regions.Europe, 0,-25);
-    private Rectangle europeSpace = createPlayerSpace(0, -46);
+    private Rectangle europeSpace;
     private HBox hBox = new HBox();
 
     public MapView(GameContext gameContext){
         this.gameContext = gameContext;
+        africaSpace = createPlayerSpace(0, 29);
+        europeSpace = createPlayerSpace(0, -46);
         gameContext.phase.connect(new Slot<Phase>() {
             @Override
             public void onEmit(Phase phase) {
@@ -99,7 +101,7 @@ public class MapView extends StackPane {
         space.setArcWidth(15);
         space.setTranslateX(xPosition);
         space.setTranslateY(yPosition);
-        space.setFill(Color.RED);
+        space.setFill(gameContext.players.get(0).getPlayerColor());
         space.setVisible(false);
         return space;
     }
