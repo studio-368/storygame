@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class PlayerView extends VBox {
 
-    private Rectangle playerBox = new Rectangle(200, 75);
+    private Rectangle playerBox = new Rectangle(250, 75);
     private Text name;
     private Text skills;
     private Rectangle diamond = new Rectangle(40, 40);
@@ -50,6 +50,7 @@ public class PlayerView extends VBox {
         StackPane.setMargin(points, new Insets(0, 0, 0, 160));
         pane.getChildren().addAll(playerBox, name, skills, diamond, points);
         this.getChildren().add(0, pane);
+
 
         player.skills.connect(new RList.Listener<Skill>() {
             @Override
