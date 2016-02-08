@@ -80,25 +80,41 @@ public class PlayerCreationView {
         skillWarningLabel.setVisible(false);
         nameWarningLabel = new Label("Must enter a name");
         nameWarningLabel.setVisible(false);
-        ObservableList<Skill> listOfSkills = FXCollections.observableArrayList(Skill.LOGIC, Skill.MAGIC, Skill.PERSUASION,
-                Skill.WEAPON_USE);
+        ObservableList<Skill> listOfSkills = FXCollections.observableArrayList(Skill.values());
         skillOneDropDown = new ComboBox<>(listOfSkills);
         skillTwoDropDown = new ComboBox<>(listOfSkills);
+        skillOneDropDown.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(oldValue == null && newValue != null){
+                removeValueFrom(skillTwoDropDown,newValue);
+            }
+        });
+        skillTwoDropDown.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(oldValue == null && newValue != null){
+                removeValueFrom(skillOneDropDown,newValue);
+            }
+        });
         ok = new Button("OK");
         ok.setOnMouseClicked(e -> handleOkEvent());
         ok.setAlignment(Pos.BOTTOM_CENTER);
     }
 
-    private void addItemsToGrid() {
-        skillGrid.add(nameLabel, 4, 0, 2, 1);
-        skillGrid.add(playerName, 1, 0, 2, 1);
-        skillGrid.add(listOneLabel, 0, 2, 2, 1);
-        skillGrid.add(listTwoLabel, 4, 2, 2, 1);
-        skillGrid.add(skillWarningLabel, 0, 6, 5, 1);
-        skillGrid.add(nameWarningLabel, 0, 7, 5, 1);
-        skillGrid.add(skillOneDropDown, 0, 3, 2, 1);
-        skillGrid.add(skillTwoDropDown, 4, 3, 2, 1);
-        skillGrid.add(ok, 2, 4, 2, 1);
+    private void removeValueFrom(ComboBox<Skill> comboBox, Skill skill) {
+        ObservableList<Skill> changingList  = FXCollections.observableArrayList(Skill.LOGIC, Skill.MAGIC, Skill.PERSUASION,
+                Skill.WEAPON_USE);
+        changingList.remove(skill);
+        comboBox.setItems(changingList);
+    }
+
+    private void addItemsToGrid(){
+        skillGrid.add(nameLabel, 4,0,2,1);
+        skillGrid.add(playerName,1,0,2,1);
+        skillGrid.add(listOneLabel,0,2,2,1);
+        skillGrid.add(listTwoLabel,4,2,2,1);
+        skillGrid.add(skillWarningLabel,0,6,5,1);
+        skillGrid.add(nameWarningLabel,0,7,5,1);
+        skillGrid.add(skillOneDropDown,0,3,2,1);
+        skillGrid.add(skillTwoDropDown,4,3,2,1);
+        skillGrid.add(ok,2,4,2,1);
     }
 
     private void handleOkEvent() {
