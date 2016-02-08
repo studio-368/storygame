@@ -3,6 +3,7 @@ package edu.bsu.storygame;
 import edu.bsu.storygame.views.EncounterView;
 import edu.bsu.storygame.views.MapView;
 import edu.bsu.storygame.views.PlayerCreationView;
+import edu.bsu.storygame.views.StoryIntroView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -41,6 +42,10 @@ public class StoryGame extends Application {
 
                     EncounterView view = new EncounterView(encounter,context);
                     primaryStage.setScene(new Scene(view));
+                }
+                if (context.phase.get() == Phase.STORY) {
+                    StoryIntroView storyIntro = new StoryIntroView(context);
+                    primaryStage.setScene(new Scene(storyIntro));
                 }
 
             }
