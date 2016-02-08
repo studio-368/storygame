@@ -21,13 +21,15 @@ public class MapView extends StackPane {
 
     private GameContext gameContext;
     private final Button africaRegion = createRegionButton(Regions.Africa, 0,50);
-    private Rectangle africaSpace = createPlayerSpace(0, 29);
+    private Rectangle africaSpace;
     private final Button europeRegion = createRegionButton(Regions.Europe, 0,-25);
-    private Rectangle europeSpace = createPlayerSpace(0, -46);
-
+    private Rectangle europeSpace;
+    private HBox hBox = new HBox();
 
     public MapView(GameContext gameContext){
         this.gameContext = gameContext;
+        africaSpace = createPlayerSpace(0, 29, Regions.Africa);
+        europeSpace = createPlayerSpace(0, -46, Regions.Europe);
         gameContext.phase.connect(new Slot<Phase>() {
             @Override
             public void onEmit(Phase phase) {
@@ -44,7 +46,9 @@ public class MapView extends StackPane {
                 setPlayerPosition(europeSpace,africaSpace);
 
             }
-            gameContext.players.get(0).setRegion(Regions.Africa);
+            if(!gameContext.players.isEmpty()){
+                gameContext.players.get(0).setRegion(Regions.Africa);
+            }
             gameContext.phase.update(Phase.ENCOUNTER);
 
         });
@@ -52,7 +56,10 @@ public class MapView extends StackPane {
             if(!europeSpace.isVisible()){
                 setPlayerPosition(africaSpace,europeSpace);
             }
-            gameContext.players.get(0).setRegion(Regions.Europe);
+            if(!gameContext.players.isEmpty()){
+                gameContext.players.get(0).setRegion(Regions.Europe);
+            }
+
             gameContext.phase.update(Phase.ENCOUNTER);
         });
     }
@@ -65,12 +72,14 @@ public class MapView extends StackPane {
         this.getChildren().add(europeRegion);
         this.getChildren().add(europeSpace);
         setPlayerPosition(europeSpace,europeSpace);
-        HBox hBox = new HBox();
-        PlayerView player1View = new PlayerView(gameContext.players.get(0));
-        hBox.getChildren().add(player1View);
         hBox.setTranslateY(425);
         this.getChildren().add(hBox);
+        for (Player player: gameContext.players) {
+            hBox.getChildren().add(new PlayerView(player));
+        }
+
     }
+
 
     private ImageView createMapImage(){
         ImageView mapImageView = new ImageView(new Image(getClass().getResourceAsStream("/WorldMap.png")));
@@ -86,14 +95,17 @@ public class MapView extends StackPane {
         return region;
     }
 
-    private Rectangle createPlayerSpace(double xPosition, double yPosition){
+    private Rectangle createPlayerSpace(double xPosition, double yPosition, Regions region){
         Rectangle space = new Rectangle(20,20);
         space.setArcHeight(15);
         space.setArcWidth(15);
         space.setTranslateX(xPosition);
         space.setTranslateY(yPosition);
-        space.setFill(Color.RED);
-        space.setVisible(false);
+        for (Player player: gameContext.players) {
+            if(player.getRegion().equals(region)){
+                space.setFill(player.getPlayerColor());
+            }
+        }
         return space;
     }
 
