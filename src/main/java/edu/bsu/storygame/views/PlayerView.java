@@ -51,6 +51,7 @@ public class PlayerView extends VBox {
         pane.getChildren().addAll(playerBox, name, skills, diamond, points);
         this.getChildren().add(0, pane);
 
+
         player.skills.connect(new RList.Listener<Skill>() {
             @Override
             public void onAdd(Skill elem) {
