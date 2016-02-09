@@ -1,78 +1,23 @@
 package edu.bsu.storygame;
 
+import com.google.common.collect.ImmutableList;
 import javafx.scene.image.Image;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 public class Encounter {
 
-    public static class Builder {
-        private String monsterName;
-        private Regions region;
-        private List<String> reactions = new ArrayList<>();
-        private Image monsterImage;
+    public final String monsterName;
+    public final String narrative;
+    public final Regions region;
+    public final ImmutableList<Reaction> reactions;
+    public final Image monsterImage;
 
-        public Builder setMonsterName(String monsterName) {
-            this.monsterName = monsterName;
-            return this;
-        }
-
-        public Builder setRegion(Regions region) {
-            this.region = region;
-            return this;
-        }
-
-        public Builder setReactions(List<String> reactions) {
-            this.reactions = reactions;
-            return this;
-        }
-
-        public Builder addReaction(String reaction) {
-            reactions.add(reaction);
-            return this;
-        }
-
-        public Builder setMonsterImage(Image monsterImage) {
-            this.monsterImage = monsterImage;
-            return this;
-        }
-
-        public Encounter build() {
-            return new Encounter(this);
-        }
-    }
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    private final String monsterName;
-    private final Regions region;
-    private final String[] reactions;
-    private final Image monsterImage;
-
-    private Encounter(Builder builder) {
-        monsterName = builder.monsterName;
-        region = builder.region;
-        reactions = new String[builder.reactions.size()];
-        builder.reactions.toArray(reactions);
-        monsterImage = builder.monsterImage;
-    }
-
-    public String getMonsterName() {
-        return monsterName;
-    }
-
-    public Regions getRegion() {
-        return region;
-    }
-
-    public String[] getReactions() {
-        return reactions;
-    }
-
-    public Image getMonsterImage() {
-        return monsterImage;
+    public Encounter(String monsterName, String narrative, Regions region, Collection<Reaction> reactions, Image monsterImage) {
+        this.monsterName = monsterName;
+        this.narrative = narrative;
+        this.region = region;
+        this.reactions = ImmutableList.copyOf(reactions);
+        this.monsterImage = monsterImage;
     }
 }

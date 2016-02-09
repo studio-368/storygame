@@ -4,6 +4,7 @@ package edu.bsu.storygame.views;
 import edu.bsu.storygame.Encounter;
 import edu.bsu.storygame.GameContext;
 import edu.bsu.storygame.Phase;
+import edu.bsu.storygame.Reaction;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +24,7 @@ public class EncounterView extends VBox {
     @FXML
     private ImageView monsterImageView;
     @FXML
-    private Label monsterName;
+    private Label monsterNarrative;
     @FXML
     private VBox choices;
     @FXML
@@ -53,27 +54,27 @@ public class EncounterView extends VBox {
 
     private void populate() {
         setRegion();
-        setMonsterName();
+        setMonsterNarrative();
         setImage();
         addChoices();
     }
 
     private void setRegion() {
-        regionLabel.setText("Encounter in " + encounter.getRegion());
+        regionLabel.setText("Encounter in " + encounter.region);
     }
 
-    private void setMonsterName() {
-        monsterName.setText("It's " + encounter.getMonsterName() + "!");
+    private void setMonsterNarrative() {
+        monsterNarrative.setText(encounter.narrative);
     }
 
     private void setImage() {
-        monsterImageView.setImage(encounter.getMonsterImage());
+        monsterImageView.setImage(encounter.monsterImage);
     }
 
     private void addChoices() {
         ToggleButton newChoiceButton;
-        for (String choice : encounter.getReactions()) {
-            newChoiceButton = new ChoiceToggleButton(choice);
+        for (Reaction reaction : encounter.reactions) {
+            newChoiceButton = new ChoiceToggleButton(reaction);
             choices.getChildren().add(newChoiceButton);
         }
     }
@@ -86,8 +87,11 @@ public class EncounterView extends VBox {
     }
 
     private final class ChoiceToggleButton extends ToggleButton {
-        public ChoiceToggleButton(String choice) {
-            super(choice);
+        public final Reaction reaction;
+
+        public ChoiceToggleButton(Reaction reaction) {
+            super(reaction.toString());
+            this.reaction = reaction;
             setToggleGroup(choiceGroup);
             setOnAction(event -> choose());
         }
