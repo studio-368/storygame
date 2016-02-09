@@ -6,13 +6,11 @@ import static org.junit.Assert.assertEquals;
 
 public class ReactionTest {
 
-    private static final Reaction REACTION_TEST = Reaction.builder()
-            .setName("Attack")
-            .build();
+    private static final Reaction REACTION_TEST = new Reaction("Attack");
 
     @Test
     public void testReactionIsAttack() {
-        assertEquals("Attack", REACTION_TEST.getName());
+        assertEquals("Attack", REACTION_TEST.name);
     }
 
 }

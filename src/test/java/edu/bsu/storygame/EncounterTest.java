@@ -10,18 +10,10 @@ public class EncounterTest {
 
     private static final Image IMAGE_TEST = mock(Image.class);
     private static final Reaction[] REACTIONS_TEST = {
-            Reaction.builder()
-                    .setName("Run")
-                    .build(),
-            Reaction.builder()
-                    .setName("Converse")
-                    .build(),
-            Reaction.builder()
-                    .setName("Question")
-                    .build(),
-            Reaction.builder()
-                    .setName("Attack")
-                    .build(),
+            new Reaction("Run"),
+            new Reaction("Converse"),
+            new Reaction("Question"),
+            new Reaction("Attack")
     };
     private static final Encounter ENCOUNTER_TEST = new Encounter(
             "a wraith",
@@ -57,7 +49,7 @@ public class EncounterTest {
         String[] expectedReactions = {"Run", "Converse", "Question", "Attack"};
         Reaction[] testReactions = ENCOUNTER_TEST.reactions;
         for (int i = 0; i < testReactions.length; i++) {
-            assertEquals(expectedReactions[i], testReactions[i].getName());
+            assertEquals(expectedReactions[i], testReactions[i].name);
         }
     }
 }

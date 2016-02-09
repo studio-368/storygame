@@ -31,15 +31,9 @@ public class EncounterTable {
 
     public Encounter wraithEncounter() {
         Reaction[] reactions = {
-                Reaction.builder()
-                        .setName("Talk")
-                        .build(),
-                Reaction.builder()
-                        .setName("Attack")
-                        .build(),
-                Reaction.builder()
-                        .setName("Run")
-                        .build()
+                new Reaction("Talk"),
+                new Reaction("Attack"),
+                new Reaction("Run")
         };
         return new Encounter(
                 "Wraith",
@@ -51,15 +45,9 @@ public class EncounterTable {
 
     public Encounter cockatriceEncounter() {
         Reaction[] reactions = {
-                Reaction.builder()
-                        .setName("Talk")
-                        .build(),
-                Reaction.builder()
-                        .setName("Attack")
-                        .build(),
-                Reaction.builder()
-                        .setName("Run")
-                        .build()
+                new Reaction("Talk"),
+                new Reaction("Attack"),
+                new Reaction("Run")
         };
         return new Encounter(
                 "Cockatrice",
