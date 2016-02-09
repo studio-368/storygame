@@ -9,16 +9,28 @@ import static org.mockito.Mockito.mock;
 public class EncounterTest {
 
     private static final Image IMAGE_TEST = mock(Image.class);
-    private static final Encounter ENCOUNTER_TEST = Encounter.builder()
-            .setMonsterName("a wraith")
-            .setNarrative("You've encountered a wraith!")
-            .setMonsterImage(IMAGE_TEST)
-            .setRegion(Regions.Europe)
-            .addReaction(Reaction.builder().setName("Run").build())
-            .addReaction(Reaction.builder().setName("Converse").build())
-            .addReaction(Reaction.builder().setName("Question").build())
-            .addReaction(Reaction.builder().setName("Attack").build())
-            .build();
+    private static final Reaction[] REACTIONS_TEST = {
+            Reaction.builder()
+                    .setName("Run")
+                    .build(),
+            Reaction.builder()
+                    .setName("Converse")
+                    .build(),
+            Reaction.builder()
+                    .setName("Question")
+                    .build(),
+            Reaction.builder()
+                    .setName("Attack")
+                    .build(),
+    };
+    private static final Encounter ENCOUNTER_TEST = new Encounter(
+            "a wraith",
+            "You've encountered a wraith!",
+            Regions.Europe,
+            REACTIONS_TEST,
+            IMAGE_TEST
+    );
+
 
     @Test
     public void testEncounterNameIsWraith() {
