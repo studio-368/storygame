@@ -49,6 +49,10 @@ public class StoryGame extends Application {
                                     EncounterView view = new EncounterView(encounter, context);
                                     primaryStage.setScene(new Scene(view));
                                 }
+                                if (context.phase.get() == Phase.STORY) {
+                                    StoryIntroView storyIntro = new StoryIntroView();
+                                    primaryStage.setScene(new Scene(storyIntro));
+                                }
                             }
 
                         });
