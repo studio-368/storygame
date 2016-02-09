@@ -16,7 +16,7 @@ public class Result {
     }
 
     public void doResult(GameContext context) {
-        Player currentPlayer = context.players.get(0);
+        Player currentPlayer = context.players.get(context.currentPlayer.get());
         currentPlayer.totalPoints.update(currentPlayer.totalPoints.get() + storyPointsDelta);
     }
 
