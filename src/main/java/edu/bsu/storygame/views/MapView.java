@@ -5,6 +5,7 @@ import edu.bsu.storygame.Phase;
 import edu.bsu.storygame.Player;
 import edu.bsu.storygame.Regions;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -24,6 +25,7 @@ public class MapView extends StackPane {
     private Rectangle africaSpace;
     private Rectangle africaSpace2;
     private HBox hBox = new HBox();
+    private Label turn = new Label();
     private int playerTurn = 0;
 
     public MapView(GameContext gameContext){
@@ -58,6 +60,12 @@ public class MapView extends StackPane {
         this.getChildren().add(africaSpace);
         this.getChildren().add(africaSpace2);
         hBox.setTranslateY(425);
+        turn.setText(gameContext.players.get(playerTurn).getName() + "'s turn");
+        turn.setTextFill(gameContext.players.get(playerTurn).getPlayerColor());
+        this.getChildren().add(turn);
+        turn.setTranslateX(0);
+        turn.setTranslateY(150);
+
         this.getChildren().add(hBox);
         for (Player player: gameContext.players) {
             hBox.getChildren().add(new PlayerView(player));
@@ -69,17 +77,19 @@ public class MapView extends StackPane {
         africaRegion.setOnAction(event -> {
                 if(playerTurn == 0) {
                     setPlayerPosition(europeSpace, africaSpace);
-                    boolean visbile = africaSpace.isVisible();
                     gameContext.players.get(0).setRegion(Regions.Africa);
                 }
                 else{
                     setPlayerPosition(europeSpace2,africaSpace2);
                     gameContext.players.get(1).setRegion(Regions.Africa);
+
                 }
             playerTurn++;
             if(playerTurn > 1){
                 playerTurn = 0;
             }
+            turn.setText(gameContext.players.get(playerTurn).getName() + "'s turn");
+            turn.setTextFill(gameContext.players.get(playerTurn).getPlayerColor());
            gameContext.phase.update(Phase.ENCOUNTER);
 
         });
@@ -96,6 +106,8 @@ public class MapView extends StackPane {
             if(playerTurn > 1){
                 playerTurn = 0;
             }
+            turn.setText(gameContext.players.get(playerTurn).getName() + "'s turn");
+            turn.setTextFill(gameContext.players.get(playerTurn).getPlayerColor());
             gameContext.phase.update(Phase.ENCOUNTER);
         });
 
