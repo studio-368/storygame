@@ -26,7 +26,6 @@ public class MapView extends StackPane {
     private Rectangle africaSpace2;
     private HBox hBox = new HBox();
     private Label turn = new Label();
-    private int playerTurn = 0;
 
     public MapView(GameContext gameContext){
         this.gameContext = gameContext;
@@ -60,8 +59,6 @@ public class MapView extends StackPane {
         this.getChildren().add(africaSpace);
         this.getChildren().add(africaSpace2);
         hBox.setTranslateY(425);
-        turn.setText(gameContext.players.get(playerTurn).getName() + "'s turn");
-        turn.setTextFill(gameContext.players.get(playerTurn).getPlayerColor());
         this.getChildren().add(turn);
         turn.setTranslateX(0);
         turn.setTranslateY(150);
@@ -75,7 +72,7 @@ public class MapView extends StackPane {
 
     private void setRegionTravelButtons(){
         africaRegion.setOnAction(event -> {
-                if(playerTurn == 0) {
+                if(gameContext.currentPlayer.get() == 0) {
                     setPlayerPosition(europeSpace, africaSpace);
                     gameContext.players.get(0).setRegion(Regions.Africa);
                 }
@@ -84,17 +81,11 @@ public class MapView extends StackPane {
                     gameContext.players.get(1).setRegion(Regions.Africa);
 
                 }
-            playerTurn++;
-            if(playerTurn > 1){
-                playerTurn = 0;
-            }
-            turn.setText(gameContext.players.get(playerTurn).getName() + "'s turn");
-            turn.setTextFill(gameContext.players.get(playerTurn).getPlayerColor());
            gameContext.phase.update(Phase.ENCOUNTER);
 
         });
         europeRegion.setOnAction(event -> {
-                if(playerTurn == 0) {
+                if(gameContext.currentPlayer.get() == 0) {
                     setPlayerPosition(africaSpace, europeSpace);
                     gameContext.players.get(0).setRegion(Regions.Europe);
                 }
@@ -102,12 +93,6 @@ public class MapView extends StackPane {
                     setPlayerPosition(africaSpace2,europeSpace2);
                     gameContext.players.get(1).setRegion(Regions.Europe);
                 }
-            playerTurn++;
-            if(playerTurn > 1){
-                playerTurn = 0;
-            }
-            turn.setText(gameContext.players.get(playerTurn).getName() + "'s turn");
-            turn.setTextFill(gameContext.players.get(playerTurn).getPlayerColor());
             gameContext.phase.update(Phase.ENCOUNTER);
         });
 
