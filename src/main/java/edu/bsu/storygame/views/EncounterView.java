@@ -28,6 +28,9 @@ public class EncounterView extends VBox {
     private VBox choices;
     @FXML
     private Button confirmButton;
+    @FXML
+    private Label promptText;
+
     private final Encounter encounter;
     private final ToggleGroup choiceGroup = new ToggleGroup();
     private GameContext context;
@@ -92,6 +95,8 @@ public class EncounterView extends VBox {
         private void choose() {
             boolean isChoiceSelected = choiceGroup.getSelectedToggle() != null;
             confirmButton.setDisable(!isChoiceSelected);
+            promptText.setText("Hand off to the next player!");
+            promptText.setStyle("-fx-font-weight: bold;");
         }
     }
 }

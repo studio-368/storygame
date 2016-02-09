@@ -1,9 +1,6 @@
 package edu.bsu.storygame;
 
-import edu.bsu.storygame.views.EncounterView;
-import edu.bsu.storygame.views.GameWinView;
-import edu.bsu.storygame.views.MapView;
-import edu.bsu.storygame.views.PlayerCreationView;
+import edu.bsu.storygame.views.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -20,57 +17,59 @@ public class StoryGame extends Application {
         launch(args);
     }
 
+    private EncounterTable encounterTable;
+
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        PlayerCreationView view = new PlayerCreationView(context);
-        primaryStage.setScene(view.getPlayerCreationScene());
-
-        view.onFinish.connect(new UnitSlot() {
+        IntroductionSplashView splashView = new IntroductionSplashView(context);
+        primaryStage.setScene(splashView.getIntroductionView());
+        splashView.onFinish.connect(new UnitSlot() {
             @Override
             public void onEmit() {
-                context.phase.connect(new Slot<Phase>() {
+                PlayerCreationView view = new PlayerCreationView(context);
+                primaryStage.setScene(view.getPlayerCreationScene());
+                view.onFinish.connect(new UnitSlot() {
                     @Override
-                    public void onEmit(Phase phase) {
-                        if(context.phase.get().equals(Phase.MOVEMENT)){
-                            if(mapView == null){
-                                mapView = new Scene(new MapView(context));
-                            }
-                            primaryStage.setScene(mapView);
-                        }
-                        if (context.phase.get() == Phase.ENCOUNTER) {
-                            Encounter encounter;
-                            if(context.players.get(0).getRegion() == Regions.Africa){
-                                encounter = new EncounterTable().wraithEncounter(context);
-                            }
-                            else{
-                                encounter = new EncounterTable().cockatriceEncounter(context);
+                    public void onEmit() {
+                        context.phase.connect(new Slot<Phase>() {
+                            @Override
+                            public void onEmit(Phase phase) {
+                                if (context.phase.get().equals(Phase.MOVEMENT)) {
+
+                                    if (checkWinningCondition(context.players.get(0))) {
+                                        primaryStage.setScene(setWinningScene());
+                                    }
+                                    else if (mapView == null) {
+                                        mapView = new Scene(new MapView(context));
+                                    }
+                                    primaryStage.setScene(mapView);
+                                }
+                                if (context.phase.get() == Phase.ENCOUNTER) {
+                                    Encounter encounter = encounterTable.createEncounter();
+                                    EncounterView view = new EncounterView(encounter, context);
+                                    primaryStage.setScene(new Scene(view));
+                                }
                             }
 
-                            EncounterView view = new EncounterView(encounter,context);
-                            primaryStage.setScene(new Scene(view));
-                        }
+                        });
+
+                        context.phase.update(Phase.MOVEMENT);
                     }
-
                 });
-                context.phase.update(Phase.MOVEMENT);
             }
         });
-
+        encounterTable = new EncounterTable(context);
         primaryStage.show();
     }
 
-    private Scene setWinningScene(){
+    private Scene setWinningScene() {
         GameWinView view = new GameWinView();
         return view.getWinningScene();
     }
 
-    private boolean checkWinningCondition(Player player){
-        if(player.totalPoints.get().equals(context.winningPointTotal.get())){
-            return true;
-        }
-        else {
-            return false;
-
-        }
+    private boolean checkWinningCondition(Player player) {
+        return player.totalPoints.get().equals(context.winningPointTotal.get());
     }
+
+
 }
