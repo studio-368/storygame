@@ -81,9 +81,10 @@ public class EncounterView extends VBox {
 
     @FXML
     public void onConfirm(ActionEvent actionEvent) {
-        confirmButton.setOnAction(event -> {
-            context.phase.update(Phase.MOVEMENT);
-        });
+        ChoiceToggleButton selectedButton = (ChoiceToggleButton) choiceGroup.getSelectedToggle();
+        context.phase.update(Phase.STORY);
+        SkillView view = new SkillView(selectedButton.reaction, context);
+        this.getScene().setRoot(view);
     }
 
     private final class ChoiceToggleButton extends ToggleButton {

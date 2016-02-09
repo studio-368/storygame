@@ -1,7 +1,7 @@
 package edu.bsu.storygame;
 
 public class Result {
-    private int storyPointsDelta;
+    public final int storyPointsDelta;
 
     private Result(int storyPointsToRemove) {
         this.storyPointsDelta = storyPointsToRemove;
