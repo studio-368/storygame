@@ -81,7 +81,7 @@ public class EncounterView extends VBox {
     @FXML
     public void onConfirm(ActionEvent actionEvent) {
         confirmButton.setOnAction(event -> {
-            context.phase.update(Phase.MOVEMENT);
+            context.phase.update(Phase.STORY);
         });
     }
 
