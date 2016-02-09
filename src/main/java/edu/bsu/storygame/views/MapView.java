@@ -18,7 +18,7 @@ public class MapView extends StackPane {
 
     private final Button africaRegion = createRegionButton(Regions.Africa, 0,50);
     private final Button europeRegion = createRegionButton(Regions.Europe, 0,-25);
-    private GameContext gameContext;
+    private GameContext context;
 
     private Rectangle europeSpace;
     private Rectangle europeSpace2;
@@ -26,27 +26,26 @@ public class MapView extends StackPane {
     private Rectangle africaSpace2;
     private HBox hBox = new HBox();
     private Label turn = new Label();
-    private int playerTurn = 0;
 
-    public MapView(GameContext gameContext){
-        this.gameContext = gameContext;
+    public MapView(GameContext context){
+        this.context = context;
 
 
-        europeSpace = createPlayerSpace(-10, -50, gameContext.players.get(0).getPlayerColor());
-        europeSpace2 = createPlayerSpace(10, -50, gameContext.players.get(1).getPlayerColor());
+        europeSpace = createPlayerSpace(-10, -50, context.players.get(0).getPlayerColor());
+        europeSpace2 = createPlayerSpace(10, -50, context.players.get(1).getPlayerColor());
 
-        africaSpace = createPlayerSpace(-10, 25, gameContext.players.get(0).getPlayerColor());
-        africaSpace2 = createPlayerSpace(10, 25, gameContext.players.get(1).getPlayerColor());
+        africaSpace = createPlayerSpace(-10, 25, context.players.get(0).getPlayerColor());
+        africaSpace2 = createPlayerSpace(10, 25, context.players.get(1).getPlayerColor());
         africaSpace.setVisible(false);
         africaSpace2.setVisible(false);
 
-        gameContext.phase.connect(new Slot<Phase>() {
+        context.phase.connect(new Slot<Phase>() {
             @Override
             public void onEmit(Phase phase) {
                 updateButtonStatus(phase);
             }
         });
-        updateButtonStatus(gameContext.phase.get());
+        updateButtonStatus(context.phase.get());
         this.initMap();
     }
 
@@ -60,14 +59,11 @@ public class MapView extends StackPane {
         this.getChildren().add(africaSpace);
         this.getChildren().add(africaSpace2);
         hBox.setTranslateY(425);
-        turn.setText(gameContext.players.get(playerTurn).getName() + "'s turn");
-        turn.setTextFill(gameContext.players.get(playerTurn).getPlayerColor());
         this.getChildren().add(turn);
         turn.setTranslateX(0);
         turn.setTranslateY(150);
-
         this.getChildren().add(hBox);
-        for (Player player: gameContext.players) {
+        for (Player player: context.players) {
             hBox.getChildren().add(new PlayerView(player));
         }
 
@@ -75,40 +71,32 @@ public class MapView extends StackPane {
 
     private void setRegionTravelButtons(){
         africaRegion.setOnAction(event -> {
-                if(playerTurn == 0) {
+                if(context.currentPlayer.get() == 0) {
                     setPlayerPosition(europeSpace, africaSpace);
-                    gameContext.players.get(0).setRegion(Regions.Africa);
+                    context.players.get(0).setRegion(Regions.Africa);
                 }
                 else{
                     setPlayerPosition(europeSpace2,africaSpace2);
-                    gameContext.players.get(1).setRegion(Regions.Africa);
+                    context.players.get(1).setRegion(Regions.Africa);
 
                 }
-            playerTurn++;
-            if(playerTurn > 1){
-                playerTurn = 0;
-            }
-            turn.setText(gameContext.players.get(playerTurn).getName() + "'s turn");
-            turn.setTextFill(gameContext.players.get(playerTurn).getPlayerColor());
-           gameContext.phase.update(Phase.ENCOUNTER);
+            context.phase.update(Phase.ENCOUNTER);
+            turn.setText(context.players.get(context.currentPlayer.get()).getName() + "'s turn!");
+            turn.setTextFill(context.players.get(context.currentPlayer.get()).getPlayerColor());
 
         });
         europeRegion.setOnAction(event -> {
-                if(playerTurn == 0) {
+                if(context.currentPlayer.get() == 0) {
                     setPlayerPosition(africaSpace, europeSpace);
-                    gameContext.players.get(0).setRegion(Regions.Europe);
+                    context.players.get(0).setRegion(Regions.Europe);
                 }
                 else{
                     setPlayerPosition(africaSpace2,europeSpace2);
-                    gameContext.players.get(1).setRegion(Regions.Europe);
+                    context.players.get(1).setRegion(Regions.Europe);
                 }
-            playerTurn++;
-            if(playerTurn > 1){
-                playerTurn = 0;
-            }
-            turn.setText(gameContext.players.get(playerTurn).getName() + "'s turn");
-            turn.setTextFill(gameContext.players.get(playerTurn).getPlayerColor());
-            gameContext.phase.update(Phase.ENCOUNTER);
+            context.phase.update(Phase.ENCOUNTER);
+            turn.setText(context.players.get(context.currentPlayer.get()).getName() + "'s turn!");
+            turn.setTextFill(context.players.get(context.currentPlayer.get()).getPlayerColor());
         });
 
     }
