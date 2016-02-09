@@ -22,28 +22,28 @@ public class EncounterTest {
 
     @Test
     public void testEncounterNameIsWraith() {
-        assertEquals("a wraith", ENCOUNTER_TEST.getMonsterName());
+        assertEquals("a wraith", ENCOUNTER_TEST.monsterName);
     }
 
     @Test
     public void testEncounterNarrativeIsWraith() {
-        assertEquals("You've encountered a wraith!", ENCOUNTER_TEST.getNarrative());
+        assertEquals("You've encountered a wraith!", ENCOUNTER_TEST.narrative);
     }
 
     @Test
     public void testEncounterMonsterImageIsWraithTemp() {
-        assertEquals(IMAGE_TEST, ENCOUNTER_TEST.getMonsterImage());
+        assertEquals(IMAGE_TEST, ENCOUNTER_TEST.monsterImage);
     }
 
     @Test
     public void testEncounterRegionIsEurope() {
-        assertEquals(Regions.Europe, ENCOUNTER_TEST.getRegion());
+        assertEquals(Regions.Europe, ENCOUNTER_TEST.region);
     }
 
     @Test
     public void testEncounterReactionsAreInOrder() {
         String[] expectedReactions = {"Run", "Converse", "Question", "Attack"};
-        Reaction[] testReactions = ENCOUNTER_TEST.getReactions();
+        Reaction[] testReactions = ENCOUNTER_TEST.reactions;
         for (int i = 0; i < testReactions.length; i++) {
             assertEquals(expectedReactions[i], testReactions[i].getName());
         }

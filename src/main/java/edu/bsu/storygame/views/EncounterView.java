@@ -60,20 +60,20 @@ public class EncounterView extends VBox {
     }
 
     private void setRegion() {
-        regionLabel.setText("Encounter in " + encounter.getRegion());
+        regionLabel.setText("Encounter in " + encounter.region);
     }
 
     private void setMonsterNarrative() {
-        monsterNarrative.setText(encounter.getNarrative());
+        monsterNarrative.setText(encounter.narrative);
     }
 
     private void setImage() {
-        monsterImageView.setImage(encounter.getMonsterImage());
+        monsterImageView.setImage(encounter.monsterImage);
     }
 
     private void addChoices() {
         ToggleButton newChoiceButton;
-        for (Reaction reaction : encounter.getReactions()) {
+        for (Reaction reaction : encounter.reactions) {
             newChoiceButton = new ChoiceToggleButton(reaction);
             choices.getChildren().add(newChoiceButton);
         }

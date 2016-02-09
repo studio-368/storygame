@@ -53,11 +53,11 @@ public class Encounter {
         return new Builder();
     }
 
-    private final String monsterName;
-    private final String narrative;
-    private final Regions region;
-    private final Reaction[] reactions;
-    private final Image monsterImage;
+    public final String monsterName;
+    public final String narrative;
+    public final Regions region;
+    public final Reaction[] reactions;
+    public final Image monsterImage;
 
     private Encounter(Builder builder) {
         monsterName = builder.monsterName;
@@ -66,25 +66,5 @@ public class Encounter {
         reactions = new Reaction[builder.reactions.size()];
         builder.reactions.toArray(reactions);
         monsterImage = builder.monsterImage;
-    }
-
-    public String getMonsterName() {
-        return monsterName;
-    }
-
-    public String getNarrative() {
-        return narrative;
-    }
-
-    public Regions getRegion() {
-        return region;
-    }
-
-    public Reaction[] getReactions() {
-        return reactions;
-    }
-
-    public Image getMonsterImage() {
-        return monsterImage;
     }
 }
