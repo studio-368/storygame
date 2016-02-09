@@ -49,6 +49,12 @@ public class StoryGame extends Application {
                                     EncounterView view = new EncounterView(encounter, context);
                                     primaryStage.setScene(new Scene(view));
                                 }
+                                if (context.phase.get() == Phase.CONCLUSION) {
+                                    // TODO: Where does the result come from?
+                                    Result result = Result.noResult();
+                                    // Show result
+                                    result.doResult(context);
+                                }
                             }
 
                         });
