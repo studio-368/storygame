@@ -12,6 +12,7 @@ public class EncounterTest {
     private static final Image IMAGE_TEST = mock(Image.class);
     private static final Encounter ENCOUNTER_TEST = Encounter.builder()
             .setMonsterName("a wraith")
+            .setNarrative("You've encountered a wraith!")
             .setMonsterImage(IMAGE_TEST)
             .setRegion(Regions.Europe)
             .addReaction("Run")
@@ -23,6 +24,11 @@ public class EncounterTest {
     @Test
     public void testEncounterNameIsWraith() {
         assertEquals("a wraith", ENCOUNTER_TEST.getMonsterName());
+    }
+
+    @Test
+    public void testEncounterNarrativeIsWraith() {
+        assertEquals("You've encountered a wraith!", ENCOUNTER_TEST.getNarrative());
     }
 
     @Test
