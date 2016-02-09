@@ -69,48 +69,34 @@ public class MapView extends StackPane {
         africaRegion.setOnAction(event -> {
                 if(playerTurn == 0) {
                     setPlayerPosition(europeSpace, africaSpace);
-                }
-                else{
-                    setPlayerPosition(europeSpace2,africaSpace2);
-                }
-
-            if(!gameContext.players.isEmpty()){
-                if(playerTurn == 0) {
+                    boolean visbile = africaSpace.isVisible();
                     gameContext.players.get(0).setRegion(Regions.Africa);
                 }
                 else{
+                    setPlayerPosition(europeSpace2,africaSpace2);
                     gameContext.players.get(1).setRegion(Regions.Africa);
                 }
-
-            }
             playerTurn++;
             if(playerTurn > 1){
                 playerTurn = 0;
             }
-          // gameContext.phase.update(Phase.ENCOUNTER);
+           gameContext.phase.update(Phase.ENCOUNTER);
 
         });
         europeRegion.setOnAction(event -> {
                 if(playerTurn == 0) {
                     setPlayerPosition(africaSpace, europeSpace);
-                }
-                else{
-                    setPlayerPosition(africaSpace2,europeSpace2);
-                }
-            if(!gameContext.players.isEmpty()){
-                if(playerTurn == 0) {
                     gameContext.players.get(0).setRegion(Regions.Europe);
                 }
                 else{
+                    setPlayerPosition(africaSpace2,europeSpace2);
                     gameContext.players.get(1).setRegion(Regions.Europe);
                 }
-
-            }
             playerTurn++;
             if(playerTurn > 1){
                 playerTurn = 0;
             }
-           // gameContext.phase.update(Phase.ENCOUNTER);
+            gameContext.phase.update(Phase.ENCOUNTER);
         });
 
     }

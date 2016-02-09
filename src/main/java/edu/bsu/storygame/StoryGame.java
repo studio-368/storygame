@@ -14,6 +14,7 @@ import react.UnitSlot;
 public class StoryGame extends Application {
 
     final GameContext context = new GameContext();
+    private Scene mapView;
 
     public static void main(String[] args) {
         launch(args);
@@ -30,9 +31,11 @@ public class StoryGame extends Application {
                 context.phase.connect(new Slot<Phase>() {
                     @Override
                     public void onEmit(Phase phase) {
-                        MapView mapView = new MapView(context);
                         if(context.phase.get().equals(Phase.MOVEMENT)){
-                            primaryStage.setScene(new Scene(mapView));
+                            if(mapView == null){
+                                mapView = new Scene(new MapView(context));
+                            }
+                            primaryStage.setScene(mapView);
                         }
                         if (context.phase.get() == Phase.ENCOUNTER) {
                             Encounter encounter;
