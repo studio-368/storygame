@@ -4,6 +4,7 @@ package edu.bsu.storygame.views;
 import edu.bsu.storygame.Encounter;
 import edu.bsu.storygame.GameContext;
 import edu.bsu.storygame.Phase;
+import edu.bsu.storygame.Reaction;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -72,8 +73,8 @@ public class EncounterView extends VBox {
 
     private void addChoices() {
         ToggleButton newChoiceButton;
-        for (String choice : encounter.getReactions()) {
-            newChoiceButton = new ChoiceToggleButton(choice);
+        for (Reaction reaction : encounter.getReactions()) {
+            newChoiceButton = new ChoiceToggleButton(reaction);
             choices.getChildren().add(newChoiceButton);
         }
     }
@@ -86,8 +87,11 @@ public class EncounterView extends VBox {
     }
 
     private final class ChoiceToggleButton extends ToggleButton {
-        public ChoiceToggleButton(String choice) {
-            super(choice);
+        public final Reaction reaction;
+
+        public ChoiceToggleButton(Reaction reaction) {
+            super(reaction.toString());
+            this.reaction = reaction;
             setToggleGroup(choiceGroup);
             setOnAction(event -> choose());
         }

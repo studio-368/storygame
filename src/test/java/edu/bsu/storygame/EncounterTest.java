@@ -3,7 +3,6 @@ package edu.bsu.storygame;
 import javafx.scene.image.Image;
 import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
@@ -15,10 +14,10 @@ public class EncounterTest {
             .setNarrative("You've encountered a wraith!")
             .setMonsterImage(IMAGE_TEST)
             .setRegion(Regions.Europe)
-            .addReaction("Run")
-            .addReaction("Converse")
-            .addReaction("Question")
-            .addReaction("Attack")
+            .addReaction(Reaction.builder().setName("Run").build())
+            .addReaction(Reaction.builder().setName("Converse").build())
+            .addReaction(Reaction.builder().setName("Question").build())
+            .addReaction(Reaction.builder().setName("Attack").build())
             .build();
 
     @Test
@@ -43,7 +42,10 @@ public class EncounterTest {
 
     @Test
     public void testEncounterReactionsAreInOrder() {
-        String[] testReactions = {"Run", "Converse", "Question", "Attack"};
-        assertArrayEquals(testReactions, ENCOUNTER_TEST.getReactions());
+        String[] expectedReactions = {"Run", "Converse", "Question", "Attack"};
+        Reaction[] testReactions = ENCOUNTER_TEST.getReactions();
+        for (int i = 0; i < testReactions.length; i++) {
+            assertEquals(expectedReactions[i], testReactions[i].getName());
+        }
     }
 }
