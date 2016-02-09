@@ -18,8 +18,6 @@ import java.io.IOException;
 
 
 public class EncounterView extends VBox {
-    private final Encounter encounter;
-    private final ToggleGroup choiceGroup = new ToggleGroup();
     @FXML
     private Label regionLabel;
     @FXML
@@ -30,6 +28,11 @@ public class EncounterView extends VBox {
     private VBox choices;
     @FXML
     private Button confirmButton;
+    @FXML
+    private Label promptText;
+
+    private final Encounter encounter;
+    private final ToggleGroup choiceGroup = new ToggleGroup();
     private GameContext context;
 
     public EncounterView(Encounter encounter, GameContext context) {
@@ -78,7 +81,7 @@ public class EncounterView extends VBox {
     @FXML
     public void onConfirm(ActionEvent actionEvent) {
         confirmButton.setOnAction(event -> {
-            context.phase.update(Phase.STORY);
+            context.phase.update(Phase.MOVEMENT);
         });
     }
 
@@ -92,6 +95,8 @@ public class EncounterView extends VBox {
         private void choose() {
             boolean isChoiceSelected = choiceGroup.getSelectedToggle() != null;
             confirmButton.setDisable(!isChoiceSelected);
+            promptText.setText("Hand off to the next player!");
+            promptText.setStyle("-fx-font-weight: bold;");
         }
     }
 }
