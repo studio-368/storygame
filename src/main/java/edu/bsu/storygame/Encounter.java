@@ -9,12 +9,18 @@ public class Encounter {
 
     public static class Builder {
         private String monsterName;
+        private String narrative;
         private Regions region;
         private List<String> reactions = new ArrayList<>();
         private Image monsterImage;
 
         public Builder setMonsterName(String monsterName) {
             this.monsterName = monsterName;
+            return this;
+        }
+
+        public Builder setNarrative(String narrative) {
+            this.narrative = narrative;
             return this;
         }
 
@@ -48,12 +54,14 @@ public class Encounter {
     }
 
     private final String monsterName;
+    private final String narrative;
     private final Regions region;
     private final String[] reactions;
     private final Image monsterImage;
 
     private Encounter(Builder builder) {
         monsterName = builder.monsterName;
+        narrative = builder.narrative;
         region = builder.region;
         reactions = new String[builder.reactions.size()];
         builder.reactions.toArray(reactions);
@@ -62,6 +70,10 @@ public class Encounter {
 
     public String getMonsterName() {
         return monsterName;
+    }
+
+    public String getNarrative() {
+        return narrative;
     }
 
     public Regions getRegion() {

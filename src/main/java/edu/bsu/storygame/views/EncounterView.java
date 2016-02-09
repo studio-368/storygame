@@ -23,7 +23,7 @@ public class EncounterView extends VBox {
     @FXML
     private ImageView monsterImageView;
     @FXML
-    private Label monsterName;
+    private Label monsterNarrative;
     @FXML
     private VBox choices;
     @FXML
@@ -53,7 +53,7 @@ public class EncounterView extends VBox {
 
     private void populate() {
         setRegion();
-        setMonsterName();
+        setMonsterNarrative();
         setImage();
         addChoices();
     }
@@ -62,8 +62,8 @@ public class EncounterView extends VBox {
         regionLabel.setText("Encounter in " + encounter.getRegion());
     }
 
-    private void setMonsterName() {
-        monsterName.setText("It's " + encounter.getMonsterName() + "!");
+    private void setMonsterNarrative() {
+        monsterNarrative.setText(encounter.getNarrative());
     }
 
     private void setImage() {
