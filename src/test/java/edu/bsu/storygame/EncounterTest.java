@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import javafx.scene.image.Image;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -17,10 +18,10 @@ public class EncounterTest {
             "You've encountered a wraith!",
             Regions.Europe,
             ImmutableList.of(
-                    new Reaction("Run"),
-                    new Reaction("Converse"),
-                    new Reaction("Question"),
-                    new Reaction("Attack")
+                    new Reaction("Run", new ArrayList<>()),
+                    new Reaction("Converse", new ArrayList<>()),
+                    new Reaction("Question", new ArrayList<>()),
+                    new Reaction("Attack", new ArrayList<>())
             ),
             IMAGE_TEST
     );
