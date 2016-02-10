@@ -18,7 +18,6 @@ public class EncounterTable {
     private final List<Encounter> eastEncounters = new ArrayList<>();
     private Random random = new Random();
 
-
     public EncounterTable(GameContext context) {
         this.context = context;
         populateEncounters();
@@ -36,11 +35,11 @@ public class EncounterTable {
     }
 
     private Encounter westEncounter() {
-        return westEncounters.get(random.nextInt(3));
+        return westEncounters.get(random.nextInt(westEncounters.size()));
     }
 
     private Encounter eastEncounter() {
-        return eastEncounters.get(random.nextInt(3));
+        return eastEncounters.get(random.nextInt(eastEncounters.size()));
     }
 
     private void populateEncounters() {
