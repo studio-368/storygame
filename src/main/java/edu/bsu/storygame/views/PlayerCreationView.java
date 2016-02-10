@@ -68,7 +68,7 @@ public class PlayerCreationView {
     }
 
     private void prepareWindowItems() {
-        nameLabel = new Label("Name");
+        nameLabel = new Label("Name: ");
         playerName = new TextField();
         listOneLabel = new Label("Skill One:");
         listOneLabel.setId("listOneLabel");
@@ -104,8 +104,8 @@ public class PlayerCreationView {
     }
 
     private void addItemsToGrid(){
-        skillGrid.add(nameLabel, 4,0,2,1);
-        skillGrid.add(playerName,1,0,2,1);
+        skillGrid.add(nameLabel, 1,0,2,1);
+        skillGrid.add(playerName,4,0,2,1);
         skillGrid.add(listOneLabel,0,2,2,1);
         skillGrid.add(listTwoLabel,4,2,2,1);
         skillGrid.add(skillWarningLabel,0,6,5,1);
