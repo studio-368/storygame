@@ -49,6 +49,7 @@ public class EncounterTable {
         Collections.shuffle(westEncounters);
         eastEncounters.add(kappaEncounter());
         eastEncounters.add(bunyipEncounter());
+        eastEncounters.add(krakenEncounter());
         Collections.shuffle(eastEncounters);
     }
 
@@ -173,5 +174,31 @@ public class EncounterTable {
         );
     }
 
-
+    public Encounter krakenEncounter() {
+        return new Encounter(
+                "Kraken",
+                "The crowded beach is in chaos as people panic and run out of the deep blue water. In the ocean, giant tentacles flail and grab at everything within reach. You can’t see the creature’s face, but everyone around you is yelling, “Kraken!”\n",
+                ImmutableList.of(
+                        new Reaction("Talk", ImmutableList.of(
+                                new SkillTrigger(Skill.PERSUASION, "You’re sure the monster can be reasoned with, if you can only get its attention. You bravely march right up to one of the tentacles and try to stay calm as it wraps around you and lifts you high into the air. You watch as it’s giant octopus-like head emerges from the water, and its massive eyes turn toward you.\n" +
+                                        "“Oh mighty beast,” you shout, “I know that you are hungry. But there are no fish here, and humans taste awful. Please, hunt for your food somewhere else. There is nothing here worthy of you.”\n" +
+                                        "The creature seems to enjoy your compliment. It slowly lowers its tentacles and releases everyone it had trapped. It slinks back into the water, and vanishes.\n",
+                                        storyPoints(1)),
+                                new SkillTrigger(null, "You attempt to get close enough to talk to the creature, but it can’t hear you over all of the screams and commotion. After waving your arms frantically in an attempt to get the monster’s attention, you finally give up and go home.\n",
+                                        storyPoints(-1)))),
+                        new Reaction("Run", ImmutableList.of(
+                                new SkillTrigger(Skill.LOGIC, "You attempt to run back up the beach, but the creature’s massive head bursts from the water and sees you. It swings a tentacle at you, but you roll out of the way just in time. It continues to try and grab you and you keep dodging its attacks, but you are getting tired. You notice a lighthouse further along on the beach, on top of some very sharp rocks. You sprint there as fast as you can, wait for the monster to strike, and dive out of the way at the last second. The lighthouse and rocks slice straight through the kraken’s tentacle, making it screech in pain and drop everything it was holding. You watch it dive back into the water and swim away, never to return.\n",
+                                        storyPoints(1)),
+                                new SkillTrigger(null, "You attempt to run back up the beach, but the creature’s massive head bursts from the water and sees you. It grabs you with a tentacle and pulls you up high into the air. It holds you there until help finally arrives a few hours later.\n",
+                                        storyPoints(0)))),
+                        new Reaction("Fight", ImmutableList.of(
+                                new SkillTrigger(Skill.MAGIC, "You hold out your hands and summon a ball of electricity. You point in the direction of the kraken and the electricity shoots out of your hands and strikes the water, shocking the creature and causing it to swim away. Luckily, the monster wasn’t holding any people when it got shocked, and no one got hurt.\n",
+                                        storyPoints(1)),
+                                new SkillTrigger(Skill.WEAPON_USE, "A sharp blade should be able to handle those tentacles. You pull out your sword and shout, “Hey you big, slimy, fish!” The monster swings a tentacle at you, and you slice through it instantly. The creature screeches and dives underwater.\n",
+                                        storyPoints(1)),
+                                new SkillTrigger(null, "You want to fight off this terrible monster, but you have nothing to fight it with. You run up to the nearest tentacle and give it a few kicks, but it flicks you away and you have no choice but to give up.\n",
+                                        storyPoints(-1))))),
+                new Image("Kraken.jpg")
+        );
+    }
 }
