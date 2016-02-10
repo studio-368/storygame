@@ -14,7 +14,8 @@ import static edu.bsu.storygame.Result.storyPoints;
 public class EncounterTable {
 
     private final GameContext context;
-    private final List<Encounter> encounters = new ArrayList<>();
+    private final List<Encounter> westEncounters = new ArrayList<>();
+    private final List<Encounter> eastEncounters = new ArrayList<>();
     private Random random = new Random();
 
 
@@ -35,18 +36,21 @@ public class EncounterTable {
     }
 
     private Encounter westEncounter() {
-        return encounters.get(random.nextInt(16))
+        return westEncounters.get(random.nextInt(3));
     }
 
     private Encounter eastEncounter() {
-        return encounters.get(random.nextInt(16) + 16)
+        return eastEncounters.get(random.nextInt(3));
     }
 
-    private void populateEncounters(){
-        encounters.add(wraithEncounter());
-        encounters.add(cockatriceEncounter());
-        encounters.add(nessyEncounter());
-        Collections.shuffle(encounters);
+    private void populateEncounters() {
+        westEncounters.add(wraithEncounter());
+        westEncounters.add(cockatriceEncounter());
+        westEncounters.add(nessyEncounter());
+        Collections.shuffle(westEncounters);
+        eastEncounters.add(kappaEncounter());
+        eastEncounters.add(bunyipEncounter());
+        Collections.shuffle(eastEncounters);
     }
 
     public Encounter wraithEncounter() {
@@ -146,15 +150,15 @@ public class EncounterTable {
                         new Reaction("RUN", ImmutableList.of(
                                 new SkillTrigger(null, "You know the tales of how the kappa drowns and feeds on people. The river is the kappa’s territory and you’re not about to face a monster without an advantage. You decide it’s best to run and get away before it can make you its next meal. ",
                                         storyPoints(-1))))),
-                        new Image("Kappa.jpg")
-                );
+                new Image("Kappa.jpg")
+        );
     }
 
     public Encounter bunyipEncounter() {
         return new Encounter(
                 "Bunyip",
                 "You find yourself lost in the murky waters of a swamp. The sun is getting low and you’re far from escaping the swamp. You hear a frightening howl behind you. You turn to see a pair of black eyes swimming towards you. They’re attached to a massive dog-like creature with webbed feet. You’ve encountered a bunyip.\n",
-                 ImmutableList.of(
+                ImmutableList.of(
                         new Reaction("Talk", ImmutableList.of(
                                 new SkillTrigger(null, "The bunyip has no interest in talking and lunges forward interrupting you. Its mouth opens wide showing its pointed teeth and hitting you with its breath that smells worse than the swamp you’re lost in. You’re paralyzed with fear and can’t make your body move.",
                                         storyPoints(-1)))),
@@ -164,12 +168,11 @@ public class EncounterTable {
                                 new SkillTrigger(null, "You didn’t come with any weapons and you don’t think you can outrun the bunyip so you decide to take a stand. The large dog-like monster circles around you, never moving its eyes off you. You find a heavy branch at your feet and carefully reach down keeping the beast in front of you. When you have the branch it leaps for you and you strike it in the head. The branch breaks but it’s enough to scare the Bunyip back into the waters.",
                                         storyPoints(1)))),
                         new Reaction("RUN", ImmutableList.of(
-                                new SkillTrigger(null, "There’s no way you’re staying in the swamp another second longer than you need to with monsters like the Bunyip prowling the waters. You turn and run faster than you ever have. Heavy footsteps can be heard behind you but they begin to sound further and further away until you no longer hear them at al",
+                                new SkillTrigger(null, "There’s no way you’re staying in the swamp another second longer than you need to with monsters like the bunyip prowling the waters. You turn and run faster than you ever have. Heavy footsteps can be heard behind you but they begin to sound further and further away until you no longer hear them at al",
                                         storyPoints(0))))),
                 new Image("Kappa.jpg")
         );
     }
-
 
 
 }
