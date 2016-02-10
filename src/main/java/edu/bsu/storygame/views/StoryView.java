@@ -59,6 +59,11 @@ public class StoryView extends VBox {
     @FXML
     private void onConfirm() {
         skillTrigger.result.doResult(context);
+        if(context.currentPlayer.get() < context.players.size() - 1){
+            context.currentPlayer.update(context.currentPlayer.get() + 1);
+        } else {
+            context.currentPlayer.update(0);
+        }
         context.phase.update(Phase.MOVEMENT);
     }
 }

@@ -53,11 +53,6 @@ public class StoryGame extends Application {
                                     Encounter encounter = encounterTable.createEncounter();
                                     EncounterView view = new EncounterView(encounter, context);
                                     primaryStage.setScene(new Scene(view));
-
-                                    context.currentPlayer.update(context.currentPlayer.get() + 1);
-                                    if(context.currentPlayer.get() >= context.players.size()){
-                                        context.currentPlayer.update(0);
-                                    }
                                 }
                             }
 
