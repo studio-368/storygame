@@ -128,7 +128,7 @@ public class EncounterTable {
                                         storyPoints(1)),
                                 new SkillTrigger(Skill.WEAPON_USE, "You pull out your sword and charge the monster. She lets out a mighty roar that sweeps you off your feet, so you stab your sword into the ground and hold on tight. Nessie stops roaring, but surprises you by crawling out of the water. You pull your sword out of the ground and wait for the right moment to strike. The monster races toward you: at the last second, you hold out your sword and slice at her chest. The monster screeches in pain and stumbles into some nearby trees, knocking them down. Before you attack again, she manages to get up and sprint back into the water, where she disappears.",
                                         storyPoints(1))))),
-                new Image("Kraken.jpg")
+                new Image("Nessy.jpg")
         );
     }
 
@@ -170,7 +170,7 @@ public class EncounterTable {
                         new Reaction("RUN", ImmutableList.of(
                                 new SkillTrigger(null, "There’s no way you’re staying in the swamp another second longer than you need to with monsters like the bunyip prowling the waters. You turn and run faster than you ever have. Heavy footsteps can be heard behind you but they begin to sound further and further away until you no longer hear them at al",
                                         storyPoints(0))))),
-                new Image("Kappa.jpg")
+                new Image("Bunyip.jpg")
         );
     }
 
