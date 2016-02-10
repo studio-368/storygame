@@ -39,7 +39,7 @@ public class StoryGame extends Application {
                                     for (Player player : context.players) {
                                         if(checkWinningCondition(player)){
                                             win = true;
-                                            primaryStage.setScene(new GameWinView().getWinningScene());
+                                            primaryStage.setScene(new GameWinView().getWinningScene(player));
                                         }
                                     }
                                     if (mapView == null) {
@@ -72,11 +72,6 @@ public class StoryGame extends Application {
         });
         encounterTable = new EncounterTable(context);
         primaryStage.show();
-    }
-
-    private Scene setWinningScene() {
-        GameWinView view = new GameWinView();
-        return view.getWinningScene();
     }
 
     private boolean checkWinningCondition(Player player) {
