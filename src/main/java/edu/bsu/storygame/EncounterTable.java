@@ -3,15 +3,24 @@ package edu.bsu.storygame;
 import com.google.common.collect.ImmutableList;
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 import static edu.bsu.storygame.Result.noResult;
 import static edu.bsu.storygame.Result.storyPoints;
 
 public class EncounterTable {
 
     private final GameContext context;
+    private final List<Encounter> encounters = new ArrayList<>();
+    private Random random = new Random();
+
 
     public EncounterTable(GameContext context) {
         this.context = context;
+        populateEncounters();
     }
 
     public Encounter createEncounter() {
@@ -26,11 +35,18 @@ public class EncounterTable {
     }
 
     private Encounter westEncounter() {
-        return wraithEncounter();
+        return encounters.get(random.nextInt(16))
     }
 
     private Encounter eastEncounter() {
-        return cockatriceEncounter();
+        return encounters.get(random.nextInt(16) + 16)
+    }
+
+    private void populateEncounters(){
+        encounters.add(wraithEncounter());
+        encounters.add(cockatriceEncounter());
+        encounters.add(nessyEncounter());
+        Collections.shuffle(encounters);
     }
 
     public Encounter wraithEncounter() {
