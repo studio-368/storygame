@@ -40,8 +40,10 @@ public class SkillView extends BorderPane {
     }
 
     private void addButtons() {
+        Player currentPlayer = context.players.get(context.currentPlayer.get());
         for (SkillTrigger trigger : reaction.skillTriggers) {
-            skillButtonContainer.getChildren().add(new SkillTriggerButton(trigger));
+            if (trigger.skill == null || currentPlayer.skills.contains(trigger.skill))
+                skillButtonContainer.getChildren().add(new SkillTriggerButton(trigger));
         }
     }
 
