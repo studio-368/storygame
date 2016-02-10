@@ -127,4 +127,49 @@ public class EncounterTable {
                 new Image("Kraken.jpg")
         );
     }
+
+    public Encounter kappaEncounter() {
+        return new Encounter(
+                "Kappa",
+                "You’ve been watching the river for hours looking for the monster that has been attacking nearby villagers but have found nothing. You decide to escape the heat of the day by going for a swim in a river. When you take a step into the cool waters you notice a large turtle shell swimming your way. You feel uneasy: turtles that large only live in the ocean. It swims quickly towards you and leaps from the water. You realize it’s not a turtle, but a Kappa.\n",
+                ImmutableList.of(
+                        new Reaction("Talk", ImmutableList.of(
+                                new SkillTrigger(Skill.LOGIC, "Having been in Japan for a little while you’ve picked up on their customs. Bowing is very important so you give the kappa a deep bow to show that you mean it no harm. In return it bows revealing a water-filled dip in its head. As it bows the water empties and the kappa loses its strength and falls to the ground. It crawls back into the water and swims away.",
+                                        storyPoints(1)),
+                                new SkillTrigger(null, "The kappa stares at you, licking its lips hungrily. Your gut tells you to run before the kappa decides how it wants to eat you",
+                                        storyPoints(0)))),
+                        new Reaction("Attack", ImmutableList.of(
+                                new SkillTrigger(Skill.MAGIC, "You know some kappas are nice but this one looks ready to attack. You flee from the water. Once clear you cast a lightning spell at the kappa. It screams and falls stunned into the water. ",
+                                        storyPoints(1)),
+                                new SkillTrigger(null, "You’re not about to run from this creature. You know how they like to drown animals and people alike but you’re not going to let it scare you. You lunge at it ready to fight, but the kappa surprises you. It pulls you into the river and you realize you’ve made a mistake. It’s a tough battle but you manage to escape the monster before it can drown you.",
+                                        storyPoints(-1)))),
+                        new Reaction("RUN", ImmutableList.of(
+                                new SkillTrigger(null, "You know the tales of how the kappa drowns and feeds on people. The river is the kappa’s territory and you’re not about to face a monster without an advantage. You decide it’s best to run and get away before it can make you its next meal. ",
+                                        storyPoints(-1))))),
+                        new Image("Kappa.jpg")
+                );
+    }
+
+    public Encounter bunyipEncounter() {
+        return new Encounter(
+                "Bunyip",
+                "You find yourself lost in the murky waters of a swamp. The sun is getting low and you’re far from escaping the swamp. You hear a frightening howl behind you. You turn to see a pair of black eyes swimming towards you. They’re attached to a massive dog-like creature with webbed feet. You’ve encountered a bunyip.\n",
+                 ImmutableList.of(
+                        new Reaction("Talk", ImmutableList.of(
+                                new SkillTrigger(null, "The bunyip has no interest in talking and lunges forward interrupting you. Its mouth opens wide showing its pointed teeth and hitting you with its breath that smells worse than the swamp you’re lost in. You’re paralyzed with fear and can’t make your body move.",
+                                        storyPoints(-1)))),
+                        new Reaction("Attack", ImmutableList.of(
+                                new SkillTrigger(Skill.WEAPON_USE, "The beast is large but you came prepared. You draw your sword as the bunyip launches itself at you. You dodge to the side and cut into the beast’s side. It gives off a howl of pain and flees back to the waters.",
+                                        storyPoints(1)),
+                                new SkillTrigger(null, "You didn’t come with any weapons and you don’t think you can outrun the bunyip so you decide to take a stand. The large dog-like monster circles around you, never moving its eyes off you. You find a heavy branch at your feet and carefully reach down keeping the beast in front of you. When you have the branch it leaps for you and you strike it in the head. The branch breaks but it’s enough to scare the Bunyip back into the waters.",
+                                        storyPoints(1)))),
+                        new Reaction("RUN", ImmutableList.of(
+                                new SkillTrigger(null, "There’s no way you’re staying in the swamp another second longer than you need to with monsters like the Bunyip prowling the waters. You turn and run faster than you ever have. Heavy footsteps can be heard behind you but they begin to sound further and further away until you no longer hear them at al",
+                                        storyPoints(0))))),
+                new Image("Kappa.jpg")
+        );
+    }
+
+
+
 }
