@@ -16,7 +16,6 @@ public class EncounterTest {
     private static final Encounter ENCOUNTER_TEST = new Encounter(
             "a wraith",
             "You've encountered a wraith!",
-            Regions.Europe,
             ImmutableList.of(
                     new Reaction("Run", new ArrayList<>()),
                     new Reaction("Converse", new ArrayList<>()),
@@ -40,11 +39,6 @@ public class EncounterTest {
     @Test
     public void testEncounterMonsterImageIsWraithTemp() {
         assertEquals(IMAGE_TEST, ENCOUNTER_TEST.monsterImage);
-    }
-
-    @Test
-    public void testEncounterRegionIsEurope() {
-        assertEquals(Regions.Europe, ENCOUNTER_TEST.region);
     }
 
     @Test

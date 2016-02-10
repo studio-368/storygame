@@ -20,8 +20,6 @@ import java.io.IOException;
 
 public class EncounterView extends VBox {
     @FXML
-    private Label regionLabel;
-    @FXML
     private ImageView monsterImageView;
     @FXML
     private Label monsterNarrative;
@@ -53,14 +51,9 @@ public class EncounterView extends VBox {
     }
 
     private void populate() {
-        setRegion();
         setMonsterNarrative();
         setImage();
         addChoices();
-    }
-
-    private void setRegion() {
-        regionLabel.setText("Encounter in " + encounter.region);
     }
 
     private void setMonsterNarrative() {

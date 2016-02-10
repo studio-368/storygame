@@ -36,7 +36,6 @@ public class EncounterTable {
         return new Encounter(
                 "Wraith",
                 "You arrive in an old graveyard. A blanket of dead leaves crunch under your feet, and a chilling wind blows through the night, causing you to shiver. Suddenly, a shrill scream pierces your ears as a thick fog rolls in and blankets the tombstones. You see a ghostly figure draped in a shadowy cloak materialize in front of you, a lantern clutched in its shriveled fingers. A wraith has appeared!\\n",
-                Regions.Africa,
                 ImmutableList.of(
                         new Reaction("Talk", ImmutableList.of(
                                 new SkillTrigger(Skill.LOGIC, "You gather up the courage to ask the creature what it wants. It points a bony finger toward a lonely patch of dirt in the corner of the graveyard, which you assume is its grave. Inspiration strikes, and you run into the forest and pick some flowers. You place them on the soil in order to pay respect to the dead. The creature seems satisfied, and disappears. [GOOD THING HAPPENS]\n", noResult()),
@@ -57,7 +56,6 @@ public class EncounterTable {
         return new Encounter(
                 "Cockatrice",
                 "You find yourself in a grassy field, with a cloudless blue sky looming overhead. There is a clear lake off in the distance, and sunlight gleams off of the watery surface. Up ahead, you see a hideous creature stomping around the grass. It looks like a small plump dragon, with the head of a rooster. You’ve encountered a cockatrice!\n",
-                Regions.Europe,
                 ImmutableList.of(
                         new Reaction("Talk", ImmutableList.of(
                                 new SkillTrigger(null, "You call out to the creature and attempt to talk to it. It turns to face you, and you find petrified by its gaze. Its beady little rooster eyes gaze into your soul with a burning hatred. You are immediately knocked out, and [BAD THING HAPPENS]\n", noResult())
