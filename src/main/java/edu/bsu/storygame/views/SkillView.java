@@ -29,7 +29,7 @@ public class SkillView extends BorderPane {
     }
 
     private void loadFxml() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SkillView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SkillView.FXML"));
         loader.setController(this);
         loader.setRoot(this);
         try {
