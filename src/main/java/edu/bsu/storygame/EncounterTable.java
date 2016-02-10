@@ -168,7 +168,7 @@ public class EncounterTable {
                                 new SkillTrigger(null, "You didn’t come with any weapons and you don’t think you can outrun the bunyip so you decide to take a stand. The large dog-like monster circles around you, never moving its eyes off you. You find a heavy branch at your feet and carefully reach down keeping the beast in front of you. When you have the branch it leaps for you and you strike it in the head. The branch breaks but it’s enough to scare the Bunyip back into the waters.",
                                         storyPoints(1)))),
                         new Reaction("RUN", ImmutableList.of(
-                                new SkillTrigger(null, "There’s no way you’re staying in the swamp another second longer than you need to with monsters like the bunyip prowling the waters. You turn and run faster than you ever have. Heavy footsteps can be heard behind you but they begin to sound further and further away until you no longer hear them at al",
+                                new SkillTrigger(null, "There’s no way you’re staying in the swamp another second longer than you need to with monsters like the bunyip prowling the waters. You turn and run faster than you ever have. Heavy footsteps can be heard behind you but they begin to sound further and further away until you no longer hear them at all.",
                                         storyPoints(0))))),
                 new Image("Bunyip.jpg")
         );
