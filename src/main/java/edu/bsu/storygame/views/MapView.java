@@ -47,6 +47,13 @@ public class MapView extends StackPane {
         });
         updateButtonStatus(context.phase.get());
         this.initMap();
+        context.currentPlayer.connect(new Slot<Integer>() {
+            @Override
+            public void onEmit(Integer integer) {
+                turn.setText(context.players.get(context.currentPlayer.get()).getName() + "'s turn!");
+                turn.setTextFill(context.players.get(context.currentPlayer.get()).getPlayerColor());
+            }
+        });
     }
 
     private void initMap(){
@@ -67,6 +74,8 @@ public class MapView extends StackPane {
             hBox.getChildren().add(new PlayerView(player));
         }
 
+        turn.setText(context.players.get(context.currentPlayer.get()).getName() + "'s turn!");
+        turn.setTextFill(context.players.get(context.currentPlayer.get()).getPlayerColor());
     }
 
     private void setRegionTravelButtons(){
@@ -81,8 +90,6 @@ public class MapView extends StackPane {
 
                 }
             context.phase.update(Phase.ENCOUNTER);
-            turn.setText(context.players.get(context.currentPlayer.get()).getName() + "'s turn!");
-            turn.setTextFill(context.players.get(context.currentPlayer.get()).getPlayerColor());
 
         });
         europeRegion.setOnAction(event -> {
@@ -95,8 +102,6 @@ public class MapView extends StackPane {
                     context.players.get(1).setRegion(Regions.Europe);
                 }
             context.phase.update(Phase.ENCOUNTER);
-            turn.setText(context.players.get(context.currentPlayer.get()).getName() + "'s turn!");
-            turn.setTextFill(context.players.get(context.currentPlayer.get()).getPlayerColor());
         });
 
     }

@@ -35,24 +35,24 @@ public class StoryGame extends Application {
                             @Override
                             public void onEmit(Phase phase) {
                                 if (context.phase.get().equals(Phase.MOVEMENT)) {
-
-                                    if (checkWinningCondition(context.players.get(0))) {
-                                        primaryStage.setScene(setWinningScene());
+                                    boolean win = false;
+                                    for (Player player : context.players) {
+                                        if(checkWinningCondition(player)){
+                                            win = true;
+                                            primaryStage.setScene(new GameWinView().getWinningScene(player));
+                                        }
                                     }
-                                    else if (mapView == null) {
+                                    if (mapView == null) {
                                         mapView = new Scene(new MapView(context));
                                     }
-                                    primaryStage.setScene(mapView);
+                                    if(!win) {
+                                        primaryStage.setScene(mapView);
+                                    }
                                 }
                                 if (context.phase.get() == Phase.ENCOUNTER) {
                                     Encounter encounter = encounterTable.createEncounter();
                                     EncounterView view = new EncounterView(encounter, context);
                                     primaryStage.setScene(new Scene(view));
-
-                                    context.currentPlayer.update(context.currentPlayer.get() + 1);
-                                    if(context.currentPlayer.get() >= context.players.size()){
-                                        context.currentPlayer.update(0);
-                                    }
                                 }
                             }
 
@@ -67,11 +67,6 @@ public class StoryGame extends Application {
         });
         encounterTable = new EncounterTable(context);
         primaryStage.show();
-    }
-
-    private Scene setWinningScene() {
-        GameWinView view = new GameWinView();
-        return view.getWinningScene();
     }
 
     private boolean checkWinningCondition(Player player) {
